@@ -1,0 +1,9 @@
+
+*.elixir
+*.elixir_scm
+*.fetch
+*.xref
+*.beam
+*.app
+*.lock
+*.protocols

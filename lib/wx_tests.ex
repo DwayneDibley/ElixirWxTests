@@ -20,7 +20,10 @@ defmodule WxTests do
 
   def start(a,b) do
       IO.inspect("Hello world 2")
+      IO.puts("Hello!")
+      System.put_env("WX_APP_TITLE", "DSL Tests")
       {:ok, self()}
+      {_info, _xref} = CountdownApp.start()
     end
 
   def hello do
