@@ -7,3 +7,7 @@
 *.app
 *.lock
 *.protocols
+*.erlang
+*.leex
+*.yecc
+/deps

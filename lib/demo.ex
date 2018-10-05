@@ -1,4 +1,4 @@
-defmodule CountdownApp do
+defmodule Demo do
   import WxFunctions
   require Logger
 
@@ -10,12 +10,14 @@ defmodule CountdownApp do
   @doc """
   The main entry point.
   """
-  def start() do
-    System.put_env("WX_APP_TITLE", "Another Tutorial")
+  def start(a,b) do
+    System.put_env("WX_APP_TITLE", "ElixirWx Demo")
 
-    winInfo = CountdownWindow.createWindow(show: true)
+    winInfo = DemoWindow.createWindow(show: true)
     loop(winInfo)
-    IO.inspect("Exiting")
+
+    # We break out of the loop when the exit button is pressed.
+    IO.inspect("ElixirWx Demo Exiting")
     {:ok, self()}
   end
 
