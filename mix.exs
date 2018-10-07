@@ -7,7 +7,7 @@ defmodule WxTests.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      #escript: escript(),
+      # escript: escript(),
       deps: deps()
     ]
   end
@@ -20,7 +20,7 @@ defmodule WxTests.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {Demo, []},
+      mod: {WxTest, []},
       extra_applications: [:logger]
     ]
   end
@@ -29,8 +29,8 @@ defmodule WxTests.MixProject do
   defp deps do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
-     {:elixirwx, git: "https://github.com/DwayneDibley/ElixirWx.git"},
-     {:ex_doc, "~> 0.18"}
+      {:elixirwx, git: "https://github.com/DwayneDibley/ElixirWx.git"},
+      {:ex_doc, "~> 0.18"}
     ]
   end
 end

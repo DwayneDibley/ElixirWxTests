@@ -1,32 +1,34 @@
-defmodule Demo do
+defmodule WxTest do
   import WxFunctions
   require Logger
+  use WxDefines
 
   @moduledoc """
   ```
-  An example based on the countdown timer by "Doug Edmunds".
+  A demo of the WxWindows DSL for creating GUIs.
   """
 
   @doc """
-  The main entry point.
-  """
-  def start(a,b) do
-    System.put_env("WX_APP_TITLE", "ElixirWx Demo")
+  The main entry point:
+  - Set the application title.
+  - Create the GUI.
+  Then loop waiting for events.
 
-    winInfo = DemoWindow.createWindow(show: true)
+  """
+  def start(_a, _b) do
+    System.put_env("WX_APP_TITLE", "ElixirWx Test")
+
+    winInfo = TestWindow.createWindow(show: true)
     loop(winInfo)
 
     # We break out of the loop when the exit button is pressed.
-    IO.inspect("ElixirWx Demo Exiting")
+    IO.inspect("ElixirWx Test Exiting")
     {:ok, self()}
   end
 
-  @doc """
-  Once the window has been created, loop waiting for events.
-  """
   defp loop(winInfo) do
-    event = getEvent()
-    Logger.debug("Received event: #{inspect(event)}")
+    event = getEvent(10)
+    Logger.info("Received event: #{inspect(event)}")
 
     case event do
       {:countdown_btn, _, _} ->
@@ -35,10 +37,19 @@ defmodule Demo do
         time = String.to_integer(input)
         Logger.debug("In to countdown")
         countDown(time, winInfo)
+
+      {:msg_dlg_test, _, _} ->
+        WxMessageDialogTest.run()
         loop(winInfo)
 
       {:exit_btn, _, _} ->
         closeWindow(winInfo)
+
+      nil ->
+        loop(winInfo)
+
+      _ ->
+        Logger.error("Unexpected event #{inspect(event)} in main loop")
     end
   end
 
