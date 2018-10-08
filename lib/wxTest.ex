@@ -22,7 +22,7 @@ defmodule WxTest do
     loop(winInfo)
 
     # We break out of the loop when the exit button is pressed.
-    IO.inspect("ElixirWx Test Exiting")
+    Logger.info("ElixirWx Test Exiting")
     {:ok, self()}
   end
 
