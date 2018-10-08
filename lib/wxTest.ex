@@ -27,8 +27,8 @@ defmodule WxTest do
   end
 
   defp loop(winInfo) do
-    event = getEvent(10)
-    Logger.info("Received event: #{inspect(event)}")
+    event = getEvent(1)
+    #Logger.info("Received event: #{inspect(event)}")
 
     case event do
       {:countdown_btn, _, _} ->
@@ -45,7 +45,7 @@ defmodule WxTest do
       {:exit_btn, _, _} ->
         closeWindow(winInfo)
 
-      nil ->
+      :timeout ->
         loop(winInfo)
 
       _ ->

@@ -1,7 +1,8 @@
 defmodule WxMessageDialogTest do
-  import WxFunctions
+  #import WxFunctions
   require Logger
   use WxDefines
+  import Bitwise
 
   @moduledoc """
   ```
@@ -55,7 +56,53 @@ defmodule WxMessageDialogTest do
 
     Logger.info("Test6 returned #{inspect(ret)}")
     # Modal is the default
-    WxMessageDialog.show(ret, false)
+    ret = WxMessageDialog.show(ret, false)
+    Logger.info("Test6 returned #{inspect(ret)}")
+
+    ret =
+      WxMessageDialog.create(nil, "style: @wxCANCEL || @wxICON_QUESTION\nShould have a question mark Icon\nDoes not work!",
+        caption: "Test 7: Question Mark Icon",
+        style: @wxICON_QUESTION
+      )
+
+    Logger.info("Test7 returned #{inspect(ret)}")
+
+    # Test 8 -------------------------------------------------------------------
+    ret =
+      WxMessageDialog.create(nil, "style: @wxCANCEL || @wxICON_EXCLAMATION\nShould have an exclamation mark Icon",
+        caption: "Test 8: Exclamation Icon",
+        style: @wxICON_EXCLAMATION
+      )
+
+    Logger.info("Test8 returned #{inspect(ret)}")
+
+    # Test 9 -------------------------------------------------------------------
+    ret =
+      WxMessageDialog.create(nil, "style: @wxCANCEL || @wxICON_HAND\nShould have an error Icon\nDoes not work!",
+        caption: "Test 9: Hand Icon",
+        style: @wxICON_HAND
+      )
+
+    Logger.info("Test9 returned #{inspect(ret)}")
+
+    # Test 10 -------------------------------------------------------------------
+    ret =
+      WxMessageDialog.create(nil, "style: @wxCANCEL || @wxICON_ERROR\nShould have an error Icon\nDoes not work!",
+        caption: "Test 10: Error Icon",
+        style: @wxICON_ERROR
+      )
+
+    Logger.info("Test10 returned #{inspect(ret)}")
+
+    # Test 11 -------------------------------------------------------------------
+    ret =
+      WxMessageDialog.create(nil, "style: @wxCANCEL || @wxICON_INFORMATION\nShould have an error Icon\nDoes not work!",
+        caption: "Test 11: Information Icon",
+        style: @wxICON_INFORMATION
+      )
+
+    Logger.info("Test11 returned #{inspect(ret)}")
+
 
     Logger.info("ElixirWx Message Dialog test Exiting")
     :ok
