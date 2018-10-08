@@ -29,7 +29,7 @@ defmodule WxTests.MixProject do
   defp deps do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
-      {:elixirwx, git: "https://github.com/DwayneDibley/ElixirWx.git"},
+      # {:elixirwx, git: "https://github.com/DwayneDibley/ElixirWx.git"},
       {:ex_doc, "~> 0.18"}
     ]
   end
