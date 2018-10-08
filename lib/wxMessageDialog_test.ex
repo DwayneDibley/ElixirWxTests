@@ -17,10 +17,10 @@ defmodule WxMessageDialogTest do
   """
   def run() do
     ret = WxMessageDialog.create(nil, "test1: Simple")
-    IO.inspect("Test1 returned #{inspect(ret)}")
+    Logger.info("Test1 returned #{inspect(ret)}")
 
     ret = WxMessageDialog.create(nil, "test2: With a caption", caption: "This is the caption")
-    IO.inspect("Test2 returned #{inspect(ret)}")
+    Logger.info("Test2 returned #{inspect(ret)}")
 
     ret =
       WxMessageDialog.create(nil, "pos: {10, 10}\nDoes not seem to work.",
@@ -29,7 +29,7 @@ defmodule WxMessageDialogTest do
         pos: {10, 10}
       )
 
-    IO.inspect("Test3 returned #{inspect(ret)}")
+    Logger.info("Test3 returned #{inspect(ret)}")
 
     ret =
       WxMessageDialog.create(nil, "style: @wxYES_NO",
@@ -37,7 +37,7 @@ defmodule WxMessageDialogTest do
         style: @wxYES_NO
       )
 
-    IO.inspect("Test4 returned #{inspect(ret)}")
+    Logger.info("Test4 returned #{inspect(ret)}")
 
     ret =
       WxMessageDialog.create(nil, "style: @wxCANCEL\nProduces ok and cancel!!",
@@ -45,7 +45,7 @@ defmodule WxMessageDialogTest do
         style: @wxCANCEL
       )
 
-    IO.inspect("Test5 returned #{inspect(ret)}")
+    Logger.info("Test5 returned #{inspect(ret)}")
 
     ret =
       WxMessageDialog.create(nil, "modal: false",
@@ -53,11 +53,11 @@ defmodule WxMessageDialogTest do
         modal: false
       )
 
-    IO.inspect("Test6 returned #{inspect(ret)}")
+    Logger.info("Test6 returned #{inspect(ret)}")
     # Modal is the default
     WxMessageDialog.show(ret, false)
 
-    IO.inspect("ElixirWx Message Dialog test Exiting")
+    Logger.info("ElixirWx Message Dialog test Exiting")
     :ok
   end
 end
