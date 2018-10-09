@@ -71,8 +71,8 @@ defmodule WxFunctions do
         Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
         Logger.debug("  Event: #{inspect(event)}")
 
-        Logger.debug("  Info: #{inspect(info)}")
-        Logger.debug("  Xref: #{inspect(xref)}")
+        #Logger.debug("  Info: #{inspect(info)}")
+        #Logger.debug("  Xref: #{inspect(xref)}")
 
         sender = Map.get(xref, senderId, senderId)
         {sender, event, group}

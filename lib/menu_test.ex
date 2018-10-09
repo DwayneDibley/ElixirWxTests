@@ -1,11 +1,11 @@
-defmodule WxTest do
+defmodule MenuTest do
   import WxFunctions
   require Logger
   use WxDefines
 
   @moduledoc """
   ```
-  A demo of the WxWindows DSL for creating GUIs.
+  A demo of wxWindows menu's.
   """
 
   @doc """
@@ -15,14 +15,12 @@ defmodule WxTest do
   Then loop waiting for events.
 
   """
-  def start(_a, _b) do
-    System.put_env("WX_APP_TITLE", "ElixirWx Test")
-
-    winInfo = TestWindow.createWindow(show: true)
+  def run() do
+    winInfo = MenuTestWindow.createWindow(show: true)
     loop(winInfo)
 
     # We break out of the loop when the exit button is pressed.
-    Logger.info("ElixirWx Test Exiting")
+    Logger.info("Menu Test Exiting")
     {:ok, self()}
   end
 
@@ -38,12 +36,9 @@ defmodule WxTest do
         Logger.debug("In to countdown")
         countDown(time, winInfo)
 
-        {:msg_dlg_test, _, _} ->
-          WxMessageDialogTest.run()
-          loop(winInfo)
-
-          {:menu_test, _, _} ->
-            MenuTest.run()
+      {:msg_dlg_test, _, _} ->
+        WxMessageDialogTest.run()
+        loop(winInfo)
 
       {:exit_btn, _, _} ->
         closeWindow(winInfo)

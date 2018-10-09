@@ -31,6 +31,7 @@ defmodule WxDsl do
   """
   defmacro window(attributes, do: block) do
     quote do
+      Logger.debug("Window +++++++++++++++++++++++++++++++++++++++++++++++++++++")
       # initialise persitant storage
       {:ok, var!(stack, Dsl)} = new_stack()
       {:ok, var!(info, Dsl)} = new_info()
@@ -48,7 +49,7 @@ defmodule WxDsl do
       put_info(:window, wx)
 
       # execute the function body
-      x = unquote(block)
+      unquote(block)
 
       # retrieve the persistent storage
       # info = get_info(var!(info, Dsl))
@@ -58,7 +59,8 @@ defmodule WxDsl do
 
       # if show: true, show the window
       show = Map.get(opts, :show, false)
-      frame = Map.get(info, :main_frame)
+      #frame = Map.get(info, :main_frame)
+      {parent, frame} = stack_tos()
 
       case show do
         [show: true] ->
@@ -69,6 +71,8 @@ defmodule WxDsl do
           nil
       end
 
+      Logger.debug("Window -----------------------------------------------------")
+
       # return the info and xref structs
       {info, xref}
     end
@@ -77,6 +81,8 @@ defmodule WxDsl do
   ## ===========================================================================
   defmacro frame(attributes, do: block) do
     quote do
+      Logger.debug("Panel +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
       {parent, container} = stack_tos()
       Logger.debug("frame: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
 
@@ -114,24 +120,15 @@ defmodule WxDsl do
           # [{:size, Map.get(opts, :size, {600, 400})}]
         )
 
-      # Setting the frame icon on OSX does nothing that I can see
-      # IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
-      # ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
-      # icon = :wxIcon.new(ficon, [{:type, @wxBITMAP_TYPE_XPM}])
-      # IO.inspect("Icon = #{inspect(icon)}")
-
-      # IO.inspect("BMP = #{inspect(@wxBITMAP_TYPE_ICO)}")
-      # ficon = "/Users/rwe/elixir/dsl/images/icons/tipi.ico"
-      # icon = :wxIcon.new(ficon, [{:type, @wxBITMAP_TYPE_ICO}])
-      # IO.inspect("Icon = #{inspect(icon)}")
-
-      # :wxFrame.setIcon(frame, icon)
+      Logger.debug("Frame = #{inspect(frame)}")
 
       stack_push({frame, frame})
       put_info(Map.get(args_dict, :id, nil), frame)
       put_xref(new_id, Map.get(args_dict, :id, nil))
 
       unquote(block)
+      Logger.debug("Panel -----------------------------------------------------")
+
       frame
     end
   end

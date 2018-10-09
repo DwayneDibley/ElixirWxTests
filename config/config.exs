@@ -37,4 +37,4 @@ use Mix.Config
   config :logger, :console,
   format: {LogFormatter, :format},
   metadata: [:module, :line],
-  level: :info
+  level: :debug
