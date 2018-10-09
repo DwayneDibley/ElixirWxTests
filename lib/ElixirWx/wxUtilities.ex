@@ -1,4 +1,8 @@
 defmodule WxUtilities do
+  @moduledoc """
+  ## General utilities
+  """
+
   @doc """
   Given a list of otions, remove the ones not in the allowed key list.
   Returns {[options], [errors]}

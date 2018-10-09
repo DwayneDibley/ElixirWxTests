@@ -1,4 +1,9 @@
 defmodule WxDefines do
+  @moduledoc """
+  ```
+  WxWindows defines
+  """
+
   defmacro __using__(_opts) do
     quote do
       import Bitwise

@@ -2,8 +2,8 @@ defmodule WxMessageDialog do
   require Logger
   use WxDefines
 
-  @doc """
-  Create and optionally show a message dialog pop-up window.
+  @moduledoc """
+  ## Create and optionally show a wxMxmessageDialog dialog pop-up window.
   Parameters:
     parent: The parent window or nil.
     message: The message to display in the dialog.

@@ -1,6 +1,6 @@
 defmodule WxDsl do
   @moduledoc """
-  moduledoc for the WxDsl module
+  ## The DSL implementation
   """
   defmacro __using__(_opts) do
     quote do
@@ -20,17 +20,10 @@ defmodule WxDsl do
 
     - name: String that represents the name of the person.
 
-  ## Examples
-
-      iex> Greeter.hello("Sean")
-      "Hello, Sean"
-
-      iex> Greeter.hello("pete")
-      "Hello, pete"
-
   """
   defmacro window(attributes, do: block) do
     quote do
+      Logger.debug("")
       Logger.debug("Window +++++++++++++++++++++++++++++++++++++++++++++++++++++")
       # initialise persitant storage
       {:ok, var!(stack, Dsl)} = new_stack()
@@ -53,6 +46,10 @@ defmodule WxDsl do
 
       # retrieve the persistent storage
       # info = get_info(var!(info, Dsl))
+
+      {parent, frame} = stack_tos()
+
+
       info = get_info()
       # xref = get_info(var!(xref, Dsl))
       xref = get_xref()
@@ -60,18 +57,21 @@ defmodule WxDsl do
       # if show: true, show the window
       show = Map.get(opts, :show, false)
       #frame = Map.get(info, :main_frame)
-      {parent, frame} = stack_tos()
+      #{parent, frame} = stack_tos()
+
 
       case show do
         [show: true] ->
           Logger.debug(":wxWindow.show(#{inspect(frame)}")
-          :wxWindow.show(frame)
+          #:wxWindow.show(frame)
+          :wxFrame.show(frame)
 
         [show: false] ->
           nil
       end
 
       Logger.debug("Window -----------------------------------------------------")
+      Logger.debug("")
 
       # return the info and xref structs
       {info, xref}
@@ -81,10 +81,12 @@ defmodule WxDsl do
   ## ===========================================================================
   defmacro frame(attributes, do: block) do
     quote do
-      Logger.debug("Panel +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      Logger.debug("Frame +++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
       {parent, container} = stack_tos()
-      Logger.debug("frame: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
+      Logger.debug("  frame: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
+
+
 
       args_dict = Enum.into(unquote(attributes), %{})
 
@@ -101,10 +103,10 @@ defmodule WxDsl do
           end
         end)
 
-      new_id = :wx_misc.newId()
+      new_id = :wx_misc.newId() + 1000
 
       Logger.debug(
-        ":wxFrame.new(#{inspect(parent)}, #{inspect(new_id)}, #{
+        "  :wxFrame.new(#{inspect(parent)}, #{inspect(new_id)}, #{
           inspect(Map.get(args_dict, :title, "No title"))
         },#{inspect(opts_list)}"
       )
@@ -120,14 +122,19 @@ defmodule WxDsl do
           # [{:size, Map.get(opts, :size, {600, 400})}]
         )
 
-      Logger.debug("Frame = #{inspect(frame)}")
+      Logger.debug("  Frame = #{inspect(frame)}")
+
+      case parent do
+      {:wx_ref, _, :wx, _} -> put_info(:__main_frame__, frame)
+      _ -> false
+    end
 
       stack_push({frame, frame})
       put_info(Map.get(args_dict, :id, nil), frame)
       put_xref(new_id, Map.get(args_dict, :id, nil))
 
       unquote(block)
-      Logger.debug("Panel -----------------------------------------------------")
+      Logger.debug("Frame -----------------------------------------------------")
 
       frame
     end
@@ -540,29 +547,32 @@ defmodule WxDsl do
   ## ---------------------------------------------------------------------------
   defmacro statusBar(attributes, do: block) do
     quote do
+      Logger.debug("Status Bar +++++++++++++++++++++++++++++++++++++++++++++++++")
+
       Logger.debug("Status bar with opts")
       {parent, container} = stack_tos()
       new_id = :wx_misc.newId()
 
       sb = :wxFrame.createStatusBar(parent)
+      Logger.debug(":wxFrame.createStatusBar(#{inspect(parent)}) => #{inspect(sb)}")
       do_status_bar_opts(parent, unquote(attributes))
 
       # put_info(var!(info, Dsl), Map.get(opts, :id, :unknown), sb)
       # put_xref(var!(xref, Dsl), new_id, Map.get(opts, :id, :unknown))
-
+      Logger.debug("Status Bar -------------------------------------------------")
       unquote(block)
     end
   end
 
   defmacro statusBar(attributes) do
     quote do
-      Logger.debug("Status bar")
+      Logger.debug("Status Bar +++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
 
       # attrs = get_attrs(unquote(attributes))
       # attrs = Map.put(attrs, :id, :wx_misc.newId())
       attributes1 = [{:id, :wx_misc.newId()} | unquote(attributes)]
-      Logger.debug("attributes1=#{inspect(attributes1)}")
+      Logger.debug("  attributes1=#{inspect(attributes1)}")
 
       options =
         Enum.filter(attributes1, fn attr ->
@@ -592,7 +602,7 @@ defmodule WxDsl do
         end
       end)
 
-      Logger.debug("options=#{inspect(options)}")
+      Logger.debug("  options=#{inspect(options)}")
 
       # options = []
 
@@ -602,6 +612,8 @@ defmodule WxDsl do
 
       # put_info(var!(info, Dsl), Map.get(opts, :id, :unknown), sb)
       # put_xref(var!(xref, Dsl), new_id, Map.get(opts, :id, :unknown))
+      Logger.debug("Status Bar -------------------------------------------------")
+
     end
   end
 
@@ -622,68 +634,81 @@ defmodule WxDsl do
   ## ----------------------------------------------------------------------------
   defmacro menuBar(do: block) do
     quote do
+      Logger.debug("Menu Bar +++++++++++++++++++++++++++++++++++++++++++++++++++")
+
       {parent, container} = stack_tos()
 
       mb = :wxMenuBar.new()
-      :wxFrame.setMenuBar(parent, mb)
+      Logger.debug(":wxMenuBar.new() => #{inspect(mb)}")
+
 
       stack_push({mb, container})
       unquote(block)
       pop_stack(var!(stack, Dsl))
-    end
-  end
 
-  defmacro menuBar(_attributes, do: block) do
-    quote do
-      {parent, container} = stack_tos()
+      ret = :wxFrame.setMenuBar(parent, mb)
+      Logger.debug(":wxFrame.setMenuBar(#{inspect(parent)}, #{inspect(mb)}) => #{inspect(ret)}")
 
-      mb = :wxMenuBar.new()
-      :wxFrame.setMenuBar(parent, mb)
+      Logger.debug("Menu Bar ---------------------------------------------------")
 
-      stack_push({mb, container})
-      unquote(block)
-      pop_stack(var!(stack, Dsl))
     end
   end
 
   ## ===========================================================================
   defmacro menu(attributes, do: block) do
     quote do
+      Logger.debug("  Menu +++++++++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
 
       opts = get_opts_map(unquote(attributes))
 
       mnu = :wxMenu.new()
-      :wxMenuBar.append(parent, mnu, Map.get(opts, :text, "&????"))
+      Logger.debug("  :wxMenu.new() => #{inspect(mnu)}")
+
+      t = Map.get(opts, :text, "&????")
 
       stack_push({mnu, container})
       unquote(block)
       pop_stack(var!(stack, Dsl))
+
+      ret = :wxMenuBar.append(parent, mnu, t)
+      Logger.debug("  :wxMenuBar.append(#{inspect(parent)}, #{inspect(mnu)}, #{inspect(t)}) => #{inspect(ret)}")
+
+      Logger.debug("  Menu -------------------------------------------------------")
     end
   end
 
   ## -----------------------------------------------------------------------------
   defmacro menuItem(attributes) do
     quote do
+      Logger.debug("    Menu Item ++++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
 
       opts = get_opts_map(unquote(attributes))
       new_id = :wx_misc.newId()
 
+      Logger.debug("    New Menu Item: #{inspect(opts)}")
+
+      text = Map.get(opts, :text, "&????")
+
       mi =
         :wxMenuItem.new([
           # {:id, Map.get(opts, :id, -1)},
           {:id, new_id},
-          {:text, Map.get(opts, :text, "&????")}
+          {:text, text}
         ])
+      Logger.debug("    :wxMenuItem.new([{:id, #{inspect(new_id)}}, {:text, #{inspect(text)}}]) => #{inspect(mi)}")
 
       put_info(Map.get(opts, :id, :unknown), mi)
       put_xref(new_id, Map.get(opts, :id, :unknown))
 
-      :wxMenu.append(parent, mi)
+      ret = :wxMenu.append(parent, mi)
+      Logger.debug("    :wxMenu.append(#{inspect(parent)}, #{inspect(mi)}) => #{inspect(ret)}")
 
       # stack_push( sb)
       # unquote(block)
+      Logger.debug("    MenuItem  --------------------------------------------------")
+
     end
   end
 

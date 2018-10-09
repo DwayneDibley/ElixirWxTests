@@ -1,4 +1,7 @@
 defmodule LogFormatter do
+  @moduledoc """
+  Sensible format for log messages logged by the Logger module
+  """
   def format(level, message, timestamp, metadata) do
     {date, time} = timestamp
     line = Integer.to_string(metadata[:line])
@@ -8,11 +11,11 @@ defmodule LogFormatter do
     _ -> "could not format: #{inspect({level, message, metadata})}\n"
   end
 
-  def format_date({yy, mm, dd}) do
+  defp format_date({yy, mm, dd}) do
     [Integer.to_string(yy), ?-, pad2(mm), ?-, pad2(dd)]
   end
 
-  def format_time({hh, mi, ss, ms}) do
+  defp format_time({hh, mi, ss, ms}) do
      [pad2(hh), ?:, pad2(mi), ?:, pad2(ss), ?., pad3(ms)]
    end
 

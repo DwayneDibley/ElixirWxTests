@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxMessageDialog – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-4138d887e0.js"></script>
+    <script src="dist/sidebar_items-78253828bf.js"></script>
     
   </head>
   <body data-type="modules">
@@ -61,6 +61,24 @@ wx_tests      </h1>
 WxMessageDialog              </h1>
 
 
+        <section id="moduledoc">
+<h2 id="module-create-and-optionally-show-a-wxmxmessagedialog-dialog-pop-up-window" class="section-heading">
+  <a href="#module-create-and-optionally-show-a-wxmxmessagedialog-dialog-pop-up-window" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Create and optionally show a wxMxmessageDialog dialog pop-up window.
+</h2>
+
+<p>Parameters:
+  parent: The parent window or nil.
+  message: The message to display in the dialog.
+  options:</p>
+<pre><code class="nohighlight makeup elixir"><span class="ss">caption</span><span class="p">:</span><span class="w"> </span><span class="n">text</span><span class="w">   </span><span class="nc">Bold</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">displayed</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="o">.</span><span class="w">
+</span><span class="ss">style</span><span class="p">:</span><span class="w">          </span><span class="na">@wxYES_NO</span><span class="p">,</span><span class="w"> </span><span class="nc">Yes</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">buttons</span><span class="o">.</span><span class="w">
+                </span><span class="na">@wxCANCEL</span><span class="p">,</span><span class="w"> </span><span class="nc">Ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nc">Cancel</span><span class="w"> </span><span class="n">buttons</span><span class="w">
+</span><span class="ss">pos</span><span class="p">:</span><span class="w">            </span><span class="nc">Has</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">effect</span><span class="o">.</span></code></pre>
+<p>returns:</p>
+<pre><code class="nohighlight makeup elixir"><span class="nc">If</span><span class="w"> </span><span class="n">showing</span><span class="w"> </span><span class="n">modally</span><span class="p">,</span><span class="w"> </span><span class="n">returns</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">clicked</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">atom</span><span class="w">
+</span><span class="p" data-group-id="7278611170-1">(</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:no</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ss">:cancel</span><span class="p" data-group-id="7278611170-1">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">dialog</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">returned</span><span class="o">.</span></code></pre>
+        </section>
 
         <section id="summary" class="details-list">
           <h1 class="section-heading">
@@ -79,16 +97,6 @@ WxMessageDialog              </h1>
   <div class="summary-signature">
     <a href="#create/3">create(parent, message \\ &quot;&quot;, options \\ [])</a>
   </div>
-    <div class="summary-synopsis"><p>Create and optionally show a message dialog pop-up window.
-Parameters:
-  parent: The parent window or nil.
-  message: The message to display in the dialog.
-  options:</p>
-<pre><code class="nohighlight makeup elixir"><span class="ss">caption</span><span class="p">:</span><span class="w"> </span><span class="n">text</span><span class="w">   </span><span class="nc">Bold</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">displayed</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="o">.</span><span class="w">
-</span><span class="ss">style</span><span class="p">:</span><span class="w">          </span><span class="na">@wxYES_NO</span><span class="p">,</span><span class="w"> </span><span class="nc">Yes</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">buttons</span><span class="o">.</span><span class="w">
-                </span><span class="na">@wxCANCEL</span><span class="p">,</span><span class="w"> </span><span class="nc">Ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nc">Cancel</span><span class="w"> </span><span class="n">buttons</span><span class="w">
-</span><span class="ss">pos</span><span class="p">:</span><span class="w">            </span><span class="nc">Has</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">effect</span></code></pre>
-</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -137,18 +145,6 @@ Parameters:
     <span class="signature">create(parent, message \\ &quot;&quot;, options \\ [])</span>
           </div>
   <section class="docstring">
-<p>Create and optionally show a message dialog pop-up window.
-Parameters:
-  parent: The parent window or nil.
-  message: The message to display in the dialog.
-  options:</p>
-<pre><code class="nohighlight makeup elixir"><span class="ss">caption</span><span class="p">:</span><span class="w"> </span><span class="n">text</span><span class="w">   </span><span class="nc">Bold</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">displayed</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="o">.</span><span class="w">
-</span><span class="ss">style</span><span class="p">:</span><span class="w">          </span><span class="na">@wxYES_NO</span><span class="p">,</span><span class="w"> </span><span class="nc">Yes</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">buttons</span><span class="o">.</span><span class="w">
-                </span><span class="na">@wxCANCEL</span><span class="p">,</span><span class="w"> </span><span class="nc">Ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nc">Cancel</span><span class="w"> </span><span class="n">buttons</span><span class="w">
-</span><span class="ss">pos</span><span class="p">:</span><span class="w">            </span><span class="nc">Has</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">effect</span><span class="o">.</span></code></pre>
-<p>returns:</p>
-<pre><code class="nohighlight makeup elixir"><span class="nc">If</span><span class="w"> </span><span class="n">showing</span><span class="w"> </span><span class="n">modally</span><span class="p">,</span><span class="w"> </span><span class="n">returns</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">clicked</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">atom</span><span class="w">
-</span><span class="p" data-group-id="6579115241-1">(</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="ss">:no</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ss">:cancel</span><span class="p" data-group-id="6579115241-1">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">dialog</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">returned</span><span class="o">.</span></code></pre>
   </section>
 </div>
 <div class="detail" id="destroy/1">

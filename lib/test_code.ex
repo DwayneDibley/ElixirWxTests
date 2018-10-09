@@ -1,11 +1,11 @@
-defmodule WxTest do
+defmodule TestCode do
   import WxFunctions
   require Logger
   use WxDefines
 
   @moduledoc """
   ```
-  A demo of the WxWindows DSL for creating GUIs.
+  A demo of wxWindows menu's.
   """
 
   @doc """
@@ -15,14 +15,24 @@ defmodule WxTest do
   Then loop waiting for events.
 
   """
-  def start(_a, _b) do
-    System.put_env("WX_APP_TITLE", "ElixirWx Test")
+  def run() do
+    :wx.new()
+    frame = :wxFrame.new(:wx.null(), @wxID_ANY, "wxErlang widgets", size: {1000,500})
 
-    winInfo = TestWindow.createWindow(show: true)
-    loop(winInfo)
+    mb = :wxMenuBar.new()
+    file    = :wxMenu.new([])
+    :wxMenu.append(file, @wxID_ANY, "&Print code")
+    :wxMenu.appendSeparator(file)
+    :wxMenu.append(file, @wxID_ANY, "&Quit")
+
+    :wxMenuBar.append(mb, file, "&File")
+    :wxFrame.setMenuBar(frame,mb)
+    :wxFrame.show(frame)
+
+    loop(nil)
 
     # We break out of the loop when the exit button is pressed.
-    Logger.info("ElixirWx Test Exiting")
+    Logger.info("Menu Test Exiting")
     {:ok, self()}
   end
 
@@ -38,16 +48,9 @@ defmodule WxTest do
         Logger.debug("In to countdown")
         countDown(time, winInfo)
 
-        {:msg_dlg_test, _, _} ->
-          WxMessageDialogTest.run()
-          loop(winInfo)
-
-          {:menu_test, _, _} ->
-              MenuTest.run()
-              loop(winInfo)
-
-          {:test, _, _} ->
-                  TestCode.run()
+      {:msg_dlg_test, _, _} ->
+        WxMessageDialogTest.run()
+        loop(winInfo)
 
       {:exit_btn, _, _} ->
         closeWindow(winInfo)
@@ -57,7 +60,6 @@ defmodule WxTest do
 
       _ ->
         Logger.error("Unexpected event #{inspect(event)} in main loop")
-        loop(winInfo)
     end
   end
 

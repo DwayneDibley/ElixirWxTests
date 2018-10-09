@@ -32,6 +32,14 @@ defmodule TestWindow do
                 staticText(id: :menu_test, text: "Test of various menus.")
               end
 
+              #  Test
+              boxSizer id: :menus_sizer,
+                       orient: @wxHORIZONTAL do
+                button(id: :test, label: "&Test", size: {120, 20})
+                spacer(space: 10)
+                staticText(id: :menu_test, text: "Random test code.")
+              end
+
               # Exit
               boxSizer id: :exit_sizer,
                        orient: @wxHORIZONTAL do

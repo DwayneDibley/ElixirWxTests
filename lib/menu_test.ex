@@ -29,21 +29,23 @@ defmodule MenuTest do
     #Logger.info("Received event: #{inspect(event)}")
 
     case event do
-      {:countdown_btn, _, _} ->
-        input = getObjText(:time_input, winInfo)
-        Logger.debug("Got #{inspect(input)} from :time_input")
-        time = String.to_integer(input)
-        Logger.debug("In to countdown")
-        countDown(time, winInfo)
+      #{:msg_dlg_test, _, _} ->
+      #  #WxMessageDialogTest.run()
+      #  loop(winInfo)
 
-      {:msg_dlg_test, _, _} ->
-        WxMessageDialogTest.run()
-        loop(winInfo)
+        {_, :close_window, :wxClose} ->
+          Logger.debug("Window closed")
+          closeWindow(winInfo)
 
-      {:exit_btn, _, _} ->
-        closeWindow(winInfo)
+
+        {:exit_btn, _, _} ->
+          closeWindow(winInfo)
+
+        {:menu_test, :command_button_clicked, :wxCommand} ->
+            closeWindow(winInfo)
 
       :timeout ->
+        Logger.debug("Menu test loop")
         loop(winInfo)
 
       _ ->
@@ -51,24 +53,8 @@ defmodule MenuTest do
     end
   end
 
-  defp countDown(0, winInfo) do
-    putObjText(:output, "Zero", winInfo)
-  end
-
-  defp countDown(time, winInfo) do
-    putObjText(:output, Integer.to_string(time), winInfo)
-
-    :timer.sleep(1000)
-
-    countDown(time - 1, winInfo)
-  end
-
-  def buttonPushed(event, eventSource, windowData) do
-    showEvent(event, eventSource, windowData)
-    # closeWindow(windowData)
-  end
-
   def windowClosed(event, eventSource, windowData) do
+    Logger.debug("windowClosed(#{inspect(event)})")
     showEvent(event, eventSource, windowData)
     closeWindow(windowData)
   end

@@ -2,6 +2,11 @@ defmodule WxFunctions do
   require Logger
 
   import WxUtilities
+  @moduledoc """
+  ```
+  ## Functions used by the DSL.
+  """
+
 
   # ============================================================================
   # Top level operations
@@ -23,8 +28,16 @@ defmodule WxFunctions do
   Destroy the window,
   """
   def closeWindow({windowData, _xrefData}) do
-    frame = Map.get(windowData, :main_frame)
+    Logger.debug("closeWindow(#{inspect(windowData)})")
+    frame = Map.get(windowData, :__main_frame__, nil)
+    case frame do
+    nil ->  Logger.error("No __main_frame__!!")
+    _   ->
+    Logger.debug(":wxEvtHandler.disconnect(#{inspect(frame)})")
+    :wxEvtHandler.disconnect(frame)
+    Logger.debug(":wxEvtHandler.destroy(#{inspect(frame)})")
     :wxWindow.destroy(frame)
+  end
   end
 
   # ------------------------------------------------------------------------------------
@@ -58,7 +71,8 @@ defmodule WxFunctions do
           :unknown_event
       end
 
-    fx = Map.get(windowData, event)
+    fx = Map.get(windowData, event, nil)
+
     fx.(event, {xrefData[id], eventSource}, {windowData, xrefData})
   end
 
@@ -76,6 +90,16 @@ defmodule WxFunctions do
 
         sender = Map.get(xref, senderId, senderId)
         {sender, event, group}
+
+        {:wx, senderId, senderObj, {info, xref}, {group, event}} ->
+          Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
+          Logger.debug("  Event: #{inspect(event)}")
+
+          #Logger.debug("  Info: #{inspect(info)}")
+          #Logger.debug("  Xref: #{inspect(xref)}")
+
+          sender = Map.get(xref, senderId, senderId)
+          {sender, event, group}
 
       other ->
         Logger.debug("Unhandled event Message: #{inspect(other)}")
