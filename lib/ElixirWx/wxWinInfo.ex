@@ -28,7 +28,7 @@ defmodule WinInfo do
 
   def display_table(table) do
     all = :ets.match(table, :"$1")
-    #Logger.info("Table: #{inspect(table)}")
+    Logger.info("Table: #{inspect(table)}")
     display_rows(all)
   end
 

@@ -18,9 +18,6 @@ defmodule WxTest do
   def start(_a, _b) do
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
 
-    #res  = __ENV__.module
-    Logger.error("#{inspect(__ENV__.module)}")
-
     window = TestWindow.createWindow(show: true)
 
     try do
@@ -36,28 +33,20 @@ defmodule WxTest do
 
   defp loop(window) do
     event = getEvent(10)
-    Logger.info("Received event: #{inspect(event)}")
-
-    Logger.info("is null: #{inspect(window)}, #{inspect(:wx.is_null(window))}")
+    Logger.debug("Received event: #{inspect(event)}")
 
     case event do
-      {:msg_dlg_test, _, _} ->
-          WxMessageDialogTest.run()
-          loop(window)
-
-      {:menu_test, _, _} ->
-              MenuTest.run()
-              loop(window)
-
-      {:test, _, _} ->
-                  TestCode.run()
+      {WindowExit, TestWindow} ->
+        Logger.info("event {WindowExit, TestWindow}")
+        :ok
 
       {:exit_btn, _, _} ->
         closeWindow(TestWindow)
 
       :timeout ->
         #:wx_object.stop(window, :xxxx, 1)
-        :wx.destroy()
+        #:wx.destroy()
+        #send(self, {WindowExit, TestWindow})
         loop(window)
 
       _ ->
@@ -66,24 +55,14 @@ defmodule WxTest do
     end
   end
 
-#  defp countDown(0, winInfo) do
-#    putObjText(:output, "Zero", winInfo)
-#  end
-
-#  defp countDown(time, winInfo) do
-#    putObjText(:output, Integer.to_string(time), winInfo)
-#
-#    :timer.sleep(1000)
-#
-#    countDown(time - 1, winInfo)
-#  end
-
+  @doc """
+  Event callbacks, remember these are called from the window service loop,
+  and so any long running processing here will freeze the window.
+  """
   # callback(window, eventType, senderId, senderObj)
   def commandButton(TestWindow, :command_button_clicked, :exit_btn, senderObj) do
     Logger.debug("event from :exit_btn")
     closeWindow(TestWindow)
-    #IO.inspect("Exit Buttons = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
-    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
   end
 
   def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, senderObj) do
@@ -91,21 +70,20 @@ defmodule WxTest do
     WxMessageDialogTest.run()
   end
 
+  def commandButton(TestWindow, :command_button_clicked, :menu_test, senderObj) do
+    Logger.debug("event from :msg_dlg_test")
+    spawn_link(fn ->
+        MenuTest.run()
+        end)
+  end
+
   def commandButton(TestWindow, :command_button_clicked, :test, senderObj) do
     Logger.debug("event from :msg_dlg_test")
-    #IO.inspect("Exit Buttons = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
-    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
   end
 
   def commandButton(window, eventType, senderId, senderObj) do
     Logger.debug("unexpected event from #{inspect(senderId)}")
-    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
   end
-
-  #def buttonPushed(event, eventSource, windowData) do
-  #  showEvent(event, eventSource, windowData)
-  #  # closeWindow(windowData)
-  #end
 
   def windowClosed(window, eventType, senderId, senderObj) do
     #showEvent(event, eventSource, windowData)

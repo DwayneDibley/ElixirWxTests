@@ -52,8 +52,9 @@ defmodule WxFunctions do
               Logger.debug(":wxEvtHandler.destroy(#{inspect(frame)})")
               :wxWindow.destroy(frame)
               #:wx.destroy()
-              :wx_object.stop(window)
+              #:wx_object.stop(window)
             end
+      send(self, {WindowExit, windowName})
   end
 
   # ------------------------------------------------------------------------------------
@@ -128,7 +129,7 @@ defmodule WxFunctions do
         #Logger.debug("  Info: #{inspect(info)}")
         #Logger.debug("  Xref: #{inspect(xref)}")
 
-        {{eventType, senderId, callback}} = WinInfo.get_by_id(winInfo, senderId)
+        {eventType, senderId, callback} = WinInfo.get_by_id(winInfo, senderId)
         #sender = Map.get(xref, senderId, senderId)
         #{sender, event, group}
 
@@ -139,7 +140,7 @@ defmodule WxFunctions do
           #Logger.debug("  Info: #{inspect(info)}")
           #Logger.debug("  Xref: #{inspect(xref)}")
 
-          {{eventType, senderId, callback}} = WinInfo.get_by_id(winInfo, senderId)
+          {eventType, senderId, callback} = WinInfo.get_by_id(winInfo, senderId)
 
           #sender = Map.get(xref, senderId, senderId)
           {senderId, event, group}
