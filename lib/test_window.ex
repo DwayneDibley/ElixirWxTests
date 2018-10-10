@@ -35,7 +35,7 @@ defmodule TestWindow do
               #  Test
               boxSizer id: :menus_sizer,
                        orient: @wxHORIZONTAL do
-                button(id: :test, label: "&Test", size: {120, 20})
+                button(id: :test, label: "&test_code", size: {120, 20})
                 spacer(space: 10)
                 staticText(id: :menu_test, text: "Random test code.")
               end
@@ -52,8 +52,8 @@ defmodule TestWindow do
         end
       end
 
-      event(:close_window, &WxTest.windowClosed/3)
-      event(:command_button_clicked)
+      event(:close_window, &WxTest.windowClosed/4)
+      event(:command_button_clicked, &WxTest.commandButton/4)
     end
   end
 end

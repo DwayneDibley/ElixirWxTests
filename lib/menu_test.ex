@@ -17,14 +17,16 @@ defmodule MenuTest do
   """
   def run() do
     winInfo = MenuTestWindow.createWindow(show: true)
-    loop(winInfo)
+    Logger.error("meta = #{inspect(Process.info(self()))}")
+    loop()
+
 
     # We break out of the loop when the exit button is pressed.
     Logger.info("Menu Test Exiting")
     {:ok, self()}
   end
 
-  defp loop(winInfo) do
+  defp loop() do
     event = getEvent(1)
     #Logger.info("Received event: #{inspect(event)}")
 
@@ -35,18 +37,25 @@ defmodule MenuTest do
 
         {_, :close_window, :wxClose} ->
           Logger.debug("Window closed")
-          closeWindow(winInfo)
+          closeWindow(MenuTestWindow)
 
 
         {:exit_btn, _, _} ->
-          closeWindow(winInfo)
+          closeWindow(MenuTestWindow)
 
         {:menu_test, :command_button_clicked, :wxCommand} ->
-            closeWindow(winInfo)
+            closeWindow(MenuTestWindow)
+
+          {:exit, :command_menu_selected, :wxCommand} ->
+            closeWindow(MenuTestWindow)
+
+          {item, :command_menu_selected, :wxCommand} ->
+            #setStatusText(:main_frame, "#{inspect(item)} menu clicked")
+            loop()
 
       :timeout ->
         Logger.debug("Menu test loop")
-        loop(winInfo)
+        loop()
 
       _ ->
         Logger.error("Unexpected event #{inspect(event)} in main loop")

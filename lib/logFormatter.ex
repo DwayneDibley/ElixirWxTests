@@ -6,9 +6,12 @@ defmodule LogFormatter do
     {date, time} = timestamp
     line = Integer.to_string(metadata[:line])
     module = inspect(metadata[:module])
+    #List.flatten(message)
     :io_lib.format("~s-~s ~s [~s:~s] ~s\n", [format_date(date), format_time(time), level, module, line, message] )
   rescue
-    _ -> "could not format: #{inspect({level, message, metadata})}\n"
+
+    _ -> List.flatten(message)
+    "could not format: level=#{inspect(level)}, \nmessage=#{inspect(message)}, \n metadata=#{inspect(metadata)}\n"
   end
 
   defp format_date({yy, mm, dd}) do

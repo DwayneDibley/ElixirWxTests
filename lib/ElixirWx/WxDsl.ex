@@ -8,6 +8,7 @@ defmodule WxDsl do
       require Logger
       import WxFunctions
       import WxUtilities
+      import WinInfo
       use WxDefines
     end
   end
@@ -30,8 +31,15 @@ defmodule WxDsl do
       {:ok, var!(info, Dsl)} = new_info()
       {:ok, var!(xref, Dsl)} = new_xref()
 
+
       # Get the function attributes
       opts = get_opts_map(unquote(attributes))
+
+      Logger.error("#{inspect(__ENV__.module)}")
+
+
+      #winInfo = :ets.new(__ENV__.module, [:set, :private, :named_table])
+      winInfo = :ets.new(__ENV__.module, [:set, :protected, :named_table])
 
       # Create a new wxObject for the window
       wx = :wx.new()
@@ -39,20 +47,22 @@ defmodule WxDsl do
       # put it on the stack
       stack_push({wx, nil})
       # put_info( :window, wx)
-      put_info(:window, wx)
+      put_table(__ENV__.module, {:window, -1, wx})
+
+      #put_info(:window, wx)
 
       # execute the function body
       unquote(block)
 
       # retrieve the persistent storage
-      # info = get_info(var!(info, Dsl))
+      #info = get_info(var!(info, Dsl))
 
       {parent, frame} = stack_tos()
 
 
-      info = get_info()
+      #info = get_info()
       # xref = get_info(var!(xref, Dsl))
-      xref = get_xref()
+      #xref = get_xref()
 
       # if show: true, show the window
       show = Map.get(opts, :show, false)
@@ -70,11 +80,21 @@ defmodule WxDsl do
           nil
       end
 
+      #Logger.debug("Tables: #{inspect(:ets.all())}")
+
+
+      #res = get_by_name(__ENV__.module, :main_frame)
+      #Logger.info(":main_frame: #{inspect(res)}")
+      #res = get_by_id(__ENV__.module, 1100)
+      #Logger.info("1100: #{inspect(res)}")
+      display_table(__ENV__.module)
       Logger.debug("Window -----------------------------------------------------")
       Logger.debug("")
 
-      # return the info and xref structs
-      {info, xref}
+
+      # return :ok and the window name
+      frame
+
     end
   end
 
@@ -103,7 +123,7 @@ defmodule WxDsl do
           end
         end)
 
-      new_id = :wx_misc.newId() + 1000
+      new_id = :wx_misc.newId()
 
       Logger.debug(
         "  :wxFrame.new(#{inspect(parent)}, #{inspect(new_id)}, #{
@@ -125,12 +145,16 @@ defmodule WxDsl do
       Logger.debug("  Frame = #{inspect(frame)}")
 
       case parent do
-      {:wx_ref, _, :wx, _} -> put_info(:__main_frame__, frame)
+      {:wx_ref, _, :wx, _} -> #put_info(:__main_frame__, frame)
+      put_table(__ENV__.module, {:__main_frame__, new_id, frame})
+
       _ -> false
     end
 
       stack_push({frame, frame})
-      put_info(Map.get(args_dict, :id, nil), frame)
+
+      put_table(__ENV__.module, {Map.get(args_dict, :id, nil), new_id, frame})
+      #put_info(Map.get(args_dict, :id, nil), frame)
       put_xref(new_id, Map.get(args_dict, :id, nil))
 
       unquote(block)
@@ -165,7 +189,9 @@ defmodule WxDsl do
       Logger.debug("  :wxPanel.new(#{inspect(parent)}")
       panel = :wxPanel.new(parent, size: {100, 100})
 
-      put_info(Map.get(args_dict, :id, nil), panel)
+      put_table(__ENV__.module, {Map.get(args_dict, :id, nil), new_id, panel})
+
+      #put_info(Map.get(args_dict, :id, nil), panel)
       put_xref(new_id, Map.get(args_dict, :id, nil))
 
       stack_push({panel, panel})
@@ -339,7 +365,9 @@ defmodule WxDsl do
           :wxStaticBoxSizer.add(parent, tc, [])
       end
 
-      put_info(Map.get(attrs, :id, :unknown), tc)
+      put_table(__ENV__.module, {Map.get(attrs, :id, nil), new_id, tc})
+
+      #put_info(Map.get(attrs, :id, :unknown), tc)
       put_xref(new_id, Map.get(attrs, :id, :unknown))
 
       Logger.debug("textCtrl: ================================")
@@ -387,7 +415,9 @@ defmodule WxDsl do
           :wxStaticBoxSizer.add(parent, st, [])
       end
 
-      put_info(Map.get(attrs, :id, :unknown), st)
+      put_table(__ENV__.module, {Map.get(attrs, :id, nil), new_id, st})
+
+      #put_info(Map.get(attrs, :id, :unknown), st)
       put_xref(new_id, Map.get(attrs, :id, :unknown))
 
       Logger.debug("staticText: ================================")
@@ -433,8 +463,9 @@ defmodule WxDsl do
           Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
           :wxStaticBoxSizer.add(parent, bt, [])
       end
+      put_table(__ENV__.module, {id, new_id, bt})
 
-      put_info(var!(info, Dsl), id, bt)
+      #put_info(var!(info, Dsl), id, bt)
       put_xref(var!(xref, Dsl), new_id, id)
 
       # stack_push( sb)
@@ -699,7 +730,9 @@ defmodule WxDsl do
         ])
       Logger.debug("    :wxMenuItem.new([{:id, #{inspect(new_id)}}, {:text, #{inspect(text)}}]) => #{inspect(mi)}")
 
-      put_info(Map.get(opts, :id, :unknown), mi)
+      put_table(__ENV__.module, {Map.get(opts, :id, :unknown), new_id, mi})
+
+      #put_info(Map.get(opts, :id, :unknown), mi)
       put_xref(new_id, Map.get(opts, :id, :unknown))
 
       ret = :wxMenu.append(parent, mi)
@@ -712,35 +745,66 @@ defmodule WxDsl do
     end
   end
 
+  defmacro menuSeparator() do
+    quote do
+      Logger.debug("    Menu Separator +++++++++++++++++++++++++++++++++++++++++")
+      {parent, container} = stack_tos()
+
+      new_id = :wx_misc.newId()
+
+      Logger.debug("    New Menu Separator")
+
+      :wxMenu.appendSeparator(parent)
+
+      #put_info(Map.get(opts, :id, :unknown), mi)
+      #put_xref(new_id, Map.get(opts, :id, :unknown))
+
+      Logger.debug("    Menu Separator  ----------------------------------------")
+
+    end
+  end
+
   ## ===========================================================================
 
   defmacro event(eventType) do
     quote do
       Logger.debug("Event")
       {parent, container} = stack_tos()
-      Logger.debug("  :wxEvtHandler.connect(#{inspect(parent)}, #{inspect(unquote(eventType))})")
-
+      #Logger.debug("  :wxEvtHandler.connect(#{inspect(parent)}, #{inspect(unquote(eventType))})")
+      new_id = :wx_misc.newId()
       options = [
-        userData: {get_info(), get_xref()}
+        #id: new_id,
+        userData: __ENV__.module
       ]
 
       :wxEvtHandler.connect(parent, unquote(eventType), options)
+      Logger.debug("  :wxEvtHandler.connect(#{inspect(parent)}, #{inspect(unquote(eventType))}, #{inspect(options)}")
+
+      put_table(__ENV__.module, {unquote(eventType), new_id, nil})
+
+
     end
   end
 
   defmacro event(eventType, callBack) do
     quote do
+      #put_table(__ENV__.module, {Map.get(opts, :id, :unknown), new_id, mi})
       put_info(var!(info, Dsl), unquote(eventType), unquote(callBack))
+
       # put_info(eventType, callBack)
       # Agent.update(state, &Map.put(&1, unquote(eventType), unquote(callBack)))
       {parent, container} = stack_tos()
-
+      new_id = :wx_misc.newId()
       options = [
+        #id: new_id,
         callback: &WxFunctions.eventCallback/2,
-        userData: {get_info(), get_xref()}
+        userData: __ENV__.module
       ]
 
       :wxEvtHandler.connect(parent, unquote(eventType), options)
+
+      put_table(__ENV__.module, {unquote(eventType), new_id, unquote(callBack)})
+
     end
   end
 

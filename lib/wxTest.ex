@@ -18,69 +18,101 @@ defmodule WxTest do
   def start(_a, _b) do
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
 
-    winInfo = TestWindow.createWindow(show: true)
-    loop(winInfo)
+    #res  = __ENV__.module
+    Logger.error("#{inspect(__ENV__.module)}")
+
+    window = TestWindow.createWindow(show: true)
+
+    try do
+      loop(window)
+    rescue
+      e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
+    end
 
     # We break out of the loop when the exit button is pressed.
     Logger.info("ElixirWx Test Exiting")
     {:ok, self()}
   end
 
-  defp loop(winInfo) do
-    event = getEvent(1)
-    #Logger.info("Received event: #{inspect(event)}")
+  defp loop(window) do
+    event = getEvent(10)
+    Logger.info("Received event: #{inspect(event)}")
+
+    Logger.info("is null: #{inspect(window)}, #{inspect(:wx.is_null(window))}")
 
     case event do
-      {:countdown_btn, _, _} ->
-        input = getObjText(:time_input, winInfo)
-        Logger.debug("Got #{inspect(input)} from :time_input")
-        time = String.to_integer(input)
-        Logger.debug("In to countdown")
-        countDown(time, winInfo)
-
-        {:msg_dlg_test, _, _} ->
+      {:msg_dlg_test, _, _} ->
           WxMessageDialogTest.run()
-          loop(winInfo)
+          loop(window)
 
-          {:menu_test, _, _} ->
+      {:menu_test, _, _} ->
               MenuTest.run()
-              loop(winInfo)
+              loop(window)
 
-          {:test, _, _} ->
+      {:test, _, _} ->
                   TestCode.run()
 
       {:exit_btn, _, _} ->
-        closeWindow(winInfo)
+        closeWindow(TestWindow)
 
       :timeout ->
-        loop(winInfo)
+        #:wx_object.stop(window, :xxxx, 1)
+        :wx.destroy()
+        loop(window)
 
       _ ->
         Logger.error("Unexpected event #{inspect(event)} in main loop")
-        loop(winInfo)
+        loop(window)
     end
   end
 
-  defp countDown(0, winInfo) do
-    putObjText(:output, "Zero", winInfo)
+#  defp countDown(0, winInfo) do
+#    putObjText(:output, "Zero", winInfo)
+#  end
+
+#  defp countDown(time, winInfo) do
+#    putObjText(:output, Integer.to_string(time), winInfo)
+#
+#    :timer.sleep(1000)
+#
+#    countDown(time - 1, winInfo)
+#  end
+
+  # callback(window, eventType, senderId, senderObj)
+  def commandButton(TestWindow, :command_button_clicked, :exit_btn, senderObj) do
+    Logger.debug("event from :exit_btn")
+    closeWindow(TestWindow)
+    #IO.inspect("Exit Buttons = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
+    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
   end
 
-  defp countDown(time, winInfo) do
-    putObjText(:output, Integer.to_string(time), winInfo)
-
-    :timer.sleep(1000)
-
-    countDown(time - 1, winInfo)
+  def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, senderObj) do
+    Logger.debug("event from :msg_dlg_test")
+    WxMessageDialogTest.run()
   end
 
-  def buttonPushed(event, eventSource, windowData) do
-    showEvent(event, eventSource, windowData)
-    # closeWindow(windowData)
+  def commandButton(TestWindow, :command_button_clicked, :test, senderObj) do
+    Logger.debug("event from :msg_dlg_test")
+    #IO.inspect("Exit Buttons = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
+    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
   end
 
-  def windowClosed(event, eventSource, windowData) do
-    showEvent(event, eventSource, windowData)
-    closeWindow(windowData)
+  def commandButton(window, eventType, senderId, senderObj) do
+    Logger.debug("unexpected event from #{inspect(senderId)}")
+    #Logger.debug("commandButton(#{inspect(event)}, #{inspect(eventSource)}, #{inspect(windowData)})")
+  end
+
+  #def buttonPushed(event, eventSource, windowData) do
+  #  showEvent(event, eventSource, windowData)
+  #  # closeWindow(windowData)
+  #end
+
+  def windowClosed(window, eventType, senderId, senderObj) do
+    #showEvent(event, eventSource, windowData)
+    IO.inspect("windowClosed = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
+    closeWindow(window)
+
+    #:wx_object.stop(window)
   end
 
   def showEvent(event, eventSource, windowData) do
