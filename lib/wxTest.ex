@@ -18,10 +18,10 @@ defmodule WxTest do
   def start(_a, _b) do
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
 
-    window = TestWindow.createWindow(show: true)
+
 
     try do
-      loop(window)
+      _window = TestWindow.createWindow(show: true)
     rescue
       e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
     end
@@ -60,34 +60,35 @@ defmodule WxTest do
   and so any long running processing here will freeze the window.
   """
   # callback(window, eventType, senderId, senderObj)
-  def commandButton(TestWindow, :command_button_clicked, :exit_btn, senderObj) do
+  def commandButton(TestWindow, :command_button_clicked, :exit_btn, _senderObj) do
     Logger.debug("event from :exit_btn")
     closeWindow(TestWindow)
   end
 
-  def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, senderObj) do
+  def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, _senderObj) do
     Logger.debug("event from :msg_dlg_test")
     WxMessageDialogTest.run()
   end
 
-  def commandButton(TestWindow, :command_button_clicked, :menu_test, senderObj) do
+  def commandButton(TestWindow, :command_button_clicked, :menu_test, _senderObj) do
     Logger.debug("event from :msg_dlg_test")
     spawn_link(fn ->
         MenuTest.run()
         end)
   end
 
-  def commandButton(TestWindow, :command_button_clicked, :test, senderObj) do
+  def commandButton(TestWindow, :command_button_clicked, :test, _senderObj) do
     Logger.debug("event from :msg_dlg_test")
   end
 
-  def commandButton(window, eventType, senderId, senderObj) do
+  def commandButton(_window, _eventType, senderId, _senderObj) do
     Logger.debug("unexpected event from #{inspect(senderId)}")
   end
 
-  def windowClosed(window, eventType, senderId, senderObj) do
+  def windowClosed(window, eventType, senderId, _senderObj) do
     #showEvent(event, eventSource, windowData)
     IO.inspect("windowClosed = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
+    Logger.info("TestWindow windowClosed(#{inspect(self())})")
     closeWindow(window)
 
     #:wx_object.stop(window)

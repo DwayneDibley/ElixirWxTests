@@ -13,6 +13,8 @@ defmodule WxDsl do
     end
   end
 
+  require Logger
+
   @doc """
   ```
   Performs the initialisation for the persistent storage.
@@ -35,41 +37,26 @@ defmodule WxDsl do
       # Get the function attributes
       opts = get_opts_map(unquote(attributes))
 
-      Logger.error("#{inspect(__ENV__.module)}")
-
-
-      #winInfo = :ets.new(__ENV__.module, [:set, :private, :named_table])
+      # Create the windoe storage
       winInfo = :ets.new(__ENV__.module, [:set, :protected, :named_table])
+      put_table(__ENV__.module, {:__main_thread__, -1, self()})
 
       # Create a new wxObject for the window
       wx = :wx.new()
 
       # put it on the stack
       stack_push({wx, nil})
+
       # put_info( :window, wx)
       put_table(__ENV__.module, {:window, -1, wx})
-
-      #put_info(:window, wx)
 
       # execute the function body
       unquote(block)
 
-      # retrieve the persistent storage
-      #info = get_info(var!(info, Dsl))
-
       {parent, frame} = stack_tos()
-
-
-      #info = get_info()
-      # xref = get_info(var!(xref, Dsl))
-      #xref = get_xref()
 
       # if show: true, show the window
       show = Map.get(opts, :show, false)
-      #frame = Map.get(info, :main_frame)
-      #{parent, frame} = stack_tos()
-
-
       case show do
         [show: true] ->
           Logger.debug(":wxWindow.show(#{inspect(frame)}")
@@ -80,23 +67,40 @@ defmodule WxDsl do
           nil
       end
 
-      #Logger.debug("Tables: #{inspect(:ets.all())}")
-
-
-      #res = get_by_name(__ENV__.module, :main_frame)
-      #Logger.info(":main_frame: #{inspect(res)}")
-      #res = get_by_id(__ENV__.module, 1100)
-      #Logger.info("1100: #{inspect(res)}")
       display_table(__ENV__.module)
       Logger.debug("Window -----------------------------------------------------")
       Logger.debug("")
 
+      # Loop despatching events as they arrive
+      WxEvents.windowEventLoop(__ENV__.module)
+      end
+    end
 
-      # return :ok and the window name
-      frame
+  @doc """
+  Macro to set up the event connections for the window.
+  The attributes consist of one of the following:
+  {<event>: callback | nil, <option>: value, ...}
 
+  <event may be one of:
+    :command_button_clicked
+    :close_window
+    :timeout                  # This is a function to be called repeatedly every
+                              # n seconds where n is given by the :delay options
+                              # in milliseconds (default 1000 (1 second))
+
+  if a callback is supplied it must have arity 4.
+  """
+  defmacro events(attributes) do
+    quote do
+      Logger.debug("events: #{inspect(unquote(attributes))}")
+
+      window = __ENV__.module
+
+      {_, _, parent} =  WinInfo.get_by_name(window, :__main_frame__)
+      WxEvents.setEvents(window, parent, unquote(attributes))
     end
   end
+
 
   ## ===========================================================================
   defmacro frame(attributes, do: block) do
@@ -764,7 +768,39 @@ defmodule WxDsl do
     end
   end
 
-  ## ===========================================================================
+
+  def setEvents(events) do
+    window = __ENV__.module
+    setEvents(events, window, WinInfo.get_by_name(window, :__main_frame__))
+  end
+
+  def setEvents([], _) do
+    :ok
+  end
+
+  def setEvents([event|events], window, parent) do
+    Logger.info("setEvents: #{inspect(event)}")
+
+    case event do
+      {:timeout, func} -> :ok
+      {evt, nil} ->
+        options = [userData: window]
+        :wxEvtHandler.connect(parent, evt, options)
+      {evt, callback} -> options = [userData: window]
+                         :wxEvtHandler.connect(parent, evt, options)
+      #{evt, callback, options} -> options = [{userData: window} | options]
+      #                        :wxEvtHandler.connect(parent, evt, options)
+      end
+    setEvents(events, window, parent)
+  end
+
+  def dispatchEvent(event, eventList) do
+
+  end
+
+  def eventLoop() do
+
+  end
 
   defmacro event(eventType) do
     quote do
@@ -781,8 +817,6 @@ defmodule WxDsl do
       Logger.debug("  :wxEvtHandler.connect(#{inspect(parent)}, #{inspect(unquote(eventType))}, #{inspect(options)}")
 
       put_table(__ENV__.module, {unquote(eventType), new_id, nil})
-
-
     end
   end
 
@@ -790,6 +824,8 @@ defmodule WxDsl do
     quote do
       #put_table(__ENV__.module, {Map.get(opts, :id, :unknown), new_id, mi})
       put_info(var!(info, Dsl), unquote(eventType), unquote(callBack))
+
+      #WinInfo.get_by_name(table, name)
 
       # put_info(eventType, callBack)
       # Agent.update(state, &Map.put(&1, unquote(eventType), unquote(callBack)))

@@ -4,14 +4,33 @@ defmodule LogFormatter do
   """
   def format(level, message, timestamp, metadata) do
     {date, time} = timestamp
-    line = Integer.to_string(metadata[:line])
-    module = inspect(metadata[:module])
-    :io_lib.format("~s-~s ~s [~s:~s] ~s\n", [format_date(date), format_time(time), level, module, line, message] )
-  rescue
+    line = case metadata[:line] do
+      nil -> "-"
+      line -> Integer.to_string(line)
+    end
+    #IO.inspect(line)
+    module = case metadata[:module] do
+      nil -> "-"
+      module -> module
+    end
 
-    _ -> #message = List.flatten(message)
-    "could not format: level=#{inspect(level)}, \nmessage=#{inspect(message)}, \n metadata=#{inspect(metadata)}\n"
-  end
+    try do
+    case level do
+      :error ->
+        message = List.flatten(message)
+        :io_lib.format("~s-~s ~s [~s:~s] ~s\n", [format_date(date), format_time(time), level, module, line, message])
+      _ -> :io_lib.format("~s-~s ~s [~s:~s] ~s\n", [format_date(date), format_time(time), level, module, line, message] )
+      end
+    rescue
+
+      #_ -> #message = List.flatten(message)
+      _ -> IO.inspect("Rescue")
+      IO.puts(message)
+      IO.inspect("level: #{inspect(level)}")
+      IO.inspect("Cannot format msg: #{inspect(message)}")
+      #{}"could not format: level=#{inspect(level)}, \nmessage=#{inspect(message)}, \n metadata=#{inspect(metadata)}\n"
+    end
+end
 
   defp format_date({yy, mm, dd}) do
     [Integer.to_string(yy), ?-, pad2(mm), ?-, pad2(dd)]

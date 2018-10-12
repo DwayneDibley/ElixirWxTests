@@ -52,8 +52,13 @@ defmodule TestWindow do
         end
       end
 
-      event(:close_window, &WxTest.windowClosed/4)
-      event(:command_button_clicked, &WxTest.commandButton/4)
+      #event(:close_window, &WxTest.windowClosed/4)
+      #event(:command_button_clicked, &WxTest.commandButton/4)
+      events(
+               command_button_clicked: [handler: &WxTest.commandButton/4],
+               close_window: [handler: &WxTest.windowClosed/4],
+               timeout: [handler: &WxTest.timeout/1, delay: 5000]
+              )
     end
   end
 end

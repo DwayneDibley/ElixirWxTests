@@ -53,8 +53,7 @@ defmodule MenuTest do
           {:exit, :command_menu_selected, :wxCommand} ->
             closeWindow(MenuTestWindow)
 
-          {item, :command_menu_selected, :wxCommand} ->
-            #setStatusText(:main_frame, "#{inspect(item)} menu clicked")
+          {_item, :command_menu_selected, :wxCommand} ->
             loop(winInfo)
 
       :timeout ->
