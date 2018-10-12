@@ -54,8 +54,8 @@ defmodule TestWindow do
 
       events(
         command_button_clicked: [handler: &WxTest.commandButton/4],
-        close_window: [handler: &WxTest.windowClosed/4],
-        timeout: [handler: &WxTest.timeout/4, delay: 5000]
+        close_window: [handler: &WxTest.windowClosed/4]
+        # timeout: [handler: &WxTest.timeout/4, delay: 5000]
       )
     end
   end

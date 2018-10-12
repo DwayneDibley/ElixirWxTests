@@ -44,8 +44,12 @@ defmodule WinInfo do
 
     events =
       case length(res) do
-        0 -> %{}
-        _ -> {_, events} = List.first(res)
+        0 ->
+          %{}
+
+        _ ->
+          {_, events} = List.first(res)
+          events
       end
 
     events
@@ -72,7 +76,7 @@ defmodule WinInfo do
 
   def display_table(table) do
     all = :ets.match(table, :"$1")
-    # Logger.info("Table: #{inspect(table)}")
+    Logger.info("Table: #{inspect(table)}")
     display_rows(all)
   end
 
@@ -81,7 +85,7 @@ defmodule WinInfo do
   end
 
   def display_rows([h | t]) do
-    # Logger.info("  #{inspect(h)}")
+    Logger.info("  #{inspect(h)}")
     display_rows(t)
   end
 end

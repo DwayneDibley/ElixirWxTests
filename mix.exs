@@ -21,6 +21,7 @@ defmodule WxTests.MixProject do
   def application do
     [
       mod: {WxTest, []},
+      # mod: {MenuTest, []},
       extra_applications: [:logger]
     ]
   end

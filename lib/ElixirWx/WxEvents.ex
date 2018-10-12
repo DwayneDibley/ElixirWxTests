@@ -11,27 +11,88 @@ defmodule WxEvents do
   dispatch them.
   """
   def windowEventLoop(window) do
-    {_, events} = WinInfo.get_events(window)
+    Logger.info(" windowEventLoop(#{inspect(window)})")
+    events = WinInfo.get_events(window)
+    Logger.info("events = #{inspect(events)}")
     timeout = events[:timeout][:delay]
+    Logger.info("timeout = #{inspect(timeout)}")
+
+    timeout =
+      case is_number(timeout) do
+        false -> nil
+        true -> timeout
+      end
+
     windowEventLoop(window, events, timeout)
   end
 
   @doc """
   Loop here waiting for an event or a timeout....
   """
-  defp windowEventLoop(window, events, timeout) do
+  defp windowEventLoop(window, events, nil) do
+    Logger.info("windowEventLoop = #{inspect(window)}, #{inspect(events)}")
+    Logger.info("PID = #{inspect(self())}")
+
     ret =
       receive do
         {_, id, _, _, {eventGroup, event, data, 0, 0}} ->
+          # Logger.info("windowEventLoop 1")
           name = WinInfo.get_object_name(window, id)
           ret = dispatchEvent(window, {eventGroup, event, name, data}, events)
+          # Logger.info("windowEventLoop 1 ret = #{inspect(ret)}")
 
           case ret do
             :closeWindow ->
-              closeWindow(window)
+              WxFunctions.closeWindow(window)
+              :ok
 
             # Logger.info("Dispatch event returned = #{inspect(ret)}")
             _ ->
+              # Logger.info("windowEventLoop 1")
+              :ok
+          end
+
+          windowEventLoop(window, events, nil)
+
+        # Event send when window is closed causing the event loop to exit.
+        {WindowExit, TestWindow} ->
+          # Logger.info("windowEventLoop 2")
+
+          {WindowExit, TestWindow}
+
+        {_, _, _, _, {:wxClose, :close_window}} ->
+          WxFunctions.closeWindow(window)
+          :ok
+
+        event ->
+          # test
+          # Logger.info("windowEventLoop 3a")
+
+          Logger.debug("windowEventLoop/1 unexpected event Message: #{inspect(event)}")
+          windowEventLoop(window, events, nil)
+      end
+  end
+
+  defp windowEventLoop(window, events, timeout) do
+    Logger.info("windowEventLoop = #{inspect(window)}, #{inspect(events)}, #{inspect(timeout)}")
+    Logger.info("PID = #{inspect(self())}")
+
+    ret =
+      receive do
+        {_, id, _, _, {eventGroup, event, data, 0, 0}} ->
+          # Logger.info("windowEventLoop 1")
+          name = WinInfo.get_object_name(window, id)
+          ret = dispatchEvent(window, {eventGroup, event, name, data}, events)
+          # Logger.info("windowEventLoop 1 ret = #{inspect(ret)}")
+
+          case ret do
+            :closeWindow ->
+              # WxFunctions.closeWindow(window)
+              :ok
+
+            # Logger.info("Dispatch event returned = #{inspect(ret)}")
+            _ ->
+              # Logger.info("windowEventLoop 1")
               :ok
           end
 
@@ -39,13 +100,19 @@ defmodule WxEvents do
 
         # Event send when window is closed causing the event loop to exit.
         {WindowExit, TestWindow} ->
+          # Logger.info("windowEventLoop 2")
+
           {WindowExit, TestWindow}
 
         event ->
+          # test
+          # Logger.info("windowEventLoop 3a")
+
           # Logger.debug("windowEventLoop/1 unexpected event Message: #{inspect(event)}")
           windowEventLoop(window, events, timeout)
       after
         timeout ->
+          Logger.info("windowEventLoop 4")
           ret = dispatchTimeout(window, events)
           # Logger.info("Timeout  Handler returned = #{inspect(ret)}")
 
