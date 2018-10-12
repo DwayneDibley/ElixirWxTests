@@ -4,9 +4,10 @@ Tests for the ElixirWx package
 
 ## Working
 
-- messageDialog
+- Message Dialog
+- Window Events
 
 
 ## In Work
 
-- menus
+- Menus
