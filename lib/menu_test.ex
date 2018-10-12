@@ -36,6 +36,10 @@ defmodule MenuTest do
     Logger.debug("unexpected event from #{inspect(senderId)}")
   end
 
+  def commandMenu(_window, _eventType, senderId, _senderObj) do
+    Logger.debug("unexpected event from #{inspect(senderId)}")
+  end
+
   def windowClosed(window, eventType, senderId, _senderObj) do
     # showEvent(event, eventSource, windowData)
     IO.inspect("windowClosed = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")

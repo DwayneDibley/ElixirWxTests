@@ -24,8 +24,9 @@ defmodule MenuTestWindow do
       end
 
       events(
-        command_button_clicked: [handler: &MenuTestWindow.commandButton/4],
-        close_window: [handler: &MenuTestWindow.windowClosed/4]
+        command_button_clicked: [handler: &MenuTest.commandButton/4],
+        command_menu_selected: [handler: &MenuTest.commandMenu/4],
+        close_window: [handler: &MenuTest.windowClosed/4]
         # timeout: [handler: &WxTest.timeout/4, delay: 5000]
       )
     end

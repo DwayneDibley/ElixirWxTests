@@ -35,7 +35,8 @@ defmodule WxEvents do
 
     ret =
       receive do
-        {_, id, _, _, {eventGroup, event, data, 0, 0}} ->
+        # {:wx, 111, {:wx_ref, 35, :wxFrame, []}, [], {:wxCommand, :command_menu_selected, [], -1, 0}}
+        {_, id, _, _, {eventGroup, event, data, _, _}} ->
           # Logger.info("windowEventLoop 1")
           name = WinInfo.get_object_name(window, id)
           ret = dispatchEvent(window, {eventGroup, event, name, data}, events)
