@@ -1,31 +1,33 @@
 defmodule WxFunctions do
   require Logger
-  #import WxUtilities
+  # import WxUtilities
 
   @moduledoc """
   ```
   ## General functions
   """
 
-@doc """
-Finction called to close and destroy the current window. This may be called from
-an event callback, so we must send the WindowExit event to the __main__thread__
-PID.
-"""
+  @doc """
+  Finction called to close and destroy the current window. This may be called from
+  an event callback, so we must send the WindowExit event to the __main__thread__
+  PID.
+  """
   def closeWindow(windowName) do
     Logger.debug("closeWindow(#{inspect(windowName)})")
     {_, _, frame} = WinInfo.get_by_name(windowName, :__main_frame__)
+
     case frame do
-      nil ->  Logger.error("No __main_frame__!!")
-      _   ->
-              :wxEvtHandler.disconnect(frame)
-              :wxWindow.destroy(frame)
-            end
-      {_, _, mainThread} = WinInfo.get_by_name(windowName, :__main_thread__)
+      nil ->
+        Logger.error("No __main_frame__!!")
 
-      send(mainThread, {WindowExit, windowName})
+      _ ->
+        :wxEvtHandler.disconnect(frame)
+        :wxWindow.destroy(frame)
+    end
 
-      "dobly do"
+    {_, _, mainThread} = WinInfo.get_by_name(windowName, :__main_thread__)
+
+    send(mainThread, {WindowExit, windowName})
   end
 
   # ------------------------------------------------------------------------------------
@@ -68,19 +70,20 @@ PID.
           :unknown_event
       end
 
-    #fx = Map.get(windowData, event, nil)
+    # fx = Map.get(windowData, event, nil)
 
-    #fx.(event, {xrefData[id], eventSource}, {windowData, xrefData})
-    #Logger.error("111")
+    # fx.(event, {xrefData[id], eventSource}, {windowData, xrefData})
+    # Logger.error("111")
 
-    {eventType, _idx, callBack} = WinInfo.get_by_name(windowData, event)    #Logger.error("222")
+    # Logger.error("222")
+    {eventType, _idx, callBack} = WinInfo.get_by_name(windowData, event)
     {senderName, _senderId, senderObj} = WinInfo.get_by_id(windowData, id)
-    #ret = WinInfo.get_by_id(windowData, id)
-    #Logger.error("lookup id = #{inspect(ret)}")
-    #callBack(event, eventSource, windowData)
-    #callBack.(eventType, {senderName, senderObj}, windowData)
+    # ret = WinInfo.get_by_id(windowData, id)
+    # Logger.error("lookup id = #{inspect(ret)}")
+    # callBack(event, eventSource, windowData)
+    # callBack.(eventType, {senderName, senderObj}, windowData)
     try do
-         callBack.(windowData, eventType, senderName, senderObj)
+      callBack.(windowData, eventType, senderName, senderObj)
     rescue
       e in RuntimeError -> Logger.error("Callback error: #{inspect(e)}")
     end
@@ -91,7 +94,7 @@ PID.
   # the event specification
   def getEvent(timeout \\ 0) do
     receive do
-      #{:wx, senderId, senderObj, winInfo, {group, event, [], 0, 0}}
+      # {:wx, senderId, senderObj, winInfo, {group, event, [], 0, 0}}
       {:wx, senderId, senderObj, winInfo, {_group, event, _, _, _}} ->
         Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
         Logger.debug("  Event: #{inspect(event)}")
@@ -99,11 +102,11 @@ PID.
         {_eventType, _senderId, _callback} = WinInfo.get_by_id(winInfo, senderId)
 
       {:wx, senderId, senderObj, winInfo, {group, event}} ->
-          Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
-          Logger.debug("  Event: #{inspect(event)}")
+        Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
+        Logger.debug("  Event: #{inspect(event)}")
 
-          {_eventType, senderId, _callback} = WinInfo.get_by_id(winInfo, senderId)
-          {senderId, event, group}
+        {_eventType, senderId, _callback} = WinInfo.get_by_id(winInfo, senderId)
+        {senderId, event, group}
 
       other ->
         Logger.debug("Unhandled event Message: #{inspect(other)}")
