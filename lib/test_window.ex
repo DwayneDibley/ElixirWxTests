@@ -19,9 +19,9 @@ defmodule TestWindow do
 
           menu id: :simple_menu, text: "&Simple" do
             menuItem(id: :simple_frame, text: "&Simple Frame")
-            menuItem(id: :last, text: "&Last")
+            menuItem(id: :next, text: "&Last")
             menuSeparator()
-            menuItem(id: :exit, text: "&Exit")
+            menuItem(id: :final, text: "&Exit")
           end
         end
 

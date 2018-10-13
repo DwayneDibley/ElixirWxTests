@@ -37,8 +37,9 @@ defmodule WxDsl do
       opts = get_opts_map(unquote(attributes))
 
       # Create the windoe storage
-      winInfo = :ets.new(__ENV__.module, [:set, :protected, :named_table])
-      put_table(__ENV__.module, {:__main_thread__, -1, self()})
+      # winInfo = :ets.new(__ENV__.module, [:set, :protected, :named_table])
+      new_table()
+      put_table({:__main_thread__, -1, self()})
 
       # Create a new wxObject for the window
       wx = :wx.new()
@@ -47,7 +48,7 @@ defmodule WxDsl do
       stack_push({wx, nil})
 
       # put_info( :window, wx)
-      put_table(__ENV__.module, {:window, -1, wx})
+      put_table({:window, -1, wx})
 
       # execute the function body
       unquote(block)
@@ -96,7 +97,7 @@ defmodule WxDsl do
 
       window = __ENV__.module
 
-      {_, _, parent} = WinInfo.get_by_name(window, :__main_frame__)
+      {_, _, parent} = WinInfo.get_by_name(:__main_frame__)
       WxEvents.setEvents(window, parent, unquote(attributes))
     end
   end
@@ -148,7 +149,7 @@ defmodule WxDsl do
       case parent do
         # put_info(:__main_frame__, frame)
         {:wx_ref, _, :wx, _} ->
-          put_table(__ENV__.module, {:__main_frame__, new_id, frame})
+          put_table({:__main_frame__, new_id, frame})
 
         _ ->
           false
@@ -156,7 +157,7 @@ defmodule WxDsl do
 
       stack_push({frame, frame})
 
-      put_table(__ENV__.module, {Map.get(args_dict, :id, nil), new_id, frame})
+      put_table({Map.get(args_dict, :id, nil), new_id, frame})
       # put_info(Map.get(args_dict, :id, nil), frame)
       put_xref(new_id, Map.get(args_dict, :id, nil))
 
@@ -192,7 +193,7 @@ defmodule WxDsl do
       Logger.debug("  :wxPanel.new(#{inspect(parent)}")
       panel = :wxPanel.new(parent, size: {100, 100})
 
-      put_table(__ENV__.module, {Map.get(args_dict, :id, nil), new_id, panel})
+      put_table({Map.get(args_dict, :id, nil), new_id, panel})
 
       # put_info(Map.get(args_dict, :id, nil), panel)
       put_xref(new_id, Map.get(args_dict, :id, nil))
@@ -368,7 +369,7 @@ defmodule WxDsl do
           :wxStaticBoxSizer.add(parent, tc, [])
       end
 
-      put_table(__ENV__.module, {Map.get(attrs, :id, nil), new_id, tc})
+      put_table({Map.get(attrs, :id, nil), new_id, tc})
 
       # put_info(Map.get(attrs, :id, :unknown), tc)
       put_xref(new_id, Map.get(attrs, :id, :unknown))
@@ -418,7 +419,7 @@ defmodule WxDsl do
           :wxStaticBoxSizer.add(parent, st, [])
       end
 
-      put_table(__ENV__.module, {Map.get(attrs, :id, nil), new_id, st})
+      put_table({Map.get(attrs, :id, nil), new_id, st})
 
       # put_info(Map.get(attrs, :id, :unknown), st)
       put_xref(new_id, Map.get(attrs, :id, :unknown))
@@ -469,7 +470,7 @@ defmodule WxDsl do
           :wxStaticBoxSizer.add(parent, bt, [])
       end
 
-      put_table(__ENV__.module, {id, new_id, bt})
+      put_table({id, new_id, bt})
 
       # put_info(var!(info, Dsl), id, bt)
       # put_xref(var!(xref, Dsl), new_id, id)
@@ -749,11 +750,11 @@ defmodule WxDsl do
         }"
       )
 
-      put_table(__ENV__.module, {id, new_id, mi})
+      put_table({id, new_id, mi})
 
       # put_info(Map.get(opts, :id, :unknown), mi)
       # put_xref(new_id, Map.get(opts, :id, :unknown))
-      # put_table(__ENV__.module, {id, new_id, bt})
+      # put_table({id, new_id, bt})
 
       ret = :wxMenu.append(parent, mi)
       Logger.debug("    :wxMenu.append(#{inspect(parent)}, #{inspect(mi)}) => #{inspect(ret)}")
@@ -783,15 +784,14 @@ defmodule WxDsl do
   end
 
   def setEvents(events) do
-    window = __ENV__.module
-    setEvents(events, window, WinInfo.get_by_name(window, :__main_frame__))
+    setEvents(events, WinInfo.get_by_name(:__main_frame__))
   end
 
   def setEvents([], _) do
     :ok
   end
 
-  def setEvents([event | events], window, parent) do
+  def setEvents([event | events], parent) do
     Logger.info("setEvents: #{inspect(event)}")
 
     case event do
@@ -799,17 +799,17 @@ defmodule WxDsl do
         :ok
 
       {evt, nil} ->
-        options = [userData: window]
+        options = [userData: __ENV__.module]
         :wxEvtHandler.connect(parent, evt, options)
 
       {evt, callback} ->
-        options = [userData: window]
+        options = [userData: __ENV__.module]
         :wxEvtHandler.connect(parent, evt, options)
         # {evt, callback, options} -> options = [{userData: window} | options]
         #                        :wxEvtHandler.connect(parent, evt, options)
     end
 
-    setEvents(events, window, parent)
+    setEvents(events, parent)
   end
 
   def dispatchEvent(event, eventList) do
@@ -839,16 +839,16 @@ defmodule WxDsl do
         }"
       )
 
-      put_table(__ENV__.module, {unquote(eventType), new_id, nil})
+      put_table({unquote(eventType), new_id, nil})
     end
   end
 
   defmacro event(eventType, callBack) do
     quote do
-      # put_table(__ENV__.module, {Map.get(opts, :id, :unknown), new_id, mi})
+      # put_table({Map.get(opts, :id, :unknown), new_id, mi})
       put_info(var!(info, Dsl), unquote(eventType), unquote(callBack))
 
-      # WinInfo.get_by_name(table, name)
+      # WinInfo.get_by_name( name)
 
       # put_info(eventType, callBack)
       # Agent.update(state, &Map.put(&1, unquote(eventType), unquote(callBack)))
@@ -863,7 +863,7 @@ defmodule WxDsl do
 
       :wxEvtHandler.connect(parent, unquote(eventType), options)
 
-      put_table(__ENV__.module, {unquote(eventType), new_id, unquote(callBack)})
+      put_table({unquote(eventType), new_id, unquote(callBack)})
     end
   end
 

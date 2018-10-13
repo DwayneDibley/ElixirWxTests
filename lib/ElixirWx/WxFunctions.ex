@@ -14,7 +14,7 @@ defmodule WxFunctions do
   """
   def closeWindow(windowName) do
     Logger.debug("closeWindow(#{inspect(windowName)})")
-    {_, _, frame} = WinInfo.get_by_name(windowName, :__main_frame__)
+    {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
 
     case frame do
       nil ->
@@ -25,7 +25,7 @@ defmodule WxFunctions do
         :wxWindow.destroy(frame)
     end
 
-    {_, _, mainThread} = WinInfo.get_by_name(windowName, :__main_thread__)
+    {_, _, mainThread} = WinInfo.get_by_name(:__main_thread__)
 
     send(mainThread, {WindowExit, windowName})
   end
@@ -76,9 +76,9 @@ defmodule WxFunctions do
     # Logger.error("111")
 
     # Logger.error("222")
-    {eventType, _idx, callBack} = WinInfo.get_by_name(windowData, event)
-    {senderName, _senderId, senderObj} = WinInfo.get_by_id(windowData, id)
-    # ret = WinInfo.get_by_id(windowData, id)
+    {eventType, _idx, callBack} = WinInfo.get_by_name(event)
+    {senderName, _senderId, senderObj} = WinInfo.get_by_id(id)
+    # ret = WinInfo.get_by_id(id)
     # Logger.error("lookup id = #{inspect(ret)}")
     # callBack(event, eventSource, windowData)
     # callBack.(eventType, {senderName, senderObj}, windowData)
@@ -99,13 +99,13 @@ defmodule WxFunctions do
         Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
         Logger.debug("  Event: #{inspect(event)}")
 
-        {_eventType, _senderId, _callback} = WinInfo.get_by_id(winInfo, senderId)
+        {_eventType, _senderId, _callback} = WinInfo.get_by_id(senderId)
 
       {:wx, senderId, senderObj, winInfo, {group, event}} ->
         Logger.debug("Event Message: #{inspect(senderId)}, #{inspect(senderObj)}}")
         Logger.debug("  Event: #{inspect(event)}")
 
-        {_eventType, senderId, _callback} = WinInfo.get_by_id(winInfo, senderId)
+        {_eventType, senderId, _callback} = WinInfo.get_by_id(senderId)
         {senderId, event, group}
 
       other ->

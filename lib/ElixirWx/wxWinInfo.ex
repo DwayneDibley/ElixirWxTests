@@ -1,14 +1,19 @@
 defmodule WinInfo do
   require Logger
 
-  def put_table(table, value) do
-    Logger.info(":ets.insert_new(#{inspect(table)}, #{inspect(value)})")
-    :ets.insert_new(table, value)
+  @moduledoc """
+  A process wide table containing the window information
+  """
+  def new_table() do
+    winInfo = :ets.new(table_name(), [:set, :protected, :named_table])
   end
 
-  def get_by_name(table, name) do
-    # Logger.info(":ets.lookup(#{inspect(table)}, #{inspect(name)}) xxxx")
-    res = :ets.lookup(table, name)
+  def put_table(value) do
+    :ets.insert_new(table_name(), value)
+  end
+
+  def get_by_name(name) do
+    res = :ets.lookup(table_name(), name)
 
     {name, id, obj} =
       case length(res) do
@@ -19,9 +24,8 @@ defmodule WinInfo do
     {name, id, obj}
   end
 
-  def get_by_id(table, id) do
-    # Logger.info(":ets.match(#{inspect(table)}, {:\"$1\" #{inspect(id)}})")
-    res = :ets.match_object(table, {:_, id, :_})
+  def get_by_id(id) do
+    res = :ets.match_object(table_name(), {:_, id, :_})
 
     {name, id, obj} =
       case length(res) do
@@ -32,15 +36,13 @@ defmodule WinInfo do
     {name, id, obj}
   end
 
-  def get_object_name(table, id) do
-    # Logger.info(":ets.match(#{inspect(table)}, {:\"$1\" #{inspect(id)}})")
-    {name, _id, _obj} = get_by_id(table, id)
+  def get_object_name(id) do
+    {name, _id, _obj} = get_by_id(id)
     name
   end
 
-  def get_events(table) do
-    # Logger.info(":ets.lookup(#{inspect(table)}, #{inspect(:__events__)})")
-    res = :ets.lookup(table, :__events__)
+  def get_events() do
+    res = :ets.lookup(table_name(), :__events__)
 
     events =
       case length(res) do
@@ -55,11 +57,9 @@ defmodule WinInfo do
     events
   end
 
-  def put_event(table, event_type, info) do
-    # Logger.info(":ets.lookup(#{inspect(table)}, #{inspect(:__events__)})")
+  def put_event(event_type, info) do
+    res = :ets.lookup(table_name(), :__events__)
 
-    res = :ets.lookup(table, :__events__)
-    # Logger.info("res = #{inspect(res)}")
     events =
       case length(res) do
         0 ->
@@ -71,11 +71,12 @@ defmodule WinInfo do
       end
 
     events = Map.put(events, event_type, info)
-    :ets.insert(table, {:__events__, events})
+    :ets.insert(table_name(), {:__events__, events})
   end
 
   def display_table(table) do
-    all = :ets.match(table, :"$1")
+    table = String.to_atom("#{inspect(self())}")
+    all = :ets.match(table_name(), :"$1")
     Logger.info("Table: #{inspect(table)}")
     display_rows(all)
   end
@@ -87,5 +88,9 @@ defmodule WinInfo do
   def display_rows([h | t]) do
     Logger.info("  #{inspect(h)}")
     display_rows(t)
+  end
+
+  def table_name() do
+    String.to_atom("#{inspect(self())}")
   end
 end
