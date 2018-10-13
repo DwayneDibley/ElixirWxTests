@@ -12,7 +12,7 @@ Tests for the ElixirWx package
 - Button
 - Static Text
 - Window Events
+- menus
+- ToolBar
 
 ## In Work
-
-- Menus
