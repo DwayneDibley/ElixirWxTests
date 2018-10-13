@@ -44,6 +44,7 @@ defmodule WxTest do
 
     case senderId do
       :simple_frame -> spawn_link(fn -> SimpleFrame.run() end)
+      :tool_bar -> spawn_link(fn -> ToolBar.run() end)
     end
   end
 

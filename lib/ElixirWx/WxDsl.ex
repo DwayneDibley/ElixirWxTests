@@ -491,19 +491,21 @@ defmodule WxDsl do
       {parent, container} = stack_tos()
 
       # toolbar = :wx.toolBar(parent, -1, style = @TB_HORIZONTAL | @NO_BORDER)
+      Logger.debug("  :wxFrame.createToolBar(#{inspect(parent)})")
       tb = :wxFrame.createToolBar(parent)
-      # toolbar = :wx.toolBar(parent, -1, style = @TB_HORIZONTAL)
+
+      Logger.debug("  :wxFrame.setToolBar(#{inspect(parent)}, #{inspect(tb)})")
       :wxFrame.setToolBar(parent, tb)
 
-      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
-      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
-      icon = :wxIcon.new(ficon, [{:type, @wxBITMAP_TYPE_XPM}])
-      IO.inspect("Icon = #{inspect(icon)}")
+      #      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
+      #      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
+      #      icon = :wxIcon.new(ficon, [{:type, @wxBITMAP_TYPE_XPM}])
+      #      IO.inspect("Icon = #{inspect(icon)}")
 
-      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
-      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
-      bitmap = :wxBitmap.new(ficon)
-      IO.inspect("bitmap = #{inspect(bitmap)}")
+      #      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
+      #      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
+      #      bitmap = :wxBitmap.new(ficon)
+      #      IO.inspect("bitmap = #{inspect(bitmap)}")
 
       # :wxToolBar.addTool(tb, 105, bitmap)
 
@@ -511,6 +513,7 @@ defmodule WxDsl do
       unquote(block)
       pop_stack(var!(stack, Dsl))
 
+      Logger.debug("  :wxToolBar.realize(#{inspect(parent)})")
       :wxToolBar.realize(tb)
     end
   end
@@ -518,10 +521,12 @@ defmodule WxDsl do
   defmacro tool(attributes) do
     quote do
       {parent, container} = stack_tos()
-      Logger.debug("tool: parent =  #{inspect(parent)}")
+      Logger.debug("  tool: #{inspect(__ENV__.file)}")
+
+      path = Path.expand(Path.dirname(__ENV__.file) <> "/../")
+      Logger.debug("  path: #{inspect(path)}")
 
       attributes = unquote(attributes)
-      Logger.debug("attributes=#{inspect(attributes)}")
 
       options =
         Enum.filter(attributes, fn attr ->
@@ -541,7 +546,8 @@ defmodule WxDsl do
               false
 
             {:icon, fileName} ->
-              Logger.debug("ICON")
+              fileName = Path.expand(path <> "/" <> fileName)
+              Logger.debug("ICON: #{inspect(fileName)}")
               icon = :wxIcon.new(fileName, [{:type, @wxBITMAP_TYPE_ICO}])
               IO.inspect("Icon = #{inspect(icon)}")
 
