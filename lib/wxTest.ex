@@ -29,30 +29,6 @@ defmodule WxTest do
     {:ok, self()}
   end
 
-  #  defp loop(window) do
-  #    event = getEvent(10)
-  #    Logger.debug("Received event: #{inspect(event)}")
-  #
-  #    case event do
-  #      {WindowExit, TestWindow} ->
-  #        Logger.info("event {WindowExit, TestWindow}")
-  #        :ok
-  #
-  #      {:exit_btn, _, _} ->
-  #        closeWindow(TestWindow)
-  #
-  #      :timeout ->
-  #        # :wx_object.stop(window, :xxxx, 1)
-  #        # :wx.destroy()
-  #        # send(self, {WindowExit, TestWindow})
-  #        loop(window)
-  #
-  #      _ ->
-  #        Logger.error("Unexpected event #{inspect(event)} in main loop")
-  #        loop(window)
-  #    end
-  #  end
-
   @doc """
   Event callbacks, remember these are called from the window service loop,
   and so any long running processing here will freeze the window.
@@ -62,6 +38,26 @@ defmodule WxTest do
     Logger.debug("event from :exit_btn")
     # closeWindow(TestWindow)
     :closeWindow
+  end
+
+  def doMenuEvent(window, eventType, senderId, senderObj) do
+    Logger.info(
+      "menu event: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
+        inspect(senderObj)
+      }"
+    )
+
+    case senderId do
+      :simple_frame -> spawn_link(fn -> SimpleFrame.run() end)
+    end
+  end
+
+  def commandMenu(window, eventType, senderId, senderObj) do
+    Logger.info(
+      "menu event xxx: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
+        inspect(senderObj)
+      }"
+    )
   end
 
   def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, _senderObj) do

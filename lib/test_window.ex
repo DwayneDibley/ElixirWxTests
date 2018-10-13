@@ -8,6 +8,26 @@ defmodule TestWindow do
       frame id: :main_frame,
             title: "ElixirWx Test",
             size: {320, 150} do
+        # Menu
+        menuBar do
+          menu id: :file_menu, text: "&File" do
+            menuItem(id: :first, text: "&First")
+            menuItem(id: :last, text: "&Last")
+            menuSeparator()
+            menuItem(id: :exit, text: "&Exit")
+          end
+
+          menu id: :simple_menu, text: "&Simple" do
+            menuItem(id: :simple_frame, text: "&Simple Frame")
+            menuItem(id: :last, text: "&Last")
+            menuSeparator()
+            menuItem(id: :exit, text: "&Exit")
+          end
+        end
+
+        # Status bar
+        statusBar(title: "ElixirWx Menu Test")
+
         panel id: :main_panel do
           boxSizer id: :outer_sizer, orient: @wxHORIZONTAL do
             spacer(space: 20)
@@ -54,6 +74,7 @@ defmodule TestWindow do
 
       events(
         command_button_clicked: [handler: &WxTest.commandButton/4],
+        command_menu_selected: [handler: &WxTest.doMenuEvent/4],
         close_window: [handler: &WxTest.windowClosed/4]
         # timeout: [handler: &WxTest.timeout/4, delay: 5000]
       )

@@ -1,15 +1,19 @@
+
+
 # ElixirWx
 
-Window Specification Macros
+[TOC]
 
-## window
+## Window Specification Macros
+
+### window
 
 This is the top level of a window and should be the outer element of a window specification.
 
-| Parameter | Value     | Description                                                  | Default |
-| --------- | --------- | ------------------------------------------------------------ | ------- |
-| name      | atom()    | The name by which the window will be referred to.            | none    |
-| show      | Boolean() | If set to true the window will be made visible when the construction is complete. If set to false, the window will be invisible until explicitly shown using :wxFrame.show(frame). | true    |
+| Parameter | Description                                                  | Value     | Default                |
+| --------- | ------------------------- | --------- | ---------------------- |
+| name      | The name by which the window will be referred to.            | atom()    | The name of the module |
+| show      | If set to true the window will be made visible when the construction is complete. If set to false, the window will be invisible until explicitly shown using :wxFrame.show(frame). | Boolean() | true                   |
 
 Example:
 
@@ -30,19 +34,20 @@ defmodule TestWindow do
 
 ```
 
-## frame
+### frame
 
 This macro will create a frame.
 
+**Parameters:**
 
+| Parameter | Description                          | Value              | Default         |
+| --------- | ------------------------------------ | ------------------ | --------------- |
+| id        | Used to reference the frame.         | atom               | none            |
+| title     | The text appearing in the title bar. | string             | ""              |
+| size      | The initial size of the frame.       | {integer, integer} | System default. |
+| pos       | The initial position of the frame    | {integer, integer} | System default  |
 
-| Parameter | Value                  | Description                                | Default |
-| --------- | ---------------------- | ------------------------------------------ | ------- |
-| id        | atom()                 | The name the frame will be referenced by.  | none    |
-| title     | string()               | The text to be inserted into the title bar | none    |
-| size      | {integer(), integer()} | The initial size of the frame.             | none    |
-
-Example:
+**Example:**
 
 ```
 def createWindow(show) do
@@ -59,5 +64,9 @@ def createWindow(show) do
 
 ```
 
-## 
+
+
+**Screenshot:**
+
+## ![](/Users/rwe/GitHub/ElixirWxTests/screenshots/Main test window.png)
 

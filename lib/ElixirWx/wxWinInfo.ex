@@ -2,7 +2,7 @@ defmodule WinInfo do
   require Logger
 
   def put_table(table, value) do
-    # Logger.info(":ets.insert_new(#{inspect(table)}, #{inspect(value)})")
+    Logger.info(":ets.insert_new(#{inspect(table)}, #{inspect(value)})")
     :ets.insert_new(table, value)
   end
 
