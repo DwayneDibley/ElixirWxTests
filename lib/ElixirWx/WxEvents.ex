@@ -30,6 +30,7 @@ defmodule WxEvents do
   defp windowEventLoop(window, events, nil) do
     receive do
       event ->
+        Logger.info("event: #{inspect(event)}")
         ret = dispatchEvent(window, events, event)
 
         case ret do
@@ -121,6 +122,7 @@ defmodule WxEvents do
   end
 
   defp setEvent(window, parent, {eventType, options}) do
+    Logger.debug(":wxEvtHandler.connect(#{inspect(parent)}, #{inspect(eventType)})")
     :wxEvtHandler.connect(parent, eventType)
     WinInfo.put_event(eventType, options)
   end

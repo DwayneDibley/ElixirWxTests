@@ -486,103 +486,78 @@ defmodule WxDsl do
   ## ---------------------------------------------------------------------------
   defmacro toolBar(_attributes, do: block) do
     quote do
-      Logger.debug("Tool bar")
+      Logger.debug("Tool Bar +++++++++++++++++++++++++++++++++++++++++++++++++++")
 
       {parent, container} = stack_tos()
 
-      # toolbar = :wx.toolBar(parent, -1, style = @TB_HORIZONTAL | @NO_BORDER)
       Logger.debug("  :wxFrame.createToolBar(#{inspect(parent)})")
       tb = :wxFrame.createToolBar(parent)
-
-      Logger.debug("  :wxFrame.setToolBar(#{inspect(parent)}, #{inspect(tb)})")
-      :wxFrame.setToolBar(parent, tb)
-
-      #      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
-      #      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
-      #      icon = :wxIcon.new(ficon, [{:type, @wxBITMAP_TYPE_XPM}])
-      #      IO.inspect("Icon = #{inspect(icon)}")
-
-      #      IO.inspect("XPM = #{inspect(@wxBITMAP_TYPE_XPM)}")
-      #      ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
-      #      bitmap = :wxBitmap.new(ficon)
-      #      IO.inspect("bitmap = #{inspect(bitmap)}")
-
-      # :wxToolBar.addTool(tb, 105, bitmap)
 
       stack_push({tb, container})
       unquote(block)
       pop_stack(var!(stack, Dsl))
 
+      Logger.debug("  :wxFrame.setToolBar(#{inspect(parent)}, #{inspect(tb)})")
+      :wxFrame.setToolBar(parent, tb)
+
       Logger.debug("  :wxToolBar.realize(#{inspect(parent)})")
       :wxToolBar.realize(tb)
+
+      Logger.debug("Tool Bar ---------------------------------------------------")
     end
   end
 
   defmacro tool(attributes) do
     quote do
+      Logger.debug("  Tool +++++++++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
-      Logger.debug("  tool: #{inspect(__ENV__.file)}")
+
+      defaults = [id: :unknown, bitmap: nil, icon: nil, png: nil]
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
+
+      new_id = :wx_misc.newId()
 
       path = Path.expand(Path.dirname(__ENV__.file) <> "/../")
       Logger.debug("  path: #{inspect(path)}")
 
-      attributes = unquote(attributes)
-
       options =
-        Enum.filter(attributes, fn attr ->
-          Logger.debug("IN")
-          Logger.debug("#{inspect(parent)}")
-
+        Enum.filter(options, fn attr ->
           case attr do
-            {:id, _} ->
-              true
-
             {:bitmap, fileName} ->
               Logger.debug("BITMAP")
-              # ficon = "/Users/rwe/elixir/dsl/images/sample.xpm"
+              fileName = Path.expand(path <> "/" <> fileName)
               bitmap = :wxBitmap.new(fileName)
-              IO.inspect(" bitmap  = #{inspect(bitmap)}")
-              :wxToolBar.addTool(parent, 105, bitmap)
+              t = :wxToolBar.addTool(parent, new_id, bitmap)
+              put_table({id, new_id, t})
               false
 
             {:icon, fileName} ->
               fileName = Path.expand(path <> "/" <> fileName)
-              Logger.debug("ICON: #{inspect(fileName)}")
+              Logger.debug(":wxIcon.new(#{inspect(fileName)}, [{:type, @wxBITMAP_TYPE_ICO}])")
               icon = :wxIcon.new(fileName, [{:type, @wxBITMAP_TYPE_ICO}])
-              IO.inspect("Icon = #{inspect(icon)}")
-
+              Logger.debug(":wxBitmap.new()")
               bitmap = :wxBitmap.new()
+              Logger.debug(":wxBitmap.copyFromIcon(#{inspect(bitmap)}, #{inspect(icon)})")
               :wxBitmap.copyFromIcon(bitmap, icon)
-
-              :wxToolBar.addTool(parent, 106, bitmap)
+              Logger.debug(":wxToolBar.addTool(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(bitmap)})")
+              t = :wxToolBar.addTool(parent, new_id, bitmap)
+              put_table({id, new_id, t})
               false
 
             {:png, fileName} ->
-              Logger.debug("PNG")
-
+              fileName = Path.expand(path <> "/" <> fileName)
               bitmap = :wxBitmap.new()
               x = :wxBitmap.loadFile(bitmap, fileName, [{:type, @wxBITMAP_TYPE_PNG}])
-              IO.inspect("x = #{inspect(x)}")
-              IO.inspect("png = #{inspect(bitmap)}")
-
-              :wxToolBar.addTool(parent, 106, bitmap)
+              t = :wxToolBar.addTool(parent, new_id, bitmap)
+              put_table({id, new_id, t})
               false
-
-            {:number, val} ->
-              true
 
             _ ->
               Logger.debug("invalid attribute")
               false
           end
         end)
-
-      Logger.debug("AFTER")
-      # put_info(var!(info, Dsl), Map.get(opts, :id, :unknown), mi)
-      # put_xref(var!(xref, Dsl), new_id, Map.get(opts, :id, :unknown))
-
-      # stack_push( sb)
-      # unquote(block)
+      Logger.debug("  Tool ---------------------------------------------------")
     end
   end
 
@@ -601,8 +576,6 @@ defmodule WxDsl do
       Logger.debug(":wxFrame.createStatusBar(#{inspect(parent)}) => #{inspect(sb)}")
       do_status_bar_opts(parent, unquote(attributes))
 
-      # put_info(var!(info, Dsl), Map.get(opts, :id, :unknown), sb)
-      # put_xref(var!(xref, Dsl), new_id, Map.get(opts, :id, :unknown))
       Logger.debug("Status Bar -------------------------------------------------")
       unquote(block)
     end
@@ -613,49 +586,17 @@ defmodule WxDsl do
       Logger.debug("Status Bar +++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
 
-      # attrs = get_attrs(unquote(attributes))
-      # attrs = Map.put(attrs, :id, :wx_misc.newId())
-      attributes1 = [{:id, :wx_misc.newId()} | unquote(attributes)]
-      Logger.debug("  attributes1=#{inspect(attributes1)}")
+      defaults = [id: :status_bar, number: nil, style: nil]
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
 
-      options =
-        Enum.filter(attributes1, fn attr ->
-          case attr do
-            {:id, _} -> true
-            {:text, _} -> false
-            {:number, val} -> true
-            _ -> false
-          end
-        end)
+      new_id = :wx_misc.newId()
+      options = [{:id, new_id} | options]
 
+      Logger.debug(":wxFrame.createStatusBar(#{inspect(parent)}, #{inspect(options)})")
       sb = :wxFrame.createStatusBar(parent, options)
 
-      Enum.filter(attributes1, fn attr ->
-        case attr do
-          {:id, _} ->
-            true
+      put_table({id, new_id, sb})
 
-          {:text, val} ->
-            setSbText(sb, val)
-
-          {:number, val} ->
-            true
-
-          _ ->
-            false
-        end
-      end)
-
-      Logger.debug("  options=#{inspect(options)}")
-
-      # options = []
-
-      # wxCAPTION | wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER
-
-      # do_status_bar_opts(parent, sb, unquote(attributes))
-
-      # put_info(var!(info, Dsl), Map.get(opts, :id, :unknown), sb)
-      # put_xref(var!(xref, Dsl), new_id, Map.get(opts, :id, :unknown))
       Logger.debug("Status Bar -------------------------------------------------")
     end
   end
@@ -733,19 +674,11 @@ defmodule WxDsl do
       defaults = [id: :unknown, text: "??"]
       {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
 
-      # opts = get_opts_map(unquote(attributes))
-      # {options, errors} = WxUtilities.getOptions(unquote(attributes), [:id, :text])
-      # options = Enum.into(options, %{})
-
       new_id = :wx_misc.newId()
 
       Logger.debug("    New Menu Item: #{inspect(options)}")
-
-      # text = Map.get(options, :text, "&????")
-
       mi =
         :wxMenuItem.new([
-          # {:id, Map.get(opts, :id, -1)},
           {:id, new_id},
           {:text, options[:text]}
         ])
@@ -758,15 +691,9 @@ defmodule WxDsl do
 
       put_table({id, new_id, mi})
 
-      # put_info(Map.get(opts, :id, :unknown), mi)
-      # put_xref(new_id, Map.get(opts, :id, :unknown))
-      # put_table({id, new_id, bt})
-
       ret = :wxMenu.append(parent, mi)
       Logger.debug("    :wxMenu.append(#{inspect(parent)}, #{inspect(mi)}) => #{inspect(ret)}")
 
-      # stack_push( sb)
-      # unquote(block)
       Logger.debug("    MenuItem  --------------------------------------------------")
     end
   end

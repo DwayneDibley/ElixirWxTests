@@ -16,11 +16,17 @@ defmodule ToolBarWindow do
           tool(id: :tb_save, icon: "images/icons/stock_save.ico")
         end
 
-        boxSizer id: :outer_sizer, orient: @wxVERTICAL do
-        end
+        statusBar(text: "ElixirWx Tool Bar test")
       end
 
-      events(close_window: [])
+      events(
+        # command_button_clicked: [handler: &ToolBar.commandButton/4],
+        #command_tool_enter: [handler: &ToolBar.commandButton/4],
+        command_menu_selected: [handler: &ToolBar.commandButton/4],
+        close_window: []
+        # timeout: [handler: &WxTest.timeout/4, delay: 5000]
+      )
+
     end
   end
 end

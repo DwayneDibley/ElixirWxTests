@@ -16,16 +16,14 @@ defmodule ToolBar do
     {:ok, self()}
   end
 
-  # def commandButton(window, :command_button_clicked, :exit_btn, _senderObj) do
-  #  Logger.debug("event from :exit_btn")
-  #  :closeWindow
-  # end
+  def commandButton(ToolBarWindow,  :command_menu_selected, button, senderObj) do
+    Logger.debug(":command_menu_selected = #{inspect(button)}")
+    #WxMessageDialogTest.run()
+    WxStatusBar.setText("Tool Bar Button clicked: #{inspect(button)}")
+  end
+  #def commandButton(ToolBarWindow, what, button, senderObj) do
+  #  Logger.debug("event2: #{inspect(what)}, #{inspect(button)}, #{inspect(senderObj)}")
+  #  #WxMessageDialogTest.run()
+  #end
 
-  # def windowClosed(window, eventType, senderId, _senderObj) do
-  #  # showEvent(event, eventSource, windowData)
-  #  IO.inspect("windowClosed = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
-  #  Logger.info("TestWindow windowClosed(#{inspect(self())})")
-  #  # closeWindow(window)
-  #  :closeWindow
-  # end
 end
