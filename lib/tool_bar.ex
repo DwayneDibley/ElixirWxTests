@@ -1,5 +1,5 @@
 defmodule ToolBar do
-  import WxFunctions
+  # import WxFunctions
   require Logger
   use WxDefines
 
@@ -16,14 +16,14 @@ defmodule ToolBar do
     {:ok, self()}
   end
 
-  def commandButton(ToolBarWindow,  :command_menu_selected, button, senderObj) do
+  def commandButton(ToolBarWindow, :command_menu_selected, button, _senderObj) do
     Logger.debug(":command_menu_selected = #{inspect(button)}")
-    #WxMessageDialogTest.run()
+    # WxMessageDialogTest.run()
     WxStatusBar.setText("Tool Bar Button clicked: #{inspect(button)}")
   end
-  #def commandButton(ToolBarWindow, what, button, senderObj) do
+
+  # def commandButton(ToolBarWindow, what, button, senderObj) do
   #  Logger.debug("event2: #{inspect(what)}, #{inspect(button)}, #{inspect(senderObj)}")
   #  #WxMessageDialogTest.run()
-  #end
-
+  # end
 end

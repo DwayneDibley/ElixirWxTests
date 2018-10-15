@@ -30,9 +30,6 @@ defmodule Test do
   end
 
   @doc """
-  The exit button was clicked
-  """
-  @doc """
   Am menu item was selected
   """
   def doMenuEvent(window, eventType, senderId, senderObj) do

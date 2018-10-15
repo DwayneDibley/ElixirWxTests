@@ -24,7 +24,7 @@ defmodule MenuTest do
   def run() do
     Logger.info("Menu test starting")
 
-    winInfo = MenuTestWindow.createWindow(show: true)
+    MenuTestWindow.createWindow(show: true)
     # loop(winInfo)
 
     # We break out of the loop when the exit button is pressed.

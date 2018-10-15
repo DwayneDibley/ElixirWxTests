@@ -68,7 +68,7 @@ defmodule WxDsl do
           nil
       end
 
-      display_table(__ENV__.module)
+      display_table()
       Logger.debug("Window -----------------------------------------------------")
       Logger.debug("")
 
@@ -275,12 +275,17 @@ defmodule WxDsl do
 
       Logger.debug("  opts = #{inspect(opts)}")
 
-      Logger.debug("  :staticBoxSizer.new(@wxVertical, #{inspect(container)}, #{inspect([{:label, "wxSizer"}])}")
-      #sbs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, [{:label, "wxSizer"}])
-      sbs = :wxStaticBoxSizer.new(@wxHORIZONTAL, container, [{:label, "Static Box Sizer"}])
-      #wxStaticBoxSizer:new(?wxVERTICAL, Panel, [{label, "wxSizer"}]),
+      Logger.debug(
+        "  :staticBoxSizer.new(@wxVertical, #{inspect(container)}, #{
+          inspect([{:label, "wxSizer"}])
+        }"
+      )
 
-      #:wxSizer.insertSpacer(sbs, 9999, 20)
+      # sbs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, [{:label, "wxSizer"}])
+      sbs = :wxStaticBoxSizer.new(@wxHORIZONTAL, container, [{:label, "Static Box Sizer"}])
+      # wxStaticBoxSizer:new(?wxVERTICAL, Panel, [{label, "wxSizer"}]),
+
+      # :wxSizer.insertSpacer(sbs, 9999, 20)
 
       stack_push({sbs, container})
       unquote(block)
@@ -303,7 +308,6 @@ defmodule WxDsl do
     end
   end
 
-
   defmacro boxSizer(attributes, do: block) do
     quote do
       Logger.debug("Box Sizer ++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -315,7 +319,7 @@ defmodule WxDsl do
       Logger.debug("  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
       bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
 
-      #:wxSizer.insertSpacer(bs, 9999, 20)
+      # :wxSizer.insertSpacer(bs, 9999, 20)
 
       stack_push({bs, container})
       unquote(block)
@@ -341,47 +345,86 @@ defmodule WxDsl do
   defmacro layout(attributes) do
     quote do
       Logger.info("layout(#{inspect(unquote(attributes))})")
-      defaults = [id: nil, proportion: nil, border_width: nil, border_flags: nil, align: nil, width: nil, height: nil]
-      {id, options, rest} = WxUtilities.getOptions(unquote(attributes), defaults)
-      Logger.info("layout = #{inspect({id, options, rest})}")
 
-      flags = addKeyToListAs(options, :proportion, :proportion, [])
-      flags = addKeyToListAs(options, :border_width, :border, flags)
-      border = getFlag(options, :border_flags, 0)
-      align = getFlag(options, :align, 0)
-      flags = [{:flags, border ||| align} | flags]
-
-      height = getFlag(options, :height, nil)
-      width = getFlag(options, :width, nil)
-
-      Logger.info("flags = #{inspect({width, height, flags})}")
+      {id, {width, height}, flags} = WxLayout.getLayoutAttributes(unquote(attributes))
 
       case id do
-      :_no_id_ -> :ok
-      _ -> put_table({id, width, height, flags})
+        :_no_id_ -> :ok
+        _ -> put_table({id, {width, height}, flags})
       end
 
       {width, height, flags}
-
     end
   end
 
-  def addKeyToListAs(opts, key, newKey, list) do
-    new_list = case List.keyfind(opts, key, 0) do
-      nil -> list
-      {_key, val} -> [{newKey, val} | list]
+  # Update an existing layout
+  defmacro layout(layout, attributes) do
+    quote do
+      Logger.info("layout/2 = #{inspect(unquote(layout))}, #{inspect(unquote(attributes))}")
+      {id, {width, height}, opts} = WinInfo.get_by_name(unquote(layout))
+      Logger.info("old layout = #{inspect({id, {width, height}, opts})}")
+
+      {new_id, {new_width, new_height}, new_opts} =
+        WxLayout.getLayoutAttributes(unquote(attributes))
+
+      Logger.info("new layout = #{inspect({new_id, {new_width, new_height}, new_opts})}")
+
+      width = replaceIfTrue(width, new_width != nil and new_width != width, new_width)
+      height = replaceIfTrue(height, new_height != nil and new_height != height, new_height)
+
+      Logger.info("after = #{inspect({width, height})}")
+
+      options = [
+        {:flag,
+         replaceIfTrue(
+           opts[:flag],
+           new_opts[:flag] != 0 and new_opts[:flag] != opts[:flag],
+           new_opts[:flag]
+         )}
+        | []
+      ]
+
+      options = [
+        {:border,
+         replaceIfTrue(
+           opts[:border],
+           new_opts[:border] != 0 and new_opts[:border] != opts[:border],
+           new_opts[:border]
+         )}
+        | options
+      ]
+
+      options = [
+        {:proportion,
+         replaceIfTrue(
+           opts[:proportion],
+           new_opts[:proportion] != 0 and new_opts[:proportion] != opts[:proportion],
+           new_opts[:proportion]
+         )}
+        | options
+      ]
+
+      #      # [flags: 2544, border: 1, proportion: 2]
+      Logger.info("options = #{inspect(options)}")
+      Logger.info("new layout = #{inspect({new_id, {width, height}, options})}")
+
+      case new_id do
+        :_no_id_ -> :ok
+        _ -> put_table({new_id, {width, height}, options})
+      end
+
+      {width, height, options}
     end
-    new_list
   end
 
-  def getFlag(opts, key, default \\ nil) do
-    new_val = case List.keyfind(opts, key, 0) do
-      nil -> default
-      {_key, val} -> val
+  # if condition is true newValue is returned else originalValue
+  def replaceIfTrue(originalValue, condition, newValue) do
+    if condition do
+      newValue
+    else
+      originalValue
     end
-    new_val
   end
-
 
   defmacro border(attributes) do
     quote do
@@ -557,7 +600,7 @@ defmodule WxDsl do
           Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
           :wxStaticBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
 
-          #xSizer:add(Sizer, ListBox, [{flag, ?wxEXPAND}])
+          # xSizer:add(Sizer, ListBox, [{flag, ?wxEXPAND}])
       end
 
       put_table({id, new_id, bt})
@@ -573,8 +616,16 @@ defmodule WxDsl do
 
       new_id = :wx_misc.newId()
 
-      defaults = [id: :unknown, label: "??", size: nil]
+      defaults = [id: :unknown, label: "??", size: nil, layout: nil]
       {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
+
+      {layout, options} =
+        case List.keytake(options, :layout, 0) do
+          {{_, layoutName}, options} -> {WxLayout.getLayout(layoutName), options}
+          nil -> {[], options}
+        end
+
+      Logger.debug("  :layout = #{inspect(layout)}")
 
       Logger.debug(
         "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
@@ -584,14 +635,20 @@ defmodule WxDsl do
 
       case parent do
         {:wx_ref, _, :wxBoxSizer, _} ->
-          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
-          :wxBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+          Logger.debug(
+            "  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}, #{inspect(layout)})"
+          )
+
+          # :wxBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+          :wxBoxSizer.add(parent, bt, layout)
 
         {:wx_ref, _, :wxStaticBoxSizer, _} ->
-          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
-          :wxStaticBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+          Logger.debug(
+            "  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}, #{inspect(layout)})"
+          )
 
-          #xSizer:add(Sizer, ListBox, [{flag, ?wxEXPAND}])
+          # :wxStaticBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+          :wxStaticBoxSizer.add(parent, bt, layout)
       end
 
       put_table({id, new_id, bt})

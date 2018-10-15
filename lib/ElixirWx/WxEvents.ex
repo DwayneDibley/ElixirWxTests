@@ -1,6 +1,6 @@
 defmodule WxEvents do
   require Logger
-  import WxFunctions
+  # import WxFunctions
 
   @moduledoc """
   This module implements the window event handling.
@@ -66,10 +66,12 @@ defmodule WxEvents do
     end
   end
 
-  @doc """
-  An event arrived, so find and invoke the handler
-  """
-  defp dispatchEvent(window, events, {_, senderId, senderObj, _, {eventGroup, event, data, _, _}}) do
+  # An event arrived, so find and invoke the handler
+  defp dispatchEvent(
+         window,
+         events,
+         {_, senderId, _senderObj, _, {eventGroup, event, data, _, _}}
+       ) do
     sender = WinInfo.get_object_name(senderId)
 
     Logger.info(
@@ -83,11 +85,11 @@ defmodule WxEvents do
     eventInfo[:handler].(window, event, sender, nil)
   end
 
-  defp dispatchEvent(window, events, {_, _, _, _, {:wxClose, :close_window}}) do
+  defp dispatchEvent(_window, _events, {_, _, _, _, {:wxClose, :close_window}}) do
     :closeWindow
   end
 
-  defp dispatchEvent(window, events, event) do
+  defp dispatchEvent(_window, _events, event) do
     Logger.info("Unexpected event: #{inspect(event)}")
     # name = WinInfo.get_object_name(id)
   end
@@ -117,11 +119,11 @@ defmodule WxEvents do
     setEvents(window, parent, events)
   end
 
-  defp setEvent(window, parent, {:timeout, options}) do
+  defp setEvent(_window, _parent, {:timeout, options}) do
     WinInfo.put_event(:timeout, options)
   end
 
-  defp setEvent(window, parent, {eventType, options}) do
+  defp setEvent(_window, parent, {eventType, options}) do
     Logger.debug(":wxEvtHandler.connect(#{inspect(parent)}, #{inspect(eventType)})")
     :wxEvtHandler.connect(parent, eventType)
     WinInfo.put_event(eventType, options)

@@ -15,17 +15,26 @@ defmodule StaticBoxSizerWindow do
               button(id: :button1, label: "&Button 1") do
                 layout(
                   id: :button_layout,
-                  width: 1,
-                  height: 1,
-                  proportion: 2,
-                  border_width: 1,
+                  # width: 1,
+                  # height: 2,
+                  proportion: 3,
+                  border_width: 4,
                   border_flags: @wxALL,
                   align: @wxALIGN_CENTRE
                 )
               end
 
-              button(id: :button2, label: "&Button 2", layout: :layout_1)
-              button(id: :button3, label: "&Button 3", layout: :layout_1)
+              button(id: :button2, label: "&Button 2", layout: :button_layout)
+
+              layout(:button_layout,
+                id: :button_layout_new,
+                proportion: 13,
+                border_width: 14,
+                border_flags: 15
+                # align: 16
+              )
+
+              button(id: :button3, label: "&Button 3", layout: :button_layout_new)
             end
           end
         end

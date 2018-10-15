@@ -1,5 +1,5 @@
 defmodule SimpleFrame do
-  import WxFunctions
+  # import WxFunctions
   require Logger
   use WxDefines
 

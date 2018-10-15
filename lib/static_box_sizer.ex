@@ -1,5 +1,5 @@
 defmodule StaticBoxSizer do
-  import WxFunctions
+  # import WxFunctions
   require Logger
   use WxDefines
 
@@ -16,9 +16,9 @@ defmodule StaticBoxSizer do
     {:ok, self()}
   end
 
-  def commandButton(BoxSizerWindow,  :command_menu_selected, button, senderObj) do
+  def commandButton(BoxSizerWindow, :command_menu_selected, button, _senderObj) do
     Logger.debug(":command_menu_selected = #{inspect(button)}")
-    #WxMessageDialogTest.run()
+    # WxMessageDialogTest.run()
     WxStatusBar.setText("Tool Bar Button clicked: #{inspect(button)}")
   end
 end

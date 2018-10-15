@@ -5,7 +5,7 @@ defmodule WinInfo do
   A process wide table containing the window information
   """
   def new_table() do
-    winInfo = :ets.new(table_name(), [:set, :protected, :named_table])
+    :ets.new(table_name(), [:set, :protected, :named_table])
   end
 
   def put_table(value) do
@@ -13,6 +13,7 @@ defmodule WinInfo do
   end
 
   def get_by_name(name) do
+    display_table()
     res = :ets.lookup(table_name(), name)
 
     {name, id, obj} =
@@ -74,7 +75,7 @@ defmodule WinInfo do
     :ets.insert(table_name(), {:__events__, events})
   end
 
-  def display_table(table) do
+  def display_table() do
     table = String.to_atom("#{inspect(self())}")
     all = :ets.match(table_name(), :"$1")
     Logger.info("Table: #{inspect(table)}")
