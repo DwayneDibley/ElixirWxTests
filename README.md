@@ -14,5 +14,6 @@ Tests for the ElixirWx package
 - Window Events
 - menus
 - ToolBar
+- Layout
 
 ## In Work
