@@ -313,8 +313,6 @@ defmodule WxDsl do
 
       Logger.debug("  opts = #{inspect(opts)}")
 
-      # mnu = :wxMenu.new()
-      # :wxMenuBar.append(parent, mnu, Map.get(opts, :text, "&????"))
       Logger.debug("  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
       bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
 
