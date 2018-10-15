@@ -13,3 +13,5 @@
 
 *.3_test
 *.3_test
+.elixir_ls/dialyzer_manifest_21.0.1_elixir-1.7.3_test
+*.3_test

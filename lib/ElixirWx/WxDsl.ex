@@ -312,7 +312,6 @@ defmodule WxDsl do
       opts = get_opts_map(unquote(attributes))
 
       Logger.debug("  opts = #{inspect(opts)}")
-
       Logger.debug("  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
       bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
 
