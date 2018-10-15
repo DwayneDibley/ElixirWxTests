@@ -1,4 +1,4 @@
-defmodule WxTest do
+defmodule Test do
   import WxFunctions
   require Logger
   use WxDefines
@@ -45,6 +45,8 @@ defmodule WxTest do
     case senderId do
       :simple_frame -> spawn_link(fn -> SimpleFrame.run() end)
       :tool_bar -> spawn_link(fn -> ToolBar.run() end)
+      :box_sizer -> spawn_link(fn -> BoxSizer.run() end)
+      :static_box_sizer -> spawn_link(fn -> StaticBoxSizer.run() end)
     end
   end
 

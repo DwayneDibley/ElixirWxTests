@@ -15,9 +15,9 @@ defmodule WxUtilities do
   end
 
   defp getOptions(options, [], opts) do
-    Logger.info("options=#{inspect(options)}")
+    #Logger.info("options=#{inspect(options)}")
     {{:id, id}, opts} = List.keytake(opts, :id, 0)
-    Logger.info("ID=#{inspect(id)}")
+    #Logger.info("ID=#{inspect(id)}")
     {id, opts, options}
   end
 

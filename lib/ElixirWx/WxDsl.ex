@@ -159,7 +159,7 @@ defmodule WxDsl do
 
       put_table({Map.get(args_dict, :id, nil), new_id, frame})
       # put_info(Map.get(args_dict, :id, nil), frame)
-      put_xref(new_id, Map.get(args_dict, :id, nil))
+      # put_xref(new_id, Map.get(args_dict, :id, nil))
 
       unquote(block)
       Logger.debug("Frame -----------------------------------------------------")
@@ -173,9 +173,15 @@ defmodule WxDsl do
   ## ---------------------------------------------------------------------------
   defmacro panel(attributes, do: block) do
     quote do
+      Logger.debug("Panel +++++++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
-      Logger.debug("panel: {parent, container} = #{inspect(parent)}, #{inspect(container)}})")
+
+      defaults = [id: :unknown, pos: nil, size: nil, style: nil]
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
+
       new_id = :wx_misc.newId()
+
+      Logger.debug("panel: {parent, container} = #{inspect(parent)}, #{inspect(container)}})")
 
       args_dict = Enum.into(unquote(attributes), %{})
 
@@ -190,19 +196,17 @@ defmodule WxDsl do
           end
         end)
 
-      Logger.debug("  :wxPanel.new(#{inspect(parent)}")
-      panel = :wxPanel.new(parent, size: {100, 100})
+      Logger.debug("  :wxPanel.new(#{inspect(parent)}, #{inspect(options)}")
+      # panel = :wxPanel.new(parent, size: {100, 100})
+      panel = :wxPanel.new(parent, options)
 
-      put_table({Map.get(args_dict, :id, nil), new_id, panel})
-
-      # put_info(Map.get(args_dict, :id, nil), panel)
-      put_xref(new_id, Map.get(args_dict, :id, nil))
+      put_table({id, new_id, panel})
 
       stack_push({panel, panel})
       unquote(block)
       pop_stack(var!(stack, Dsl))
 
-      Logger.debug("panel: ================================")
+      Logger.debug("panel -----------------------------------------------------")
     end
   end
 
@@ -210,16 +214,13 @@ defmodule WxDsl do
   ## Sizers
   ## ---------------------------------------------------------------------------
 
-  defmacro staticBoxSizer(attributes, do: block) do
+  defmacro xstaticBoxSizer(attributes, do: block) do
     quote do
       {parent, container} = stack_tos()
 
       Logger.debug(
         "staticBoxSizer: {parent, container} = #{inspect(parent)}, #{inspect(container)}}"
       )
-
-      # parent = stack_tos()
-      # opts = get_opts_map(unquote(attributes))
 
       args_dict = Enum.into(unquote(attributes), %{})
 
@@ -241,12 +242,7 @@ defmodule WxDsl do
           end
         end)
 
-      # opts_list = Enum.scan(opts_list, fn {k, v} -> {k, v} end)
       Logger.debug("  opts = #{inspect(opts_list)}")
-      # bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
-
-      # get the first frame element from the bottom of the stack
-      # frame = bos_stack(var!(stack, Dsl))
 
       Logger.debug(
         "    :wxStaticBoxSizer.new(#{inspect(Map.get(args_dict, :orient, @wxHORIZONTAL))},#{
@@ -266,12 +262,51 @@ defmodule WxDsl do
           :wxBoxSizer.add(parent, bs)
       end
 
-      Logger.debug("staticBoxSizer: ================================")
+      Logger.debug("  BoxSizer -----------------------------------------------------")
     end
   end
 
+  defmacro staticBoxSizer(attributes, do: block) do
+    quote do
+      Logger.debug("Static Box Sizer ++++++++++++++++++++++++++++++++++++++++++++++++++")
+      {parent, container} = stack_tos()
+      Logger.debug("boxSizer: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
+      opts = get_opts_map(unquote(attributes))
+
+      Logger.debug("  opts = #{inspect(opts)}")
+
+      Logger.debug("  :staticBoxSizer.new(@wxVertical, #{inspect(container)}, #{inspect([{:label, "wxSizer"}])}")
+      #sbs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, [{:label, "wxSizer"}])
+      sbs = :wxStaticBoxSizer.new(@wxHORIZONTAL, container, [{:label, "Static Box Sizer"}])
+      #wxStaticBoxSizer:new(?wxVERTICAL, Panel, [{label, "wxSizer"}]),
+
+      #:wxSizer.insertSpacer(sbs, 9999, 20)
+
+      stack_push({sbs, container})
+      unquote(block)
+      pop_stack(var!(stack, Dsl))
+
+      case parent do
+        {:wx_ref, _, :wxBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(sbs)}), []")
+          :wxBoxSizer.add(parent, sbs, [{:flag, @wxEXPAND}, {:proportion, 1}])
+
+        {:wx_ref, _, :wxPanel, []} ->
+          Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(sbs)})")
+          :wxPanel.setSizer(parent, sbs)
+
+        other ->
+          :ok
+      end
+
+      Logger.debug("Static Box Sizer ---------------------------------------------------")
+    end
+  end
+
+
   defmacro boxSizer(attributes, do: block) do
     quote do
+      Logger.debug("Box Sizer ++++++++++++++++++++++++++++++++++++++++++++++++++")
       {parent, container} = stack_tos()
       Logger.debug("boxSizer: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
       opts = get_opts_map(unquote(attributes))
@@ -283,26 +318,44 @@ defmodule WxDsl do
       Logger.debug("  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
       bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
 
+      #:wxSizer.insertSpacer(bs, 9999, 20)
+
       stack_push({bs, container})
       unquote(block)
       pop_stack(var!(stack, Dsl))
-
-      # If this is the top level sizer, set it in the panel.
-      if parent == container do
-        Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(bs)})")
-        :wxPanel.setSizer(parent, bs)
-      end
 
       case parent do
         {:wx_ref, _, :wxBoxSizer, _} ->
           Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bs)}), []")
           :wxBoxSizer.add(parent, bs)
 
+        {:wx_ref, _, :wxPanel, []} ->
+          Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(bs)})")
+          :wxPanel.setSizer(parent, bs)
+
         other ->
           :ok
       end
 
-      Logger.debug("boxSizer: ================================")
+      Logger.debug("boxSizer ---------------------------------------------------")
+    end
+  end
+
+  defmacro border(attributes) do
+    quote do
+      parent = stack_tos()
+      {parent, container} = stack_tos()
+      Logger.debug("spacer: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
+
+      defaults = [size: 1, flags: @wxALL]
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
+
+      Logger.debug(
+        "  :wxSizer.insertSpacer(#{inspect(parent)}, #{inspect(Map.get(opts, :space, 0))})"
+      )
+
+      :wxSizer.addSpacer(parent, Map.get(opts, :space, 0))
+      :wxSizer.insertSpacer(bs, 9999, 20)
     end
   end
 
@@ -440,19 +493,8 @@ defmodule WxDsl do
       attributes = unquote(attributes)
       new_id = :wx_misc.newId()
 
-      # attrs = get_opts_map(attributes)
-
-      # {id, attributes} = List.keytake(attributes, :id, 0)
       defaults = [id: :unknown, label: "??", size: nil]
       {id, options, errors} = WxUtilities.getOptions(attributes, defaults)
-
-      # id =
-      #  case id do
-      #    nil -> :unknown_event
-      #    {:id, id} -> id
-      #  end
-
-      # {options, errors} = WxUtilities.getOptions(attributes, [:size, :label])
 
       Logger.debug(
         "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
@@ -463,20 +505,17 @@ defmodule WxDsl do
       case parent do
         {:wx_ref, _, :wxBoxSizer, _} ->
           Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
-          :wxBoxSizer.add(parent, bt, [])
+          :wxBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
 
         {:wx_ref, _, :wxStaticBoxSizer, _} ->
           Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
-          :wxStaticBoxSizer.add(parent, bt, [])
+          :wxStaticBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+
+          #xSizer:add(Sizer, ListBox, [{flag, ?wxEXPAND}])
       end
 
       put_table({id, new_id, bt})
 
-      # put_info(var!(info, Dsl), id, bt)
-      # put_xref(var!(xref, Dsl), new_id, id)
-
-      # stack_push( sb)
-      # unquote(block)
       Logger.debug("button: ================================")
     end
   end
@@ -539,7 +578,11 @@ defmodule WxDsl do
               bitmap = :wxBitmap.new()
               Logger.debug(":wxBitmap.copyFromIcon(#{inspect(bitmap)}, #{inspect(icon)})")
               :wxBitmap.copyFromIcon(bitmap, icon)
-              Logger.debug(":wxToolBar.addTool(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(bitmap)})")
+
+              Logger.debug(
+                ":wxToolBar.addTool(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(bitmap)})"
+              )
+
               t = :wxToolBar.addTool(parent, new_id, bitmap)
               put_table({id, new_id, t})
               false
@@ -557,6 +600,7 @@ defmodule WxDsl do
               false
           end
         end)
+
       Logger.debug("  Tool ---------------------------------------------------")
     end
   end
@@ -677,6 +721,7 @@ defmodule WxDsl do
       new_id = :wx_misc.newId()
 
       Logger.debug("    New Menu Item: #{inspect(options)}")
+
       mi =
         :wxMenuItem.new([
           {:id, new_id},

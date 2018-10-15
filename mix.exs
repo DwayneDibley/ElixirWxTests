@@ -20,7 +20,7 @@ defmodule WxTests.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {WxTest, []},
+      mod: {Test, []},
       # mod: {MenuTest, []},
       extra_applications: [:logger]
     ]

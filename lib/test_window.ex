@@ -20,8 +20,11 @@ defmodule TestWindow do
           menu id: :simple_menu, text: "&Simple" do
             menuItem(id: :simple_frame, text: "&Simple Frame")
             menuItem(id: :tool_bar, text: "&Tool Bar")
-            menuSeparator()
-            menuItem(id: :final, text: "&Exit")
+          end
+
+          menu id: :sizer_menu, text: "&Sizers" do
+            menuItem(id: :box_sizer, text: "&Box Sizer")
+            menuItem(id: :static_box_sizer, text: "&Static Box Sizer")
           end
         end
 
@@ -73,9 +76,9 @@ defmodule TestWindow do
       end
 
       events(
-        command_button_clicked: [handler: &WxTest.commandButton/4],
-        command_menu_selected: [handler: &WxTest.doMenuEvent/4],
-        close_window: [handler: &WxTest.windowClosed/4]
+        command_button_clicked: [handler: &Test.commandButton/4],
+        command_menu_selected: [handler: &Test.doMenuEvent/4],
+        close_window: [handler: &Test.windowClosed/4]
         # timeout: [handler: &WxTest.timeout/4, delay: 5000]
       )
     end
