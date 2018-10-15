@@ -15,10 +15,16 @@ defmodule WxUtilities do
   end
 
   defp getOptions(options, [], opts) do
-    #Logger.info("options=#{inspect(options)}")
-    {{:id, id}, opts} = List.keytake(opts, :id, 0)
+    Logger.info("getOptions=#{inspect(options)}")
+
+    {new_id, new_opts} = case List.keytake(opts, :id, 0) do
+      {{:id, id}, opts} -> {id, opts}
+      nil -> {:_no_id_, opts}
+    end
+
+    #{{:id, id}, opts} = List.keytake(opts, :id, 0)
     #Logger.info("ID=#{inspect(id)}")
-    {id, opts, options}
+    {new_id, new_opts, options}
   end
 
   defp getOptions(options, [{key, default} | t], opts) do

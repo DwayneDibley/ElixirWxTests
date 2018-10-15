@@ -338,6 +338,51 @@ defmodule WxDsl do
     end
   end
 
+  defmacro layout(attributes) do
+    quote do
+      Logger.info("layout(#{inspect(unquote(attributes))})")
+      defaults = [id: nil, proportion: nil, border_width: nil, border_flags: nil, align: nil, width: nil, height: nil]
+      {id, options, rest} = WxUtilities.getOptions(unquote(attributes), defaults)
+      Logger.info("layout = #{inspect({id, options, rest})}")
+
+      flags = addKeyToListAs(options, :proportion, :proportion, [])
+      flags = addKeyToListAs(options, :border_width, :border, flags)
+      border = getFlag(options, :border_flags, 0)
+      align = getFlag(options, :align, 0)
+      flags = [{:flags, border ||| align} | flags]
+
+      height = getFlag(options, :height, nil)
+      width = getFlag(options, :width, nil)
+
+      Logger.info("flags = #{inspect({width, height, flags})}")
+
+      case id do
+      :_no_id_ -> :ok
+      _ -> put_table({id, width, height, flags})
+      end
+
+      {width, height, flags}
+
+    end
+  end
+
+  def addKeyToListAs(opts, key, newKey, list) do
+    new_list = case List.keyfind(opts, key, 0) do
+      nil -> list
+      {_key, val} -> [{newKey, val} | list]
+    end
+    new_list
+  end
+
+  def getFlag(opts, key, default \\ nil) do
+    new_val = case List.keyfind(opts, key, 0) do
+      nil -> default
+      {_key, val} -> val
+    end
+    new_val
+  end
+
+
   defmacro border(attributes) do
     quote do
       parent = stack_tos()
@@ -481,17 +526,55 @@ defmodule WxDsl do
   ## ---------------------------------------------------------------------------
   ## Buttons
   ## ---------------------------------------------------------------------------
-  defmacro button(attributes) do
+  defmacro button(attributes, do: block) do
     quote do
       {parent, container} = stack_tos()
-
       Logger.debug("button: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
 
-      attributes = unquote(attributes)
       new_id = :wx_misc.newId()
 
       defaults = [id: :unknown, label: "??", size: nil]
-      {id, options, errors} = WxUtilities.getOptions(attributes, defaults)
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
+
+      Logger.debug(
+        "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
+      )
+
+      bt = :wxButton.new(container, new_id, options)
+
+      stack_push({bt, container})
+      ret = unquote(block)
+      pop_stack(var!(stack, Dsl))
+
+      Logger.debug("button: ret = #{inspect(ret)}")
+
+      case parent do
+        {:wx_ref, _, :wxBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
+          :wxBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+
+        {:wx_ref, _, :wxStaticBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bt)}), []")
+          :wxStaticBoxSizer.add(parent, bt, [{:flag, @wxALL}, {:proportion, 10}])
+
+          #xSizer:add(Sizer, ListBox, [{flag, ?wxEXPAND}])
+      end
+
+      put_table({id, new_id, bt})
+
+      Logger.debug("button: ================================")
+    end
+  end
+
+  defmacro button(attributes) do
+    quote do
+      {parent, container} = stack_tos()
+      Logger.debug("button: {parent, container} = #{inspect(parent)}, #{inspect(container)}}")
+
+      new_id = :wx_misc.newId()
+
+      defaults = [id: :unknown, label: "??", size: nil]
+      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
 
       Logger.debug(
         "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
@@ -770,14 +853,14 @@ defmodule WxDsl do
     Logger.info("setEvents: #{inspect(event)}")
 
     case event do
-      {:timeout, func} ->
+      {:timeout, _func} ->
         :ok
 
       {evt, nil} ->
         options = [userData: __ENV__.module]
         :wxEvtHandler.connect(parent, evt, options)
 
-      {evt, callback} ->
+      {evt, _callback} ->
         options = [userData: __ENV__.module]
         :wxEvtHandler.connect(parent, evt, options)
         # {evt, callback, options} -> options = [{userData: window} | options]
@@ -787,7 +870,7 @@ defmodule WxDsl do
     setEvents(events, parent)
   end
 
-  def dispatchEvent(event, eventList) do
+  def dispatchEvent(_event, _eventList) do
   end
 
   def eventLoop() do

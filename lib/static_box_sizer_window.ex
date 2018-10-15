@@ -12,9 +12,20 @@ defmodule StaticBoxSizerWindow do
           boxSizer id: :outer_sizer, orient: @wxHORIZONTAL, border: @wxALL do
             staticBoxSizer id: :outer_sizer, orient: @wxHORIZONTAL, border: @wxALL do
               # border(size: 20, flags: wxEXPAND | wxALL)
-              button(id: :button1, label: "&Button 1")
-              button(id: :button2, label: "&Button 2")
-              button(id: :button3, label: "&Button 3")
+              button(id: :button1, label: "&Button 1") do
+                layout(
+                  id: :button_layout,
+                  width: 1,
+                  height: 1,
+                  proportion: 2,
+                  border_width: 1,
+                  border_flags: @wxALL,
+                  align: @wxALIGN_CENTRE
+                )
+              end
+
+              button(id: :button2, label: "&Button 2", layout: :layout_1)
+              button(id: :button3, label: "&Button 3", layout: :layout_1)
             end
           end
         end
