@@ -34,7 +34,7 @@ defmodule StaticBoxSizerWindow do
                 # align: 16
               )
 
-              button(id: :button3, label: "&Button 3", layout: :button_layout_new)
+              button(id: :button3, label: "&Button 3", layout: [])
             end
           end
         end

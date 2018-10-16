@@ -616,14 +616,21 @@ defmodule WxDsl do
 
       new_id = :wx_misc.newId()
 
-      defaults = [id: :unknown, label: "??", size: nil, layout: nil]
+      defaults = [id: :unknown, label: "??", size: nil, layout: []]
       {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
 
-      {layout, options} =
-        case List.keytake(options, :layout, 0) do
-          {{_, layoutName}, options} -> {WxLayout.getLayout(layoutName), options}
-          nil -> {[], options}
-        end
+      defaults = [label: "??", size: nil, layout: []]
+      attrs = WxUtilities.getObjOpts(unquote(attributes), defaults)
+      Logger.debug("getObjOpts = #{inspect(attrs)}")
+
+      layout = attrs[:layout]
+      options = attrs[:options]
+
+      #      {layout, options} =
+      #        case List.keytake(options, :layout, 0) do
+      #          {{_, layoutName}, options} -> {WxLayout.getLayout(layoutName), options}
+      #          nil -> {[], options}
+      #        end
 
       Logger.debug("  :layout = #{inspect(layout)}")
 
