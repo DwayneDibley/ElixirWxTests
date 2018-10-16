@@ -9,24 +9,54 @@ defmodule WxDefines do
       import Bitwise
       @wxDefaultSize {-1, -1}
       @wxDefaultPosition {-1, -1}
-      # ERROR             @wxBLACK   wxe_util:get_const(wxBLACK
-      # ERROR             @wxBLACK_BRUSH   wxe_util:get_const(wxBLACK_BRUSH
-      # ERROR             @wxBLACK_DASHED_PEN   wxe_util:get_const(wxBLACK_DASHED_PEN
-      # ERROR             @wxBLACK_PEN   wxe_util:get_const(wxBLACK_PEN
-      # ERROR             @wxBLUE   wxe_util:get_const(wxBLUE
+
+      @wxBLACK {0, 0, 0}
+      @wxWHITE {255, 255, 255}
+      @wxRED {255, 0, 0}
+      @wxLIME {0, 255, 0}
+      @wxBLUE {0, 0, 255}
+      @wxYELLOW {255, 255, 0}
+      @wxCYAN {0, 255, 255}
+      @wxAQUA {0, 255, 255}
+      @wxMAGENTA {255, 0, 255}
+      @wxSILVER {192, 192, 192}
+      @wxGREY {128, 128, 128}
+      @wxGRAY {128, 128, 128}
+      @wxMAROON {128, 0, 0}
+      @wxOLIVE {128, 128, 0}
+      @wxGREEN {0, 128, 0}
+      @wxPURPLE {128, 0, 128}
+      @wxTEAL {0, 128, 128}
+      @wxNAVY {0, 0, 128}
+
+      def wxBLACK, do: :wxe_util.get_const(:wxBLACK)
+      def wxBLUE, do: :wxe_util.get_const(:wxBLUE)
+      def wxGREEN, do: :wxe_util.get_const(:wxGREEN)
+      def wxCYAN, do: :wxe_util.get_const(:wxCYAN)
+      def wxRED, do: :wxe_util.get_const(:wxRED)
+      def wxAQUAMARINE, do: :wxe_util.get_const(:wxAQUAMARINE)
+      # def wxCYAN, do: :wxe_util.get_const(:wxCYAN)
+
+      # AQUAMARINE, BLACK, BLUE, BLUE VIOLET, BROWN, CADET BLUE, CORAL, CORNFLOWER BLUE, CYAN, DARK GREY, DARK GREEN, DARK OLIVE GREEN, DARK ORCHID, DARK SLATE BLUE, DARK SLATE GREY DARK TURQUOISE, DIM GREY, FIREBRICK, FOREST GREEN, GOLD, GOLDENROD, GREY, GREEN, GREEN YELLOW, INDIAN RED, KHAKI, LIGHT BLUE, LIGHT GREY, LIGHT STEEL BLUE, LIME GREEN, MAGENTA, MAROON, MEDIUM AQUAMARINE, MEDIUM BLUE, MEDIUM FOREST GREEN, MEDIUM GOLDENROD, MEDIUM ORCHID, MEDIUM SEA GREEN, MEDIUM SLATE BLUE, MEDIUM #SPRING GREEN, MEDIUM TURQUOISE, MEDIUM VIOLET RED, MIDNIGHT BLUE, NAVY, ORANGE, ORANGE RED, ORCHID, PALE GREEN, PINK, PLUM, PURPLE, RED, SALMON, SEA GREEN, SIENNA, SKY BLUE, SLATE BLUE, SPRING GREEN, STEEL BLUE, TAN, THISTLE, TURQUOISE, VIOLET, VIOLET RED, WHEAT, WHITE, YELLOW, YELLOW GREEN
+
+      def wxBLACK_BRUSH, do: :wxe_util.get_const(:wxBLACK_BRUSH)
+      def wxBLACK_DASHED_PEN, do: :wxe_util.get_const(:wxBLACK_DASHED_PEN)
+      def wxBLACK_PEN, do: :wxe_util.get_const(:wxBLACK_PEN)
+      def wxLIGHT_GREY, do: :wxe_util.get_const(:wxLIGHT_GREY)
+
       # ERROR             @wxBLUE_BRUSH   wxe_util:get_const(wxBLUE_BRUSH
       # ERROR             @wxCROSS_CURSOR   wxe_util:get_const(wxCROSS_CURSOR
-      # ERROR             @wxCYAN   wxe_util:get_const(wxCYAN
+
       # ERROR             @wxCYAN_BRUSH   wxe_util:get_const(wxCYAN_BRUSH
       # ERROR             @wxCYAN_PEN   wxe_util:get_const(wxCYAN_PEN
-      # ERROR             @wxGREEN   wxe_util:get_const(wxGREEN
+
       # ERROR             @wxGREEN_BRUSH   wxe_util:get_const(wxGREEN_BRUSH
       # ERROR             @wxGREEN_PEN   wxe_util:get_const(wxGREEN_PEN
       # ERROR             @wxGREY_BRUSH   wxe_util:get_const(wxGREY_BRUSH
       # ERROR             @wxGREY_PEN   wxe_util:get_const(wxGREY_PEN
       # ERROR             @wxHOURGLASS_CURSOR   wxe_util:get_const(wxHOURGLASS_CURSOR
       # ERROR             @wxITALIC_FONT   wxe_util:get_const(wxITALIC_FONT
-      # ERROR             @wxLIGHT_GREY   wxe_util:get_const(wxLIGHT_GREY
+
       # ERROR             @wxLIGHT_GREY_BRUSH   wxe_util:get_const(wxLIGHT_GREY_BRUSH
       # ERROR             @wxLIGHT_GREY_PEN   wxe_util:get_const(wxLIGHT_GREY_PEN
       # ERROR             @wxMEDIUM_GREY_BRUSH   wxe_util:get_const(wxMEDIUM_GREY_BRUSH
@@ -39,7 +69,7 @@ defmodule WxDefines do
       # ERROR             @wxNullIcon   wxe_util:get_const(wxNullIcon
       # ERROR             @wxNullPalette   wxe_util:get_const(wxNullPalette
       # ERROR             @wxNullPen   wxe_util:get_const(wxNullPen
-      # ERROR             @wxRED   wxe_util:get_const(wxRED
+
       # ERROR             @wxRED_BRUSH   wxe_util:get_const(wxRED_BRUSH
       # ERROR             @wxRED_PEN   wxe_util:get_const(wxRED_PEN
       # ERROR             @wxSMALL_FONT   wxe_util:get_const(wxSMALL_FONT
@@ -47,7 +77,10 @@ defmodule WxDefines do
       # ERROR             @wxSWISS_FONT   wxe_util:get_const(wxSWISS_FONT
       # ERROR             @wxTRANSPARENT_BRUSH   wxe_util:get_const(wxTRANSPARENT_BRUSH
       # ERROR             @wxTRANSPARENT_PEN   wxe_util:get_const(wxTRANSPARENT_PEN
-      # ERROR             @wxWHITE   wxe_util:get_const(wxWHITE
+
+      # @wxWHITE :wxe_util.get_const(:wxWHITE)
+      def wxWHITE, do: :wxe_util.get_const(:wxWHITE)
+
       # ERROR             @wxWHITE_BRUSH   wxe_util:get_const(wxWHITE_BRUSH
       # ERROR             @wxWHITE_PEN   wxe_util:get_const(wxWHITE_PEN
       # ERROR             @wxEVT_COMMAND_BOOKCTRL_PAGE_CHANGING  ?wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING

@@ -15,7 +15,7 @@ defmodule WxUtilities do
   end
 
   defp getOptions(options, [], opts) do
-    Logger.info("getOptions=#{inspect(options)}")
+    # Logger.info("getOptions=#{inspect(options)}")
 
     {new_id, new_opts} =
       case List.keytake(opts, :id, 0) do
@@ -58,7 +58,7 @@ defmodule WxUtilities do
   Where errors are any options not in the allowed list
   """
   def getObjOpts(options, defaults) do
-    Logger.debug("getObjOpts(#{inspect(options)}, #{inspect(defaults)})")
+    # Logger.debug("getObjOpts(#{inspect(options)}, #{inspect(defaults)})")
     # get the options list.
     {options, rest} = getObjOpts(options, defaults, [])
 
@@ -97,7 +97,7 @@ defmodule WxUtilities do
   end
 
   defp getObjOpts(rest, [], opts) do
-    Logger.info("getObjOpts: opts=#{inspect(opts)} rest=#{inspect(rest)}")
+    # Logger.info("getObjOpts: opts=#{inspect(opts)} rest=#{inspect(rest)}")
     {opts, rest}
   end
 

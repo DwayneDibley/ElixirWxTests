@@ -3,7 +3,7 @@ defmodule MenuTestWindow do
   import WxDefines
 
   def createWindow(show) do
-    window name: :menu_test_window, show: show do
+    mainWindow name: :menu_test_window, show: show do
       # Create a frame with a status bar and a menu.
       frame id: :main_frame,
             title: "ElixirWx Menu Test",

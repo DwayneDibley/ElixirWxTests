@@ -11,11 +11,11 @@ defmodule WxEvents do
   dispatch them.
   """
   def windowEventLoop(window) do
-    Logger.info(" windowEventLoop(#{inspect(window)})")
+    # Logger.info(" windowEventLoop(#{inspect(window)})")
     events = WinInfo.get_events()
-    Logger.info("events = #{inspect(events)}")
+    # Logger.info("events = #{inspect(events)}")
     timeout = events[:timeout][:delay]
-    Logger.info("timeout = #{inspect(timeout)}")
+    # Logger.info("timeout = #{inspect(timeout)}")
 
     timeout =
       case is_number(timeout) do
@@ -30,7 +30,7 @@ defmodule WxEvents do
   defp windowEventLoop(window, events, nil) do
     receive do
       event ->
-        Logger.info("event: #{inspect(event)}")
+        # Logger.info("event: #{inspect(event)}")
         ret = dispatchEvent(window, events, event)
 
         case ret do
@@ -74,11 +74,11 @@ defmodule WxEvents do
        ) do
     sender = WinInfo.get_object_name(senderId)
 
-    Logger.info(
-      "dispatchEvent(window, {#{inspect(eventGroup)}, #{inspect(event)}, #{inspect(sender)}, #{
-        inspect(data)
-      }}, events)"
-    )
+    #    Logger.info(
+    #      "dispatchEvent(window, {#{inspect(eventGroup)}, #{inspect(event)}, #{inspect(sender)}, #{
+    #        inspect(data)
+    #      }}, events)"
+    #    )
 
     # dispatchEvent(window, {eventGroup, event, sender, data}, events)
     eventInfo = events[event]
@@ -90,7 +90,7 @@ defmodule WxEvents do
   end
 
   defp dispatchEvent(_window, _events, event) do
-    Logger.info("Unexpected event: #{inspect(event)}")
+    # Logger.info("Unexpected event: #{inspect(event)}")
     # name = WinInfo.get_object_name(id)
   end
 

@@ -3,7 +3,7 @@ defmodule ToolBarWindow do
   import WxDefines
 
   def createWindow(show) do
-    window name: :tool_bar_window, show: show do
+    mainWindow name: :tool_bar_window, show: show do
       frame id: :main_frame,
             title: "Tool Bar Test",
             size: {350, 250},
@@ -21,12 +21,11 @@ defmodule ToolBarWindow do
 
       events(
         # command_button_clicked: [handler: &ToolBar.commandButton/4],
-        #command_tool_enter: [handler: &ToolBar.commandButton/4],
+        # command_tool_enter: [handler: &ToolBar.commandButton/4],
         command_menu_selected: [handler: &ToolBar.commandButton/4],
         close_window: []
         # timeout: [handler: &WxTest.timeout/4, delay: 5000]
       )
-
     end
   end
 end

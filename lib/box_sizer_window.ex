@@ -3,7 +3,7 @@ defmodule BoxSizerWindow do
   import WxDefines
 
   def createWindow(show) do
-    window name: :box_sizer_window, show: show do
+    mainWindow name: :box_sizer_window, show: show do
       frame id: :main_frame,
             title: "Box Sizers Test",
             size: {350, 250},

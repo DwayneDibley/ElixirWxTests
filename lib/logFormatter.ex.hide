@@ -45,20 +45,11 @@ defmodule LogFormatter do
     rescue
       # _ -> #message = List.flatten(message)
       _ ->
-        # IO.inspect("Rescue")
-        # IO.inspect("level: #{inspect(level)}")
-        # IO.puts(message)
+        IO.inspect("Rescue")
+        IO.puts(message)
+        IO.inspect("level: #{inspect(level)}")
+        IO.inspect("Cannot format msg: #{inspect(message)}")
 
-        :io_lib.format("~s-~s ~s [~s:~s] ~s\n", [
-          format_date(date),
-          format_time(time),
-          level,
-          module,
-          line,
-          message
-        ])
-
-        # IO.inspect("Cannot format msg: #{inspect(message)}")
         # {}"could not format: level=#{inspect(level)}, \nmessage=#{inspect(message)}, \n metadata=#{inspect(metadata)}\n"
     end
   end

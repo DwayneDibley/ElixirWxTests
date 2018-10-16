@@ -3,7 +3,7 @@ defmodule StaticBoxSizerWindow do
   import WxDefines
 
   def createWindow(show) do
-    window name: :box_sizer_window, show: show do
+    mainWindow name: :box_sizer_window, show: show do
       frame id: :main_frame,
             title: "Static Box Sizer Test",
             size: {350, 250},
@@ -15,8 +15,6 @@ defmodule StaticBoxSizerWindow do
               button(id: :button1, label: "&Button 1") do
                 layout(
                   id: :button_layout,
-                  # width: 1,
-                  # height: 2,
                   proportion: 3,
                   border_width: 4,
                   border_flags: @wxALL,
@@ -31,10 +29,9 @@ defmodule StaticBoxSizerWindow do
                 proportion: 13,
                 border_width: 14,
                 border_flags: 15
-                # align: 16
               )
 
-              button(id: :button3, label: "&Button 3", layout: [])
+              button(id: :button3, label: "&Button 3", layout: [flag: @wxALIGN_BOTTOM])
             end
           end
         end

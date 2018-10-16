@@ -33,17 +33,22 @@ defmodule Test do
   Am menu item was selected
   """
   def doMenuEvent(window, eventType, senderId, senderObj) do
-    Logger.info(
-      "menu event: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
-        inspect(senderObj)
-      }"
-    )
+    #    Logger.info(
+    #      "menu event: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
+    #        inspect(senderObj)
+    #      }"
+    #    )
 
     case senderId do
       :simple_frame -> spawn_link(fn -> SimpleFrame.run() end)
       :tool_bar -> spawn_link(fn -> ToolBar.run() end)
       :box_sizer -> spawn_link(fn -> BoxSizer.run() end)
       :static_box_sizer -> spawn_link(fn -> StaticBoxSizer.run() end)
+      :panel_borders -> spawn_link(fn -> PanelBorders.run() end)
+      :test_code -> spawn_link(fn -> TestCode.run() end)
+      :vertical_sizer -> spawn_link(fn -> VerticalSizer.run() end)
+      :exit -> :closeWindow
+      _ -> Logger.error("Unhandled menu click #{inspect(senderId)}")
     end
   end
 

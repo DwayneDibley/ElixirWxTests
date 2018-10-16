@@ -13,7 +13,7 @@ defmodule WinInfo do
   end
 
   def get_by_name(name) do
-    display_table()
+    # display_table()
     res = :ets.lookup(table_name(), name)
 
     {name, id, obj} =

@@ -3,7 +3,7 @@ defmodule TestWindow do
   import WxDefines
 
   def createWindow(show) do
-    window show: show do
+    mainWindow show: show do
       # Create a frame with a status bar and a menu.
       frame id: :main_frame,
             title: "ElixirWx Test",
@@ -22,9 +22,18 @@ defmodule TestWindow do
             menuItem(id: :tool_bar, text: "&Tool Bar")
           end
 
+          menu id: :panel_menu, text: "&Panels" do
+            menuItem(id: :panel_borders, text: "&Panel Borders")
+          end
+
           menu id: :sizer_menu, text: "&Sizers" do
             menuItem(id: :box_sizer, text: "&Box Sizer")
             menuItem(id: :static_box_sizer, text: "&Static Box Sizer")
+            menuItem(id: :vertical_sizer, text: "&Vertical Sizer")
+          end
+
+          menu id: :code_menu, text: "&Code" do
+            menuItem(id: :test_code, text: "&Test Code")
           end
         end
 
