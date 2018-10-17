@@ -47,6 +47,8 @@ defmodule Test do
       :panel_borders -> spawn_link(fn -> PanelBorders.run() end)
       :test_code -> spawn_link(fn -> TestCode.run() end)
       :vertical_sizer -> spawn_link(fn -> VerticalSizer.run() end)
+      :horizontal_sizer -> spawn_link(fn -> HorizontalSizer.run() end)
+      :stretchable_sizer -> spawn_link(fn -> SizerStretchable.run() end)
       :exit -> :closeWindow
       _ -> Logger.error("Unhandled menu click #{inspect(senderId)}")
     end

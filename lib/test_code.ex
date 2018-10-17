@@ -113,7 +113,7 @@ defmodule TestCode do
 
   def create_box(parent) do
     win = :wxWindow.new(parent, @wxID_ANY, [{:style, @wxBORDER_SIMPLE}, {:size, {50, 25}}])
-    :wxWindow.setBackgroundColour(win, wxWHITE())
+    :wxWindow.setBackgroundColour(win, @wxWHITE)
     win
   end
 
