@@ -68,7 +68,7 @@ defmodule TestCode do
     # createExample(panel, "Weighting Factor", &weighting_factor/1)
     #  createExample(panel, "Edge Affinity", &edge_affinity/1)
     # createExample(panel, "Spacer", &spacer/1)
-    # createExample(panel, "Centering in availabl space", &centering_in_avalible_space/1)
+    createExample(panel, "Centering in availabl space", &centering_in_avalible_space/1)
     # createExample(panel, "Simple border", &simple_border/1)
     # createExample(panel, "East and West border", &east_and_west_border/1)
     # createExample(panel, "North and South border", &north_and_south_border/1)
@@ -80,11 +80,11 @@ defmodule TestCode do
     # createExample(panel, "Flexible Grid", &flexible_grid/1)
     # createExample(panel, "Grid with alignment", &grid_with_alignment/1)
 
-    createExample(
-      panel,
-      "Proportional resize with alignments",
-      &proportional_resize_with_alignments/1
-    )
+    # createExample(
+    #  panel,
+    #  "Proportional resize with alignments",
+    #    &proportional_resize_with_alignments/1
+    # )
 
     receive do
     after

@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>WxFunctions – wx_tests v0.1.0</title>
+    <title>WinInfo – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
     <script src="dist/sidebar_items-1b574cb7da.js"></script>
     
@@ -58,11 +58,11 @@ wx_tests      </h1>
 
       <h1>
         <small class="visible-xs">wx_tests v0.1.0</small>
-WxFunctions              </h1>
+WinInfo              </h1>
 
 
         <section id="moduledoc">
-<pre><code class="nohighlight makeup elixir"><span class="c1">## General functions</span></code></pre>
+<p>A process wide table containing the window information</p>
         </section>
 
         <section id="summary" class="details-list">
@@ -80,38 +80,52 @@ WxFunctions              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#closeWindow/1">closeWindow(windowName)</a>
-  </div>
-    <div class="summary-synopsis"><p>Finction called to close and destroy the current window. This may be called from
-an event callback, so we must send the WindowExit event to the <strong>main</strong>thread__
-PID</p>
-</div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#eventCallback/2">eventCallback(arg, event)</a>
-  </div>
-    <div class="summary-synopsis"><p>Event handling</p>
-</div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#getEvent/1">getEvent(timeout \\ 0)</a>
+    <a href="#display_rows/1">display_rows(list)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#getObjText/2">getObjText(ctrlId, arg)</a>
+    <a href="#display_table/0">display_table()</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#putObjText/3">putObjText(ctrlId, text, arg)</a>
+    <a href="#get_by_id/1">get_by_id(id)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#setFrameIcon/2">setFrameIcon(frame, iconFile)</a>
+    <a href="#get_by_name/1">get_by_name(name)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_events/0">get_events()</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_object_name/1">get_object_name(id)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new_table/0">new_table()</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#put_event/2">put_event(event_type, info)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#put_table/1">put_table(value)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#table_name/0">table_name()</a>
   </div>
 </div>
   </div>
@@ -128,78 +142,112 @@ PID</p>
             </a>
             Functions
           </h1>
-<div class="detail" id="closeWindow/1">
+<div class="detail" id="display_rows/1">
     <div class="detail-header">
-    <a href="#closeWindow/1" class="detail-link" title="Link to this function">
+    <a href="#display_rows/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">closeWindow(windowName)</span>
-          </div>
-  <section class="docstring">
-<p>Finction called to close and destroy the current window. This may be called from
-an event callback, so we must send the WindowExit event to the <strong>main</strong>thread__
-PID.</p>
-  </section>
-</div>
-<div class="detail" id="eventCallback/2">
-    <div class="detail-header">
-    <a href="#eventCallback/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">eventCallback(arg, event)</span>
-          </div>
-  <section class="docstring">
-<p>Event handling</p>
-<p>If the event is registered with a callback function, it will be routed to that
-function. A callback function must have arity 3 and accept the following
-parameters:</p>
-<p>callback(window, eventType, senderId, senderObj)</p>
-  </section>
-</div>
-<div class="detail" id="getEvent/1">
-  
-    <span id="getEvent/0"></span>
-  <div class="detail-header">
-    <a href="#getEvent/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">getEvent(timeout \\ 0)</span>
+    <span class="signature">display_rows(list)</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="getObjText/2">
+<div class="detail" id="display_table/0">
     <div class="detail-header">
-    <a href="#getObjText/2" class="detail-link" title="Link to this function">
+    <a href="#display_table/0" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">getObjText(ctrlId, arg)</span>
+    <span class="signature">display_table()</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="putObjText/3">
+<div class="detail" id="get_by_id/1">
     <div class="detail-header">
-    <a href="#putObjText/3" class="detail-link" title="Link to this function">
+    <a href="#get_by_id/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">putObjText(ctrlId, text, arg)</span>
+    <span class="signature">get_by_id(id)</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="setFrameIcon/2">
+<div class="detail" id="get_by_name/1">
     <div class="detail-header">
-    <a href="#setFrameIcon/2" class="detail-link" title="Link to this function">
+    <a href="#get_by_name/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">setFrameIcon(frame, iconFile)</span>
+    <span class="signature">get_by_name(name)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="get_events/0">
+    <div class="detail-header">
+    <a href="#get_events/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_events()</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="get_object_name/1">
+    <div class="detail-header">
+    <a href="#get_object_name/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_object_name(id)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="new_table/0">
+    <div class="detail-header">
+    <a href="#new_table/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new_table()</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="put_event/2">
+    <div class="detail-header">
+    <a href="#put_event/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">put_event(event_type, info)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="put_table/1">
+    <div class="detail-header">
+    <a href="#put_table/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">put_table(value)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="table_name/0">
+    <div class="detail-header">
+    <a href="#table_name/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">table_name()</span>
           </div>
   <section class="docstring">
   </section>

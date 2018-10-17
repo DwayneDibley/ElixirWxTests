@@ -40,17 +40,53 @@ defmodule Test do
     #    )
 
     case senderId do
-      :simple_frame -> spawn_link(fn -> SimpleFrame.run() end)
-      :tool_bar -> spawn_link(fn -> ToolBar.run() end)
-      :box_sizer -> spawn_link(fn -> BoxSizer.run() end)
-      :static_box_sizer -> spawn_link(fn -> StaticBoxSizer.run() end)
-      :panel_borders -> spawn_link(fn -> PanelBorders.run() end)
-      :test_code -> spawn_link(fn -> TestCode.run() end)
-      :vertical_sizer -> spawn_link(fn -> VerticalSizer.run() end)
-      :horizontal_sizer -> spawn_link(fn -> HorizontalSizer.run() end)
-      :stretchable_sizer -> spawn_link(fn -> SizerStretchable.run() end)
-      :exit -> :closeWindow
-      _ -> Logger.error("Unhandled menu click #{inspect(senderId)}")
+      :simple_frame ->
+        spawn_link(fn -> SimpleFrame.run() end)
+
+      :tool_bar ->
+        spawn_link(fn -> ToolBar.run() end)
+
+      :box_sizer ->
+        spawn_link(fn -> BoxSizer.run() end)
+
+      :static_box_sizer ->
+        spawn_link(fn -> StaticBoxSizer.run() end)
+
+      :panel_borders ->
+        spawn_link(fn -> PanelBorders.run() end)
+
+      :test_code ->
+        spawn_link(fn -> TestCode.run() end)
+
+      :vertical_sizer ->
+        spawn_link(fn -> VerticalSizer.run() end)
+
+      :horizontal_sizer ->
+        spawn_link(fn -> HorizontalSizer.run() end)
+
+      :stretchable_sizer ->
+        spawn_link(fn -> SizerStretchable.run() end)
+
+      :stretchable_sizers ->
+        spawn_link(fn -> SizerMultiStretchable.run() end)
+
+      :weighted_sizers ->
+        spawn_link(fn -> SizerWeightedStretchable.run() end)
+
+      :edge_affinity ->
+        spawn_link(fn -> EdgeAffinitySizer.run() end)
+
+      :spacer ->
+        spawn_link(fn -> SizerSpacer.run() end)
+
+      :center ->
+        spawn_link(fn -> SizerCentering.run() end)
+
+      :exit ->
+        :closeWindow
+
+      _ ->
+        Logger.error("Unhandled menu click #{inspect(senderId)}")
     end
   end
 

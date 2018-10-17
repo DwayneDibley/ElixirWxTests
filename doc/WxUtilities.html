@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxUtilities – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-78253828bf.js"></script>
+    <script src="dist/sidebar_items-1b574cb7da.js"></script>
     
   </head>
   <body data-type="modules">
@@ -84,7 +84,20 @@ WxUtilities              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#getOptions/2">getOptions(options, allowed)</a>
+    <a href="#getObjOpts/2">getObjOpts(options, defaults)</a>
+  </div>
+    <div class="summary-synopsis"><p>Given a list of otions, remove the ones not in the allowed key list.
+Returns {id, [options], layout, [errors]}
+where:
+id = value of the option key or :<em>no_id</em>
+options = the list of options as specified by the defaults. If a
+layout = content of the :layout key in the options, or []</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">     </span><span class="nc">If</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">atom</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">matching</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">returned</span></code></pre>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#getOptions/2">getOptions(options, defaults)</a>
   </div>
     <div class="summary-synopsis"><p>Given a list of otions, remove the ones not in the allowed key list.
 Returns {[options], [errors]}
@@ -105,13 +118,32 @@ Where errors are any options not in the allowed list</p>
             </a>
             Functions
           </h1>
+<div class="detail" id="getObjOpts/2">
+    <div class="detail-header">
+    <a href="#getObjOpts/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">getObjOpts(options, defaults)</span>
+          </div>
+  <section class="docstring">
+<p>Given a list of otions, remove the ones not in the allowed key list.
+Returns {id, [options], layout, [errors]}
+where:
+id = value of the option key or :<em>no_id</em>
+options = the list of options as specified by the defaults. If a
+layout = content of the :layout key in the options, or []</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">     </span><span class="nc">If</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">atom</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">matching</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">returned</span><span class="o">.</span></code></pre>
+<p>Where errors are any options not in the allowed list</p>
+  </section>
+</div>
 <div class="detail" id="getOptions/2">
     <div class="detail-header">
     <a href="#getOptions/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">getOptions(options, allowed)</span>
+    <span class="signature">getOptions(options, defaults)</span>
           </div>
   <section class="docstring">
 <p>Given a list of otions, remove the ones not in the allowed key list.

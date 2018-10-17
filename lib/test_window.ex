@@ -35,6 +35,11 @@ defmodule TestWindow do
             menuItem(id: :vertical_sizer, text: "&Vertical Sizer")
             menuItem(id: :horizontal_sizer, text: "&Horizontal Sizer")
             menuItem(id: :stretchable_sizer, text: "&Stretchable Sizer")
+            menuItem(id: :stretchable_sizers, text: "&Stretchable Sizers")
+            menuItem(id: :weighted_sizers, text: "&Multi Weighted Sizers")
+            menuItem(id: :edge_affinity, text: "&Edge Affinity")
+            menuItem(id: :spacer, text: "&Spacer test")
+            menuItem(id: :center, text: "&Centering test")
           end
 
           # Random code test menu

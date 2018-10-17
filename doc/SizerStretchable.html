@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>WxTest – wx_tests v0.1.0</title>
+    <title>SizerStretchable – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-78253828bf.js"></script>
+    <script src="dist/sidebar_items-1b574cb7da.js"></script>
     
   </head>
   <body data-type="modules">
@@ -58,11 +58,11 @@ wx_tests      </h1>
 
       <h1>
         <small class="visible-xs">wx_tests v0.1.0</small>
-WxTest              </h1>
+SizerStretchable              </h1>
 
 
         <section id="moduledoc">
-<pre><code class="nohighlight makeup elixir"><span class="nc">A</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">WxWindows</span><span class="w"> </span><span class="nc">DSL</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">creating</span><span class="w"> </span><span class="nc">GUIs</span><span class="o">.</span></code></pre>
+<p>A demo of a simple tool bar.</p>
         </section>
 
         <section id="summary" class="details-list">
@@ -80,31 +80,12 @@ WxTest              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#buttonPushed/3">buttonPushed(event, eventSource, windowData)</a>
+    <a href="#commandButton/4">commandButton(arg, atom, button, senderObj)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#showEvent/3">showEvent(event, eventSource, windowData)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#start/2">start(a, b)</a>
-  </div>
-    <div class="summary-synopsis"><p>The main entry point:</p>
-<ul>
-<li>Set the application title.
-</li>
-<li>Create the GUI.
-Then loop waiting for events
-</li>
-</ul>
-</div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#windowClosed/3">windowClosed(event, eventSource, windowData)</a>
+    <a href="#run/0">run()</a>
   </div>
 </div>
   </div>
@@ -121,54 +102,24 @@ Then loop waiting for events
             </a>
             Functions
           </h1>
-<div class="detail" id="buttonPushed/3">
+<div class="detail" id="commandButton/4">
     <div class="detail-header">
-    <a href="#buttonPushed/3" class="detail-link" title="Link to this function">
+    <a href="#commandButton/4" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">buttonPushed(event, eventSource, windowData)</span>
+    <span class="signature">commandButton(arg, atom, button, senderObj)</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="showEvent/3">
+<div class="detail" id="run/0">
     <div class="detail-header">
-    <a href="#showEvent/3" class="detail-link" title="Link to this function">
+    <a href="#run/0" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">showEvent(event, eventSource, windowData)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="start/2">
-    <div class="detail-header">
-    <a href="#start/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">start(a, b)</span>
-          </div>
-  <section class="docstring">
-<p>The main entry point:</p>
-<ul>
-<li>Set the application title.
-</li>
-<li>Create the GUI.
-Then loop waiting for events.
-</li>
-</ul>
-  </section>
-</div>
-<div class="detail" id="windowClosed/3">
-    <div class="detail-header">
-    <a href="#windowClosed/3" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">windowClosed(event, eventSource, windowData)</span>
+    <span class="signature">run()</span>
           </div>
   <section class="docstring">
   </section>

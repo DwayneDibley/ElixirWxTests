@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxDsl – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-78253828bf.js"></script>
+    <script src="dist/sidebar_items-1b574cb7da.js"></script>
     
   </head>
   <body data-type="modules">
@@ -84,6 +84,16 @@ WxDsl              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#bgColour/1">bgColour(colour)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#border/1">border(attributes)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#bos_stack/1">bos_stack(stack)</a>
   </div>
 </div>
@@ -95,6 +105,16 @@ WxDsl              </h1>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#button/1">button(attributes)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#button/2">button(attributes, list)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#dispatchEvent/2">dispatchEvent(event, eventList)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -121,6 +141,20 @@ WxDsl              </h1>
   <div class="summary-signature">
     <a href="#event/2">event(eventType, callBack)</a>
   </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#eventLoop/0">eventLoop()</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#events/1">events(attributes)</a>
+  </div>
+    <div class="summary-synopsis"><p>Macro to set up the event connections for the window.
+The attributes consist of one of the following:
+{<event>: callback | nil, <option>: value, …}</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -174,6 +208,23 @@ WxDsl              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#layout/1">layout(attributes)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#layout/2">layout(layout, attributes)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#mainWindow/2">mainWindow(attributes, list)</a>
+  </div>
+    <div class="summary-synopsis"><pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span></code></pre>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#menu/2">menu(attributes, list)</a>
   </div>
 </div>
@@ -184,12 +235,12 @@ WxDsl              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#menuBar/2">menuBar(attributes, list)</a>
+    <a href="#menuItem/1">menuItem(attributes)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#menuItem/1">menuItem(attributes)</a>
+    <a href="#menuSeparator/0">menuSeparator()</a>
   </div>
 </div>
 <div class="summary-row">
@@ -240,6 +291,21 @@ WxDsl              </h1>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#put_xref/3">put_xref(xref, key, value)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#replaceIfTrue/3">replaceIfTrue(originalValue, condition, newValue)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#setEvents/1">setEvents(events)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#setEvents/2">setEvents(list, parent)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -309,10 +375,18 @@ WxDsl              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#window/1">window(attributes)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#window/2">window(attributes, list)</a>
   </div>
-    <div class="summary-synopsis"><pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span></code></pre>
 </div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#xstaticBoxSizer/2">xstaticBoxSizer(attributes, list)</a>
+  </div>
 </div>
   </div>
           
@@ -328,6 +402,32 @@ WxDsl              </h1>
             </a>
             Functions
           </h1>
+<div class="detail" id="bgColour/1">
+    <div class="detail-header">
+    <a href="#bgColour/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">bgColour(colour)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="border/1">
+    <div class="detail-header">
+    <a href="#border/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">border(attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
 <div class="detail" id="bos_stack/1">
     <div class="detail-header">
     <a href="#bos_stack/1" class="detail-link" title="Link to this function">
@@ -362,6 +462,30 @@ WxDsl              </h1>
     
       <span class="note">(macro)</span>
       </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="button/2">
+    <div class="detail-header">
+    <a href="#button/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">button(attributes, list)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="dispatchEvent/2">
+    <div class="detail-header">
+    <a href="#dispatchEvent/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">dispatchEvent(event, eventList)</span>
+          </div>
   <section class="docstring">
   </section>
 </div>
@@ -422,6 +546,40 @@ WxDsl              </h1>
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="eventLoop/0">
+    <div class="detail-header">
+    <a href="#eventLoop/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">eventLoop()</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="events/1">
+    <div class="detail-header">
+    <a href="#events/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">events(attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+<p>Macro to set up the event connections for the window.
+The attributes consist of one of the following:
+{<event>: callback | nil, <option>: value, …}</p>
+<p>&lt;event may be one of:
+  :command_button_clicked
+  :close_window
+  :timeout                  # This is a function to be called repeatedly every</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">                        </span><span class="c1"># n seconds where n is given by the :delay options</span><span class="w">
+                        </span><span class="c1"># in milliseconds (default 1000 (1 second))</span></code></pre>
+<p>if a callback is supplied it must have arity 4.</p>
   </section>
 </div>
 <div class="detail" id="frame/2">
@@ -540,6 +698,50 @@ WxDsl              </h1>
   <section class="docstring">
   </section>
 </div>
+<div class="detail" id="layout/1">
+    <div class="detail-header">
+    <a href="#layout/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">layout(attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="layout/2">
+    <div class="detail-header">
+    <a href="#layout/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">layout(layout, attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="mainWindow/2">
+    <div class="detail-header">
+    <a href="#mainWindow/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">mainWindow(attributes, list)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+<pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span><span class="o">.</span><span class="w">
+
+</span><span class="c1">## Parameters</span><span class="w">
+
+  </span><span class="o">-</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">represents</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">person</span><span class="o">.</span></code></pre>
+  </section>
+</div>
 <div class="detail" id="menu/2">
     <div class="detail-header">
     <a href="#menu/2" class="detail-link" title="Link to this macro">
@@ -566,19 +768,6 @@ WxDsl              </h1>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="menuBar/2">
-    <div class="detail-header">
-    <a href="#menuBar/2" class="detail-link" title="Link to this macro">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this macro</span>
-    </a>
-    <span class="signature">menuBar(attributes, list)</span>
-    
-      <span class="note">(macro)</span>
-      </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="menuItem/1">
     <div class="detail-header">
     <a href="#menuItem/1" class="detail-link" title="Link to this macro">
@@ -586,6 +775,19 @@ WxDsl              </h1>
       <span class="sr-only">Link to this macro</span>
     </a>
     <span class="signature">menuItem(attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="menuSeparator/0">
+    <div class="detail-header">
+    <a href="#menuSeparator/0" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">menuSeparator()</span>
     
       <span class="note">(macro)</span>
       </div>
@@ -704,6 +906,39 @@ WxDsl              </h1>
       <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">put_xref(xref, key, value)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="replaceIfTrue/3">
+    <div class="detail-header">
+    <a href="#replaceIfTrue/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">replaceIfTrue(originalValue, condition, newValue)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="setEvents/1">
+    <div class="detail-header">
+    <a href="#setEvents/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">setEvents(events)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="setEvents/2">
+    <div class="detail-header">
+    <a href="#setEvents/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">setEvents(list, parent)</span>
           </div>
   <section class="docstring">
   </section>
@@ -871,6 +1106,19 @@ WxDsl              </h1>
   <section class="docstring">
   </section>
 </div>
+<div class="detail" id="window/1">
+    <div class="detail-header">
+    <a href="#window/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">window(attributes)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
+  </section>
+</div>
 <div class="detail" id="window/2">
     <div class="detail-header">
     <a href="#window/2" class="detail-link" title="Link to this macro">
@@ -882,11 +1130,19 @@ WxDsl              </h1>
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
-<pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span><span class="o">.</span><span class="w">
-
-</span><span class="c1">## Parameters</span><span class="w">
-
-  </span><span class="o">-</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">represents</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">person</span><span class="o">.</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="xstaticBoxSizer/2">
+    <div class="detail-header">
+    <a href="#xstaticBoxSizer/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">xstaticBoxSizer(attributes, list)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
+  <section class="docstring">
   </section>
 </div>
         </section>

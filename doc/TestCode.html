@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.19.1">
+    <title>TestCode – wx_tests v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
+    <script src="dist/sidebar_items-1b574cb7da.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+    <div class="main">
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<button class="sidebar-button night-mode-toggle">
+  <span class="icon-theme" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Theme</span>
+</button>
+<section class="sidebar">
+
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+wx_tests      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="Search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">wx_tests v0.1.0</small>
+TestCode              </h1>
+
+
+        <section id="moduledoc">
+<pre><code class="nohighlight makeup elixir"><span class="nc">A</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">wxWindows</span><span class="w"> </span><span class="n">menu</span><span class="err">&#39;</span><span class="n">s</span><span class="o">.</span></code></pre>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#add_a_strechable/1">add_a_strechable(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#border_in_a_box/1">border_in_a_box(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#box_in_box/1">box_in_box(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#boxes_inside_a_border/1">boxes_inside_a_border(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#centering_in_avalible_space/1">centering_in_avalible_space(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#createExample/3">createExample(parent, example, builder)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_box/1">create_box(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#east_and_west_border/1">east_and_west_border(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#edge_affinity/1">edge_affinity(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#flexible_grid/1">flexible_grid(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#grid_with_alignment/1">grid_with_alignment(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#horizontal/1">horizontal(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#more_grid_features/1">more_grid_features(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#more_than_one_strechable/1">more_than_one_strechable(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#north_and_south_border/1">north_and_south_border(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#proportional_resize_with_alignments/1">proportional_resize_with_alignments(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#run/0">run()</a>
+  </div>
+    <div class="summary-synopsis"><p>The main entry point:</p>
+<ul>
+<li>Set the application title.
+</li>
+<li>Create the GUI.
+Then loop waiting for events
+</li>
+</ul>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#simple_border/1">simple_border(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#simple_grid/1">simple_grid(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#spacer/1">spacer(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#vertical/1">vertical(parent)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#weighting_factor/1">weighting_factor(parent)</a>
+  </div>
+</div>
+  </div>
+          
+        </section>
+
+
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+<div class="detail" id="add_a_strechable/1">
+    <div class="detail-header">
+    <a href="#add_a_strechable/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">add_a_strechable(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="border_in_a_box/1">
+    <div class="detail-header">
+    <a href="#border_in_a_box/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">border_in_a_box(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="box_in_box/1">
+    <div class="detail-header">
+    <a href="#box_in_box/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">box_in_box(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="boxes_inside_a_border/1">
+    <div class="detail-header">
+    <a href="#boxes_inside_a_border/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">boxes_inside_a_border(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="centering_in_avalible_space/1">
+    <div class="detail-header">
+    <a href="#centering_in_avalible_space/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">centering_in_avalible_space(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="createExample/3">
+    <div class="detail-header">
+    <a href="#createExample/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">createExample(parent, example, builder)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="create_box/1">
+    <div class="detail-header">
+    <a href="#create_box/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_box(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="east_and_west_border/1">
+    <div class="detail-header">
+    <a href="#east_and_west_border/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">east_and_west_border(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="edge_affinity/1">
+    <div class="detail-header">
+    <a href="#edge_affinity/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">edge_affinity(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="flexible_grid/1">
+    <div class="detail-header">
+    <a href="#flexible_grid/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">flexible_grid(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="grid_with_alignment/1">
+    <div class="detail-header">
+    <a href="#grid_with_alignment/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">grid_with_alignment(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="horizontal/1">
+    <div class="detail-header">
+    <a href="#horizontal/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">horizontal(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="more_grid_features/1">
+    <div class="detail-header">
+    <a href="#more_grid_features/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">more_grid_features(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="more_than_one_strechable/1">
+    <div class="detail-header">
+    <a href="#more_than_one_strechable/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">more_than_one_strechable(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="north_and_south_border/1">
+    <div class="detail-header">
+    <a href="#north_and_south_border/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">north_and_south_border(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="proportional_resize_with_alignments/1">
+    <div class="detail-header">
+    <a href="#proportional_resize_with_alignments/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">proportional_resize_with_alignments(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="run/0">
+    <div class="detail-header">
+    <a href="#run/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">run()</span>
+          </div>
+  <section class="docstring">
+<p>The main entry point:</p>
+<ul>
+<li>Set the application title.
+</li>
+<li>Create the GUI.
+Then loop waiting for events.
+</li>
+</ul>
+  </section>
+</div>
+<div class="detail" id="simple_border/1">
+    <div class="detail-header">
+    <a href="#simple_border/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">simple_border(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="simple_grid/1">
+    <div class="detail-header">
+    <a href="#simple_grid/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">simple_grid(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="spacer/1">
+    <div class="detail-header">
+    <a href="#spacer/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">spacer(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="vertical/1">
+    <div class="detail-header">
+    <a href="#vertical/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">vertical(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="weighting_factor/1">
+    <div class="detail-header">
+    <a href="#weighting_factor/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">weighting_factor(parent)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
+        </section>
+
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.19.1),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-a0c90688fa.js"></script>
+  
+  </body>
+</html>
+

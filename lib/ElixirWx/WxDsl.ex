@@ -133,12 +133,14 @@ defmodule WxDsl do
       pop_stack(var!(stack, Dsl))
 
       WxSizer.addToSizer(win, sizer, restOpts)
-      # WxSizer.addToSizer(win, sizer, restOpts)
       Logger.debug("Window/2 -----------------------------------------------------")
       win
     end
   end
 
+  @doc """
+  Add a window object.
+  """
   defmacro window(attributes) do
     quote do
       Logger.debug("Window/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -156,13 +158,15 @@ defmodule WxDsl do
 
       put_table({id, new_id, win})
 
-      # WxSizer.addToSizer(win, sizer, [{:bullshit, 9939}, {:proportion, 0}, {:flag, @wxEXPAND}])
       WxSizer.addToSizer(win, sizer, restOpts)
       Logger.debug("Window/1 -----------------------------------------------------")
       win
     end
   end
 
+  @doc """
+  Set the background colour for the enclosing control.
+  """
   defmacro bgColour(colour) do
     quote do
       Logger.debug("bgColour +++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -540,20 +544,26 @@ defmodule WxDsl do
 
   defmacro spacer(attributes) do
     quote do
-      Logger.debug("Spacer ++++++++++++++++++++++++++++++++++++++++++++++++++")
-      parent = stack_tos()
-      {container, parent, sizer} = stack_tos()
-      Logger.debug("tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
+      Logger.debug("Spacer/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-      opts = get_opts_map(unquote(attributes))
-      Logger.debug("  opts=#{inspect(opts)}")
+      {container, parent, sizer} = stack_tos()
+      Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
+
+      defaults = [size: {0, 0}, layout: []]
+      {id, options, restOpts} = getOptions(unquote(attributes), defaults)
+
+      new_id = :wx_misc.newId()
+
+      {w, h} = options[:size]
+      layout = options[:layout]
 
       Logger.debug(
-        "  :wxSizer.addSpacer(#{inspect(sizer)}, #{inspect(Map.get(opts, :space, 0))})"
+        "  :wxSizer.add(#{inspect(sizer)}, #{inspect(w)}, #{inspect(h)}, #{inspect(layout)}"
       )
 
-      :wxSizer.addSpacer(sizer, Map.get(opts, :space, 0))
-      Logger.debug("spacer ---------------------------------------------------")
+      :wxSizer.add(sizer, w, h, layout)
+
+      Logger.debug("Spacer/1 -----------------------------------------------------")
     end
   end
 

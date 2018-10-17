@@ -37,6 +37,8 @@ def createWindow(show) do
 ```
 
 
+<div style="page-break-after: always;"></div>
+
 
 ### layout
 
@@ -69,11 +71,11 @@ defmodule TestWindow do
 
 ```
 
-### 
+<div style="page-break-after: always;"></div>
 
-### window
+### mainWindow
 
-This is the top level of a window and should be the outer element of a window specification.
+This is the top level window and should be the outer element of a window specification. This window performs the initialisation. 
 
 | Parameter | Description                                                  | Value     | Default                |
 | --------- | ------------------------------------------------------------ | --------- | ---------------------- |
