@@ -30,8 +30,8 @@ defmodule WxDsl do
       Logger.debug("mainWindow +++++++++++++++++++++++++++++++++++++++++++++++++++++")
       # initialise persitant storage
       {:ok, var!(stack, Dsl)} = new_stack()
-      {:ok, var!(info, Dsl)} = new_info()
-      {:ok, var!(xref, Dsl)} = new_xref()
+      # {:ok, var!(info, Dsl)} = new_info()
+      # {:ok, var!(xref, Dsl)} = new_xref()
 
       # Get the function attributes
       opts = get_opts_map(unquote(attributes))
@@ -613,7 +613,7 @@ defmodule WxDsl do
       put_table({Map.get(attrs, :id, nil), new_id, tc})
 
       # put_info(Map.get(attrs, :id, :unknown), tc)
-      put_xref(new_id, Map.get(attrs, :id, :unknown))
+      # ut_xref(new_id, Map.get(attrs, :id, :unknown))
 
       Logger.debug("textCtrl: ================================")
 
@@ -662,7 +662,7 @@ defmodule WxDsl do
       put_table({Map.get(attrs, :id, nil), new_id, st})
 
       # put_info(Map.get(attrs, :id, :unknown), st)
-      put_xref(new_id, Map.get(attrs, :id, :unknown))
+      # put_xref(new_id, Map.get(attrs, :id, :unknown))
 
       Logger.debug("staticText: ================================")
     end
@@ -1135,56 +1135,6 @@ defmodule WxDsl do
   end
 
   # Persistent storage =========================================================
-  # window info
-  def new_info(), do: Agent.start_link(fn -> %{} end)
-  def end_info(state), do: Agent.stop(state)
-
-  # this is for the event case which otherwise gives an error because of the fn ref
-  def put_info(state, key, value),
-    do: Agent.update(state, &Map.put(&1, key, value))
-
-  defmacro put_info(key, value) do
-    quote do
-      Agent.update(var!(info, Dsl), &Map.put(&1, unquote(key), unquote(value)))
-    end
-  end
-
-  def get_info(state, key), do: Agent.get(state, &Map.get(&1, key))
-  # def get_info(state), do: Agent.get(state, & &1)
-
-  defmacro get_info() do
-    quote do
-      Agent.get(var!(info, Dsl), & &1)
-    end
-  end
-
-  # ===========================
-  # id to name cross reference
-  # ===========================
-  def new_xref(), do: Agent.start_link(fn -> %{} end)
-  def end_xref(xref), do: Agent.stop(xref)
-
-  def put_xref(xref, key, value),
-    do: Agent.update(xref, &Map.put(&1, key, value))
-
-  defmacro put_xref(key, value) do
-    quote do
-      Agent.update(var!(xref, Dsl), &Map.put(&1, unquote(key), unquote(value)))
-    end
-  end
-
-  def get_xref(xref, key), do: Agent.get(xref, &Map.get(&1, key))
-  # def get_xref(xref), do: Agent.get(xref, & &1)
-
-  defmacro get_xref() do
-    quote do
-      Agent.get(var!(xref, Dsl), & &1)
-    end
-  end
-
-  # ===========================
-  # Persistent stack
-  # ===========================
   def new_stack(), do: Agent.start_link(fn -> [] end)
   def end_stack(stack), do: Agent.stop(stack)
 
