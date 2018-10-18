@@ -42,6 +42,10 @@ defmodule TestWindow do
             menuItem(id: :center, text: "&Centering test")
           end
 
+          menu id: :dialog_menu, text: "&Dialogss" do
+            menuItem(id: :dialogs, text: "&Dialogs")
+          end
+
           # Random code test menu
           menu id: :code_menu, text: "&Code" do
             menuItem(id: :test_code, text: "&Test Code")

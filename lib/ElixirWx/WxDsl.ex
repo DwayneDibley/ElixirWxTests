@@ -1,6 +1,6 @@
 defmodule WxDsl do
   @moduledoc """
-  ## The DSL implementation
+  An implementation of a DSL for generating GUI's
   """
   defmacro __using__(_opts) do
     quote do
@@ -16,12 +16,29 @@ defmodule WxDsl do
   require Logger
 
   @doc """
+  This is the top level window and should be the outer element of a window specification. This window performs the initialisation.
+
+  | Parameter | Description                                                  | Value     | Default                |
+  | --------- | ------------------------------------------------------------ | --------- | ---------------------- |
+  | name      | The name by which the window will be referred to.            | atom()    | modulename |
+  | show      | If set to true the window will be made visible when the construction is complete. If set to false, the window will be invisible until explicitly shown using :wxFrame.show(frame). | Boolean() | true                   |
+
+  Example:
+
   ```
-  Performs the initialisation for the persistent storage.
+  defmodule TestWindow do
+    use WxDsl
+    import WxDefines
 
-  ## Parameters
-
-    - name: String that represents the name of the person.
+    def createWindow(show) do
+      mainWindow show: show do
+        # Create a frame with a status bar and a menu.
+        frame id: :main_frame,
+        ...
+        ...
+        end
+      end
+    end
 
   """
   defmacro mainWindow(attributes, do: block) do
@@ -83,7 +100,7 @@ defmodule WxDsl do
   The attributes consist of one of the following:
   {<event>: callback | nil, <option>: value, ...}
 
-  <event may be one of:
+  event may be one of:
     :command_button_clicked
     :close_window
     :timeout                  # This is a function to be called repeatedly every
@@ -108,32 +125,76 @@ defmodule WxDsl do
     end
   end
 
-  ## ===========================================================================
+  @doc """
+  Create a new window.
+
+  | Parameter | Description                                                  | Value     | Default                |
+  | --------- | ------------------------------------------------------------ | --------- | ---------------------- |
+  | style     | The window Style.            | atom()    | modulename |
+  | size      | The initial size of the window.            | atom()    | modulename |
+  | layout    | The window layout. | Boolean() | true                   |
+
+  Example:
+
+  ```
+  window(style: @wxBORDER_SIMPLE, size: {50, 25},
+        layout: [proportion: 0, flag: @wxEXPAND]) do
+    bgColour(@wxBLACK)
+  end
+  ```
+  """
   defmacro window(attributes, do: block) do
     quote do
       Logger.debug("Window/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
       {container, parent, sizer} = stack_tos()
+
+      {id, new_id, win} = WxWindow.new(parent, unquote(attributes))
+
+      # put_table({id, new_id, win})
+
+      stack_push({container, win, sizer})
+      unquote(block)
+      pop_stack()
+
+      WxSizer.add(win, sizer, unquote(attributes))
+
+      Logger.debug("Window/2 -----------------------------------------------------")
+      win
+    end
+  end
+
+  defmacro scrolledWindow(attributes, do: block) do
+    quote do
+      Logger.debug("scrolledWindow/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
       Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
 
-      defaults = [style: nil, size: nil]
+      # to be done
+      defaults = []
+      {id, options, restOpts} = getOptions(unquote(attributes), defaults)
+
+      defaults = [scrollRate: nil]
       {id, options, restOpts} = getOptions(unquote(attributes), defaults)
 
       new_id = :wx_misc.newId()
 
       Logger.debug("  :wxWindow.new(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(options)}")
 
-      win = :wxWindow.new(parent, new_id, options)
+      # win = :wxWindow.new(parent, new_id, options)
+
+      win = :wxScrolledWindow.new(parent, [])
+      :wxScrolledWindow.setScrollRate(win, 5, 5)
 
       put_table({id, new_id, win})
 
-      Logger.debug("  stack_push({#{inspect(container)}, #{inspect(win)}, #{inspect(sizer)}})")
       stack_push({container, win, sizer})
       unquote(block)
       pop_stack(var!(stack, Dsl))
 
       WxSizer.addToSizer(win, sizer, restOpts)
-      Logger.debug("Window/2 -----------------------------------------------------")
+      Logger.debug("scrolledWindow/2 -----------------------------------------------------")
       win
     end
   end
@@ -166,6 +227,15 @@ defmodule WxDsl do
 
   @doc """
   Set the background colour for the enclosing control.
+
+  The colour may be either one of the defined colours in wxDefines.ex or a nummeric
+  RGB specification in the form {r, g, b}.
+
+  ```
+    bgColour(@wxSILVER)
+    bgColour({{192, 192, 192}})
+  ```
+
   """
   defmacro bgColour(colour) do
     quote do
@@ -400,11 +470,14 @@ defmodule WxDsl do
     end
   end
 
+  @doc """
+  Create a new box sizer.
+  """
   defmacro boxSizer(attributes, do: block) do
     quote do
       Logger.debug("Box Sizer ++++++++++++++++++++++++++++++++++++++++++++++++++")
       {container, parent, sizer} = stack_tos()
-      Logger.debug("tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
+      Logger.debug("   tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
 
       opts = get_opts_map(unquote(attributes))
 
@@ -1143,6 +1216,8 @@ defmodule WxDsl do
 
   defmacro stack_push(value) do
     quote do
+      {container, parent, sizer} = unquote(value)
+      Logger.debug("  stack_push({#{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}})")
       Agent.update(var!(stack, Dsl), fn stack -> [unquote(value) | stack] end)
     end
   end
@@ -1153,7 +1228,9 @@ defmodule WxDsl do
 
   defmacro stack_tos() do
     quote do
-      Agent.get(var!(stack, Dsl), &List.first(&1))
+      {container, parent, sizer} = Agent.get(var!(stack, Dsl), &List.first(&1))
+      Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
+      {container, parent, sizer}
     end
   end
 
@@ -1165,6 +1242,14 @@ defmodule WxDsl do
     {tos, rest} = Agent.get(stack, &List.pop_at(&1, 0))
     Agent.update(stack, fn _stack -> rest end)
     tos
+  end
+
+  defmacro pop_stack() do
+    quote do
+      {tos, rest} = Agent.get(var!(stack, Dsl), &List.pop_at(&1, 0))
+      Agent.update(var!(stack, Dsl), fn var!(stack, Dsl) -> rest end)
+      tos
+    end
   end
 
   def is_member(list, item) do

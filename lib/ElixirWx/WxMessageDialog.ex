@@ -3,7 +3,11 @@ defmodule WxMessageDialog do
   use WxDefines
 
   @moduledoc """
-  ## Create and optionally show a wxMxmessageDialog dialog pop-up window.
+  # One hash
+  ## Two hash
+  ### Three hash
+  #### Four hash
+  Create and optionally show a wxMxmessageDialog dialog pop-up window.
   Parameters:
     parent: The parent window or nil.
     message: The message to display in the dialog.
@@ -18,7 +22,6 @@ defmodule WxMessageDialog do
       (:ok, :no or :cancel) else the dialog object is returned.
   """
   def create(parent, message \\ "", options \\ []) do
-
     parent =
       case parent do
         nil -> :wx.null()

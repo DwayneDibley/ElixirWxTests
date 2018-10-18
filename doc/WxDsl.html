@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxDsl – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-1b574cb7da.js"></script>
+    <script src="dist/sidebar_items-b08346a404.js"></script>
     
   </head>
   <body data-type="modules">
@@ -23,7 +23,7 @@
 </button>
 <section class="sidebar">
 
-  <a href="api-reference.html" class="sidebar-projectLink">
+  <a href="readme.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
 wx_tests      </h1>
@@ -62,11 +62,7 @@ WxDsl              </h1>
 
 
         <section id="moduledoc">
-<h2 id="module-the-dsl-implementation" class="section-heading">
-  <a href="#module-the-dsl-implementation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  The DSL implementation
-</h2>
-
+<p>An implementation of a DSL for generating GUI’s</p>
         </section>
 
         <section id="summary" class="details-list">
@@ -86,6 +82,8 @@ WxDsl              </h1>
   <div class="summary-signature">
     <a href="#bgColour/1">bgColour(colour)</a>
   </div>
+    <div class="summary-synopsis"><p>Set the background colour for the enclosing control</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -119,17 +117,7 @@ WxDsl              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#end_info/1">end_info(state)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#end_stack/1">end_stack(stack)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#end_xref/1">end_xref(xref)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -173,32 +161,12 @@ The attributes consist of one of the following:
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_info/0">get_info()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get_info/2">get_info(state, key)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#get_opts_map/1">get_opts_map(opts)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#get_opts_map/2">get_opts_map(list, opts)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get_xref/0">get_xref()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get_xref/2">get_xref(xref, key)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -220,7 +188,7 @@ The attributes consist of one of the following:
   <div class="summary-signature">
     <a href="#mainWindow/2">mainWindow(attributes, list)</a>
   </div>
-    <div class="summary-synopsis"><pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span></code></pre>
+    <div class="summary-synopsis"><p>This is the top level window and should be the outer element of a window specification. This window performs the initialisation</p>
 </div>
 </div>
 <div class="summary-row">
@@ -245,17 +213,7 @@ The attributes consist of one of the following:
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#new_info/0">new_info()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#new_stack/0">new_stack()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#new_xref/0">new_xref()</a>
   </div>
 </div>
 <div class="summary-row">
@@ -275,27 +233,12 @@ The attributes consist of one of the following:
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#put_info/2">put_info(key, value)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#put_info/3">put_info(state, key, value)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#put_xref/2">put_xref(key, value)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#put_xref/3">put_xref(xref, key, value)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#replaceIfTrue/3">replaceIfTrue(originalValue, condition, newValue)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#scrolledWindow/2">scrolledWindow(attributes, list)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -377,11 +320,15 @@ The attributes consist of one of the following:
   <div class="summary-signature">
     <a href="#window/1">window(attributes)</a>
   </div>
+    <div class="summary-synopsis"><p>Add a window object</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#window/2">window(attributes, list)</a>
   </div>
+    <div class="summary-synopsis"><p>Create a new window</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -413,6 +360,11 @@ The attributes consist of one of the following:
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+<p>Set the background colour for the enclosing control.</p>
+<p>The colour may be either one of the defined colours in wxDefines.ex or a nummeric
+RGB specification in the form {r, g, b}.</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">bgColour</span><span class="p" data-group-id="3015785028-1">(</span><span class="na">@wxSILVER</span><span class="p" data-group-id="3015785028-1">)</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="3015785028-2">(</span><span class="p" data-group-id="3015785028-3">{</span><span class="p" data-group-id="3015785028-4">{</span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p" data-group-id="3015785028-4">}</span><span class="p" data-group-id="3015785028-3">}</span><span class="p" data-group-id="3015785028-2">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="border/1">
@@ -489,17 +441,6 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="end_info/1">
-    <div class="detail-header">
-    <a href="#end_info/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">end_info(state)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="end_stack/1">
     <div class="detail-header">
     <a href="#end_stack/1" class="detail-link" title="Link to this function">
@@ -507,17 +448,6 @@ The attributes consist of one of the following:
       <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">end_stack(stack)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="end_xref/1">
-    <div class="detail-header">
-    <a href="#end_xref/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">end_xref(xref)</span>
           </div>
   <section class="docstring">
   </section>
@@ -573,7 +503,7 @@ The attributes consist of one of the following:
 <p>Macro to set up the event connections for the window.
 The attributes consist of one of the following:
 {<event>: callback | nil, <option>: value, …}</p>
-<p>&lt;event may be one of:
+<p>event may be one of:
   :command_button_clicked
   :close_window
   :timeout                  # This is a function to be called repeatedly every</p>
@@ -617,30 +547,6 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="get_info/0">
-    <div class="detail-header">
-    <a href="#get_info/0" class="detail-link" title="Link to this macro">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this macro</span>
-    </a>
-    <span class="signature">get_info()</span>
-    
-      <span class="note">(macro)</span>
-      </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="get_info/2">
-    <div class="detail-header">
-    <a href="#get_info/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">get_info(state, key)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="get_opts_map/1">
     <div class="detail-header">
     <a href="#get_opts_map/1" class="detail-link" title="Link to this function">
@@ -659,30 +565,6 @@ The attributes consist of one of the following:
       <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">get_opts_map(list, opts)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="get_xref/0">
-    <div class="detail-header">
-    <a href="#get_xref/0" class="detail-link" title="Link to this macro">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this macro</span>
-    </a>
-    <span class="signature">get_xref()</span>
-    
-      <span class="note">(macro)</span>
-      </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="get_xref/2">
-    <div class="detail-header">
-    <a href="#get_xref/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">get_xref(xref, key)</span>
           </div>
   <section class="docstring">
   </section>
@@ -735,11 +617,40 @@ The attributes consist of one of the following:
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
-<pre><code class="nohighlight makeup elixir"><span class="nc">Performs</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">initialisation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">persistent</span><span class="w"> </span><span class="n">storage</span><span class="o">.</span><span class="w">
+<p>This is the top level window and should be the outer element of a window specification. This window performs the initialisation.</p>
+<table>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left">Parameter</th><th style="text-align: left">Description</th><th style="text-align: left">Value</th><th style="text-align: left">Default</th>
+</tr>
+</thead>
+<tr>
+<td style="text-align: left">name</td><td style="text-align: left">The name by which the window will be referred to.</td><td style="text-align: left">atom()</td><td style="text-align: left">modulename</td>
+</tr>
+<tr>
+<td style="text-align: left">show</td><td style="text-align: left">If set to true the window will be made visible when the construction is complete. If set to false, the window will be invisible until explicitly shown using :wxFrame.show(frame).</td><td style="text-align: left">Boolean()</td><td style="text-align: left">true</td>
+</tr>
+</table>
+<p>Example:</p>
+<pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">TestWindow</span><span class="w"> </span><span class="k" data-group-id="1456707103-1">do</span><span class="w">
+  </span><span class="kn">use</span><span class="w"> </span><span class="nc">WxDsl</span><span class="w">
+  </span><span class="kn">import</span><span class="w"> </span><span class="nc">WxDefines</span><span class="w">
 
-</span><span class="c1">## Parameters</span><span class="w">
-
-  </span><span class="o">-</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">represents</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">person</span><span class="o">.</span></code></pre>
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="1456707103-2">(</span><span class="n">show</span><span class="p" data-group-id="1456707103-2">)</span><span class="w"> </span><span class="k" data-group-id="1456707103-3">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="1456707103-4">do</span><span class="w">
+      </span><span class="c1"># Create a frame with a status bar and a menu.</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_frame</span><span class="p">,</span><span class="w">
+      </span><span class="n">...</span><span class="w">
+      </span><span class="n">...</span><span class="w">
+      </span><span class="k" data-group-id="1456707103-4">end</span><span class="w">
+    </span><span class="k" data-group-id="1456707103-3">end</span><span class="w">
+  </span><span class="k" data-group-id="1456707103-1">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="menu/2">
@@ -794,17 +705,6 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="new_info/0">
-    <div class="detail-header">
-    <a href="#new_info/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">new_info()</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="new_stack/0">
     <div class="detail-header">
     <a href="#new_stack/0" class="detail-link" title="Link to this function">
@@ -812,17 +712,6 @@ The attributes consist of one of the following:
       <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">new_stack()</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="new_xref/0">
-    <div class="detail-header">
-    <a href="#new_xref/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">new_xref()</span>
           </div>
   <section class="docstring">
   </section>
@@ -862,54 +751,6 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="put_info/2">
-    <div class="detail-header">
-    <a href="#put_info/2" class="detail-link" title="Link to this macro">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this macro</span>
-    </a>
-    <span class="signature">put_info(key, value)</span>
-    
-      <span class="note">(macro)</span>
-      </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="put_info/3">
-    <div class="detail-header">
-    <a href="#put_info/3" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">put_info(state, key, value)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="put_xref/2">
-    <div class="detail-header">
-    <a href="#put_xref/2" class="detail-link" title="Link to this macro">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this macro</span>
-    </a>
-    <span class="signature">put_xref(key, value)</span>
-    
-      <span class="note">(macro)</span>
-      </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="put_xref/3">
-    <div class="detail-header">
-    <a href="#put_xref/3" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">put_xref(xref, key, value)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="replaceIfTrue/3">
     <div class="detail-header">
     <a href="#replaceIfTrue/3" class="detail-link" title="Link to this function">
@@ -918,6 +759,19 @@ The attributes consist of one of the following:
     </a>
     <span class="signature">replaceIfTrue(originalValue, condition, newValue)</span>
           </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="scrolledWindow/2">
+    <div class="detail-header">
+    <a href="#scrolledWindow/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">scrolledWindow(attributes, list)</span>
+    
+      <span class="note">(macro)</span>
+      </div>
   <section class="docstring">
   </section>
 </div>
@@ -1117,6 +971,7 @@ The attributes consist of one of the following:
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+<p>Add a window object.</p>
   </section>
 </div>
 <div class="detail" id="window/2">
@@ -1130,6 +985,34 @@ The attributes consist of one of the following:
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+<p>Create a new window.</p>
+<table>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left">Parameter</th><th style="text-align: left">Description</th><th style="text-align: left">Value</th><th style="text-align: left">Default</th>
+</tr>
+</thead>
+<tr>
+<td style="text-align: left">style</td><td style="text-align: left">The window Style.</td><td style="text-align: left">atom()</td><td style="text-align: left">modulename</td>
+</tr>
+<tr>
+<td style="text-align: left">size</td><td style="text-align: left">The initial size of the window.</td><td style="text-align: left">atom()</td><td style="text-align: left">modulename</td>
+</tr>
+<tr>
+<td style="text-align: left">layout</td><td style="text-align: left">The window layout.</td><td style="text-align: left">Boolean()</td><td style="text-align: left">true</td>
+</tr>
+</table>
+<p>Example:</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">window</span><span class="p" data-group-id="4802871058-1">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4802871058-2">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="4802871058-2">}</span><span class="p">,</span><span class="w">
+      </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4802871058-3">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="4802871058-3">]</span><span class="p" data-group-id="4802871058-1">)</span><span class="w"> </span><span class="k" data-group-id="4802871058-4">do</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="4802871058-5">(</span><span class="na">@wxBLACK</span><span class="p" data-group-id="4802871058-5">)</span><span class="w">
+</span><span class="k" data-group-id="4802871058-4">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="xstaticBoxSizer/2">

@@ -4,7 +4,7 @@ defmodule BoxSizer do
   use WxDefines
 
   @moduledoc """
-  A demo of a simple tool bar.
+  Box sizer test.
   """
   def run() do
     Logger.info("Box_sizer Test Starting")

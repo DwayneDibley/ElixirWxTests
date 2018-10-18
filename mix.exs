@@ -8,7 +8,8 @@ defmodule WxTests.MixProject do
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       # escript: escript(),
-      deps: deps()
+      deps: deps(),
+      docs: docs()
     ]
   end
 
@@ -32,6 +33,73 @@ defmodule WxTests.MixProject do
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:elixirwx, git: "https://github.com/DwayneDibley/ElixirWx.git"},
       {:ex_doc, "~> 0.18"}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      # name: "My App",
+      extras: [
+        "README.md",
+        "CHANGELOG.md"
+      ],
+      # source_ref: "v#{@version}",
+      # source_url: "https://github.com/elixir-lang/ex_doc",
+      groups_for_modules: [
+        "ElixirWx API": [
+          WxDsl
+        ],
+        "ElixirWx Implementation": [
+          WxUtilities,
+          WinInfo,
+          LogFormatter
+        ],
+        "ElixirWx Tests": [
+          BoxSizer,
+          BoxSizerWindow,
+          DialogTest,
+          DialogTestCode,
+          DialogTestWindow,
+          EdgeAffinitySizer,
+          EdgeAffinitySizerWindow,
+          HorizontalSizer,
+          HorizontalSizerWindow,
+          MenuTest,
+          MenuTestWindow,
+          PanelBorderWindow,
+          PanelBorders,
+          SimpleFrame,
+          SimpleFrameWindow,
+          SizerCentering,
+          SizerCenteringWindow,
+          SizerMultiStretchable,
+          SizerMultiStretchableWindow,
+          SizerSpacer,
+          SizerSpacerWindow,
+          SizerStretchable,
+          SizerStretchableWindow,
+          SizerWeightedStretchable,
+          SizerWeightedStretchableWindow,
+          StaticBoxSizer,
+          StaticBoxSizerWindow,
+          Test,
+          TestCode,
+          TestWindow,
+          ToolBar,
+          ToolBarWindow,
+          VerticalSizer,
+          VerticalSizerWindow,
+          WxDefines,
+          WxEvents,
+          WxFunctions,
+          WxLayout,
+          WxMessageDialog,
+          WxMessageDialogTest,
+          WxSizer,
+          WxStatusBar
+        ]
+      ]
     ]
   end
 end

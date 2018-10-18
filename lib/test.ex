@@ -82,6 +82,9 @@ defmodule Test do
       :center ->
         spawn_link(fn -> SizerCentering.run() end)
 
+      :dialogs ->
+        spawn_link(fn -> DialogTest.run() end)
+
       :exit ->
         :closeWindow
 
