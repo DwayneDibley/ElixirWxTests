@@ -45,49 +45,43 @@ defmodule WxDsl do
     quote do
       Logger.debug("")
       Logger.debug("mainWindow +++++++++++++++++++++++++++++++++++++++++++++++++++++")
-      # initialise persitant storage
-      # {:ok, var!(stack, Dsl)} = new_stack()
-      # {:ok, var!(info, Dsl)} = new_info()
-      # {:ok, var!(xref, Dsl)} = new_xref()
 
       # Get the function attributes
       opts = get_opts_map(unquote(attributes))
 
-      # Create the windoe storage
-      # winInfo = :ets.new(__ENV__.module, [:set, :protected, :named_table])
+      # Create the window storage
       new_table()
-      put_table({:__main_thread__, -1, self()})
 
       # Create a new wxObject for the window
       wx = :wx.new()
-
-      # put it on the stack
-      stack_push({wx, nil, nil})
 
       # put_info( :window, wx)
       put_table({:window, -1, wx})
 
       # execute the function body
+      stack_push({wx, nil, nil})
       unquote(block)
+      stack_pop()
 
-      {container, parent, sizer} = stack_tos()
-      Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
+      # {container, parent, sizer} = stack_tos()
+      # Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
 
       # if show: true, show the window
       show = Map.get(opts, :show, true)
 
+      {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
+
       case show do
         [show: true] ->
-          Logger.debug(":wxWindow.show(#{inspect(container)}")
-          # :wxWindow.show(frame)
-          :wxFrame.show(container)
+          Logger.debug(":wxWindow.show(#{inspect(frame)}")
+          :wxFrame.show(frame)
 
         [show: false] ->
           nil
       end
 
-      display_table()
       Logger.debug("mainWindow -----------------------------------------------------")
+      display_table()
       Logger.debug("")
 
       # Loop despatching events as they arrive
@@ -117,10 +111,8 @@ defmodule WxDsl do
 
       Logger.debug("events: #{inspect(unquote(attributes))}")
 
-      window = __ENV__.module
-
-      # {_, _, parent} = WinInfo.get_by_name(:__main_frame__)
-      WxEvents.setEvents(window, container, unquote(attributes))
+      {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
+      WxEvents.setEvents(__ENV__.module, frame, unquote(attributes))
       Logger.debug("Events -----------------------------------------------------")
     end
   end
@@ -150,8 +142,6 @@ defmodule WxDsl do
       {container, parent, sizer} = stack_tos()
 
       {id, new_id, win} = WxWindow.new(parent, unquote(attributes))
-
-      # put_table({id, new_id, win})
 
       stack_push({container, win, sizer})
       unquote(block)
@@ -305,6 +295,8 @@ defmodule WxDsl do
       # put_xref(new_id, Map.get(args_dict, :id, nil))
 
       unquote(block)
+      # put_table({Map.get(args_dict, :id, nil), new_id, frame})
+      stack_pop()
       Logger.debug("Frame -----------------------------------------------------")
 
       frame

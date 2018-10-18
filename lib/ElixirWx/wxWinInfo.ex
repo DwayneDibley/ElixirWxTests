@@ -91,7 +91,7 @@ defmodule WinInfo do
     :ok
   end
 
-  def display_rows([h | t]) do
+  def display_rows([[h] | t]) do
     Logger.info("  #{inspect(h)}")
     display_rows(t)
   end
