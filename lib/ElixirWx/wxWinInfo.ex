@@ -5,7 +5,12 @@ defmodule WinInfo do
   A process wide table containing the window information
   """
   def new_table() do
-    :ets.new(table_name(), [:set, :protected, :named_table])
+    try do
+      :ets.new(table_name(), [:set, :protected, :named_table])
+    rescue
+      _ ->
+        Logger.warn("Attempt to create #{inspect(table_name())} failed: Table exists. ")
+    end
   end
 
   def put_table(value) do
@@ -93,5 +98,68 @@ defmodule WinInfo do
 
   def table_name() do
     String.to_atom("#{inspect(self())}")
+  end
+
+  @doc """
+    FIFO implemented using ETS storage.
+  """
+  def stack_push(value) do
+    stack = get_stack()
+
+    new_stack =
+      case stack do
+        [] ->
+          [value]
+
+        _ ->
+          [value | stack]
+      end
+
+    # Logger.info("insert = #{inspect(new_stack)}")
+    :ets.insert(table_name(), {:__stack__, new_stack})
+  end
+
+  def stack_tos() do
+    stack = get_stack()
+    # Logger.info("get tos = #{inspect(stack)}")
+
+    tos =
+      case stack do
+        nil ->
+          nil
+
+        [tos | _rest] ->
+          tos
+
+        [] ->
+          # Logger.info("get tos []")
+          nil
+      end
+
+    tos
+  end
+
+  def stack_pop() do
+    stack = get_stack()
+
+    {tos, rest} =
+      case stack do
+        nil -> {nil, []}
+        [] -> {nil, []}
+        [tos | rest] -> {tos, rest}
+      end
+
+    :ets.insert(table_name(), {:__stack__, rest})
+    tos
+  end
+
+  defp get_stack() do
+    res = :ets.lookup(table_name(), :__stack__)
+
+    # res =
+    case res do
+      [] -> []
+      _ -> res[:__stack__]
+    end
   end
 end

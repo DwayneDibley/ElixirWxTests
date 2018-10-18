@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxDsl – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-b08346a404.js"></script>
+    <script src="dist/sidebar_items-143c9278d1.js"></script>
     
   </head>
   <body data-type="modules">
@@ -92,13 +92,10 @@ WxDsl              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#bos_stack/1">bos_stack(stack)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#boxSizer/2">boxSizer(attributes, list)</a>
   </div>
+    <div class="summary-synopsis"><p>Create a new box sizer</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -108,11 +105,6 @@ WxDsl              </h1>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#button/2">button(attributes, list)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#dispatchEvent/2">dispatchEvent(event, eventList)</a>
   </div>
 </div>
 <div class="summary-row">
@@ -128,11 +120,6 @@ WxDsl              </h1>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#event/2">event(eventType, callBack)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#eventLoop/0">eventLoop()</a>
   </div>
 </div>
 <div class="summary-row">
@@ -223,7 +210,7 @@ The attributes consist of one of the following:
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#pop_stack/1">pop_stack(stack)</a>
+    <a href="#pop_stack/0">pop_stack()</a>
   </div>
 </div>
 <div class="summary-row">
@@ -313,11 +300,6 @@ The attributes consist of one of the following:
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#tos_stack/1">tos_stack(stack)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
     <a href="#window/1">window(attributes)</a>
   </div>
     <div class="summary-synopsis"><p>Add a window object</p>
@@ -363,8 +345,8 @@ The attributes consist of one of the following:
 <p>Set the background colour for the enclosing control.</p>
 <p>The colour may be either one of the defined colours in wxDefines.ex or a nummeric
 RGB specification in the form {r, g, b}.</p>
-<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">bgColour</span><span class="p" data-group-id="3015785028-1">(</span><span class="na">@wxSILVER</span><span class="p" data-group-id="3015785028-1">)</span><span class="w">
-  </span><span class="n">bgColour</span><span class="p" data-group-id="3015785028-2">(</span><span class="p" data-group-id="3015785028-3">{</span><span class="p" data-group-id="3015785028-4">{</span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p" data-group-id="3015785028-4">}</span><span class="p" data-group-id="3015785028-3">}</span><span class="p" data-group-id="3015785028-2">)</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">bgColour</span><span class="p" data-group-id="2738650303-1">(</span><span class="na">@wxSILVER</span><span class="p" data-group-id="2738650303-1">)</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="2738650303-2">(</span><span class="p" data-group-id="2738650303-3">{</span><span class="p" data-group-id="2738650303-4">{</span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p" data-group-id="2738650303-4">}</span><span class="p" data-group-id="2738650303-3">}</span><span class="p" data-group-id="2738650303-2">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="border/1">
@@ -380,17 +362,6 @@ RGB specification in the form {r, g, b}.</p>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="bos_stack/1">
-    <div class="detail-header">
-    <a href="#bos_stack/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">bos_stack(stack)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="boxSizer/2">
     <div class="detail-header">
     <a href="#boxSizer/2" class="detail-link" title="Link to this macro">
@@ -402,6 +373,7 @@ RGB specification in the form {r, g, b}.</p>
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+<p>Create a new box sizer.</p>
   </section>
 </div>
 <div class="detail" id="button/1">
@@ -427,17 +399,6 @@ RGB specification in the form {r, g, b}.</p>
     
       <span class="note">(macro)</span>
       </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="dispatchEvent/2">
-    <div class="detail-header">
-    <a href="#dispatchEvent/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">dispatchEvent(event, eventList)</span>
-          </div>
   <section class="docstring">
   </section>
 </div>
@@ -475,17 +436,6 @@ RGB specification in the form {r, g, b}.</p>
     
       <span class="note">(macro)</span>
       </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="eventLoop/0">
-    <div class="detail-header">
-    <a href="#eventLoop/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">eventLoop()</span>
-          </div>
   <section class="docstring">
   </section>
 </div>
@@ -638,19 +588,19 @@ The attributes consist of one of the following:
 </tr>
 </table>
 <p>Example:</p>
-<pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">TestWindow</span><span class="w"> </span><span class="k" data-group-id="1456707103-1">do</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">TestWindow</span><span class="w"> </span><span class="k" data-group-id="0176125716-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">WxDsl</span><span class="w">
   </span><span class="kn">import</span><span class="w"> </span><span class="nc">WxDefines</span><span class="w">
 
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="1456707103-2">(</span><span class="n">show</span><span class="p" data-group-id="1456707103-2">)</span><span class="w"> </span><span class="k" data-group-id="1456707103-3">do</span><span class="w">
-    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="1456707103-4">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="0176125716-2">(</span><span class="n">show</span><span class="p" data-group-id="0176125716-2">)</span><span class="w"> </span><span class="k" data-group-id="0176125716-3">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="0176125716-4">do</span><span class="w">
       </span><span class="c1"># Create a frame with a status bar and a menu.</span><span class="w">
       </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_frame</span><span class="p">,</span><span class="w">
       </span><span class="n">...</span><span class="w">
       </span><span class="n">...</span><span class="w">
-      </span><span class="k" data-group-id="1456707103-4">end</span><span class="w">
-    </span><span class="k" data-group-id="1456707103-3">end</span><span class="w">
-  </span><span class="k" data-group-id="1456707103-1">end</span></code></pre>
+      </span><span class="k" data-group-id="0176125716-4">end</span><span class="w">
+    </span><span class="k" data-group-id="0176125716-3">end</span><span class="w">
+  </span><span class="k" data-group-id="0176125716-1">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="menu/2">
@@ -729,14 +679,16 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="pop_stack/1">
+<div class="detail" id="pop_stack/0">
     <div class="detail-header">
-    <a href="#pop_stack/1" class="detail-link" title="Link to this function">
+    <a href="#pop_stack/0" class="detail-link" title="Link to this macro">
       <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
+      <span class="sr-only">Link to this macro</span>
     </a>
-    <span class="signature">pop_stack(stack)</span>
-          </div>
+    <span class="signature">pop_stack()</span>
+    
+      <span class="note">(macro)</span>
+      </div>
   <section class="docstring">
   </section>
 </div>
@@ -949,17 +901,6 @@ The attributes consist of one of the following:
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="tos_stack/1">
-    <div class="detail-header">
-    <a href="#tos_stack/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">tos_stack(stack)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
 <div class="detail" id="window/1">
     <div class="detail-header">
     <a href="#window/1" class="detail-link" title="Link to this macro">
@@ -995,7 +936,7 @@ The attributes consist of one of the following:
 </colgroup>
 <thead>
 <tr>
-<th style="text-align: left">Parameter</th><th style="text-align: left">Description</th><th style="text-align: left">Value</th><th style="text-align: left">Default</th>
+<th style="text-align: left">attributes</th><th style="text-align: left">Description</th><th style="text-align: left">Value</th><th style="text-align: left">Default</th>
 </tr>
 </thead>
 <tr>
@@ -1005,14 +946,14 @@ The attributes consist of one of the following:
 <td style="text-align: left">size</td><td style="text-align: left">The initial size of the window.</td><td style="text-align: left">atom()</td><td style="text-align: left">modulename</td>
 </tr>
 <tr>
-<td style="text-align: left">layout</td><td style="text-align: left">The window layout.</td><td style="text-align: left">Boolean()</td><td style="text-align: left">true</td>
+<td style="text-align: left">layout</td><td style="text-align: left">The window layout.</td><td style="text-align: left">list</td><td style="text-align: left">[]</td>
 </tr>
 </table>
 <p>Example:</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">window</span><span class="p" data-group-id="4802871058-1">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4802871058-2">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="4802871058-2">}</span><span class="p">,</span><span class="w">
-      </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="4802871058-3">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="4802871058-3">]</span><span class="p" data-group-id="4802871058-1">)</span><span class="w"> </span><span class="k" data-group-id="4802871058-4">do</span><span class="w">
-  </span><span class="n">bgColour</span><span class="p" data-group-id="4802871058-5">(</span><span class="na">@wxBLACK</span><span class="p" data-group-id="4802871058-5">)</span><span class="w">
-</span><span class="k" data-group-id="4802871058-4">end</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">window</span><span class="p" data-group-id="5051756153-1">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5051756153-2">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="5051756153-2">}</span><span class="p">,</span><span class="w">
+      </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="5051756153-3">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="5051756153-3">]</span><span class="p" data-group-id="5051756153-1">)</span><span class="w"> </span><span class="k" data-group-id="5051756153-4">do</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="5051756153-5">(</span><span class="na">@wxBLACK</span><span class="p" data-group-id="5051756153-5">)</span><span class="w">
+</span><span class="k" data-group-id="5051756153-4">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="xstaticBoxSizer/2">

@@ -1,5 +1,5 @@
 defmodule DialogTestCode do
-  import WxFunctions
+  # import WxFunctions
   require Logger
   use WxDefines
 
@@ -24,34 +24,34 @@ defmodule DialogTestCode do
     :wxScrolledWindow.setScrollRate(panel, 5, 5)
 
     # Setup sizers
-    mainsizer = :wxBoxsizer.new(@wxVERTICAL)
-    sizer = :wxStaticBoxsizer.new(@wxVERTICAL, panel, [{:label, "Dialogs"}])
+    # mainsizer = :wxBoxsizer.new(@wxVERTICAL)
+    # sizer = :wxStaticBoxsizer.new(@wxVERTICAL, panel, [{:label, "Dialogs"}])
 
-    buttons = [
-      :wxButton.new(panel, 1, [{:label, "wxDirDialog"}]),
-      :wxButton.new(panel, 2, [{:label, "wxFileDialog"}]),
-      :wxButton.new(panel, 3, [{:label, "wxColourDialog"}]),
-      :wxButton.new(panel, 4, [{:label, "wxMessageDialog"}]),
-      :wxButton.new(panel, 5, [{:label, "wxTextEntryDialog"}]),
-      :wxButton.new(panel, 6, [{:label, "wxSingleChoiceDialog"}]),
-      :wxButton.new(panel, 7, [{:label, "wxMultiChoiceDialog"}]),
-      :wxButton.new(panel, 10, [{:label, "wxFontDialog"}])
-    ]
+    #    buttons = [
+    #      :wxButton.new(panel, 1, [{:label, "wxDirDialog"}]),
+    #      :wxButton.new(panel, 2, [{:label, "wxFileDialog"}]),
+    #      :wxButton.new(panel, 3, [{:label, "wxColourDialog"}]),
+    #      :wxButton.new(panel, 4, [{:label, "wxMessageDialog"}]),
+    #      :wxButton.new(panel, 5, [{:label, "wxTextEntryDialog"}]),
+    #      :wxButton.new(panel, 6, [{:label, "wxSingleChoiceDialog"}]),
+    #      :wxButton.new(panel, 7, [{:label, "wxMultiChoiceDialog"}]),
+    #      :wxButton.new(panel, 10, [{:label, "wxFontDialog"}])
+    #    ]
 
-    choices = [
-      "Orange",
-      "Banana",
-      "Apple",
-      "Lemon",
-      "Pear",
-      "Carrot",
-      "Potato",
-      "Peach",
-      "Tomato",
-      "Grape",
-      "Pineapple",
-      "Blueberry"
-    ]
+    #    choices = [
+    #      "Orange",
+    #      "Banana",
+    #      "Apple",
+    #      "Lemon",
+    #      "Pear",
+    #      "Carrot",
+    #      "Potato",
+    #      "Peach",
+    #      "Tomato",
+    #      "Grape",
+    #      "Pineapple",
+    #      "Blueberry"
+    #    ]
 
     #    dialogs = [{wxDirDialog, [:panel, []]},
     # 	       {wxFileDialog, [:panel, []]},

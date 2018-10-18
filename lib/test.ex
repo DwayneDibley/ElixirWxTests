@@ -3,6 +3,8 @@ defmodule Test do
   require Logger
   use WxDefines
 
+  # import WinInfo
+
   @moduledoc """
   ```
   A demo of the WxWindows DSL for creating GUIs.
@@ -32,7 +34,7 @@ defmodule Test do
   @doc """
   Am menu item was selected
   """
-  def doMenuEvent(window, eventType, senderId, senderObj) do
+  def doMenuEvent(_window, _eventType, senderId, _senderObj) do
     #    Logger.info(
     #      "menu event: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
     #        inspect(senderObj)

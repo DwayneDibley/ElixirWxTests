@@ -4,6 +4,9 @@ defmodule WxWindow do
   import WxUtilities
   import WinInfo
 
+  @doc """
+  Get the window options and create a new window.
+  """
   def new(parent, attributes) do
     new_id = :wx_misc.newId()
 
