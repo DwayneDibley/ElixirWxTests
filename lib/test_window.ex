@@ -42,7 +42,7 @@ defmodule TestWindow do
             menuItem(id: :center, text: "&Centering test")
           end
 
-          menu id: :dialog_menu, text: "&Dialogss" do
+          menu id: :dialog_menu, text: "&Dialogs" do
             menuItem(id: :dialogs, text: "&Dialogs")
           end
 
@@ -53,7 +53,7 @@ defmodule TestWindow do
         end
 
         # Status bar
-        statusBar(title: "ElixirWx Menu Test")
+        statusBar(text: ["ElixirWx Menu Test", "Second text"])
 
         panel id: :main_panel do
           boxSizer id: :outer_sizer, orient: @wxHORIZONTAL do

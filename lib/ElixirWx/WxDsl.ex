@@ -921,48 +921,37 @@ defmodule WxDsl do
     end
   end
 
-  ## ---------------------------------------------------------------------------
-  ## Status Bar
-  ## ---------------------------------------------------------------------------
-  defmacro statusBar(attributes, do: block) do
-    quote do
-      Logger.debug("Status Bar +++++++++++++++++++++++++++++++++++++++++++++++++")
+  @doc """
+  Add a status bar to the enclosing frame.
 
-      Logger.debug("  Status bar with opts")
-      {container, parent, sizer} = stack_tos()
-      Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
+  | attributes | Description                                                  | Value     | Default                |
+  | ---------- | ------------------------------------------------------------ | --------- | ---------------------- |
+  | number     | The number of fields to create. Specify a value greater than 1 to create a multi-field status bar.| atom()    | modulename             |
+  | style       | The status bar style.                                       | integer() | 1             |
+  | text     | The initial status bar text                                    | string()
+                                                                                list of strings        | []                     |
 
-      new_id = :wx_misc.newId()
+  Example:
 
-      sb = :wxFrame.createStatusBar(parent)
-      Logger.debug("  :wxFrame.createStatusBar(#{inspect(parent)}) => #{inspect(sb)}")
-      do_status_bar_opts(parent, unquote(attributes))
-
-      Logger.debug("Status Bar -------------------------------------------------")
-      unquote(block)
-    end
-  end
-
+  ```
+  statusBar(title: "ElixirWx Menu Test")
+  ```
+  """
   defmacro statusBar(attributes) do
     quote do
       Logger.debug("Status Bar +++++++++++++++++++++++++++++++++++++++++++++++++")
       {container, parent, sizer} = stack_tos()
       Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
 
-      defaults = [id: :status_bar, number: nil, style: nil]
-      {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
-
-      new_id = :wx_misc.newId()
-      options = [{:id, new_id} | options]
-
-      Logger.debug("  :wxFrame.createStatusBar(#{inspect(parent)}, #{inspect(options)})")
-      sb = :wxFrame.createStatusBar(container, options)
+      {id, new_id, sb} = WxStatusBar.new(parent, unquote(attributes))
 
       put_table({id, new_id, sb})
 
       Logger.debug("Status Bar -------------------------------------------------")
     end
   end
+
+
 
   def setSbText(sb, text) when is_binary(text), do: :wxStatusBar.setStatusText(sb, text)
 
