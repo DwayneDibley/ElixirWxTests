@@ -61,40 +61,42 @@ defmodule TestWindow do
 
             boxSizer id: :main_sizer,
                      orient: @wxVERTICAL do
-              # spacer(space: 10)
+              spacer(space: 10)
 
               #  Button Test
-              # boxSizer id: :message_dialog_sizer,
-              #         orient: @wxHORIZONTAL do
-              layout = [proportion: 1, flag: @wxEXPAND]
-              button(id: :msg_dlg_test, label: "&Message Dialog", size: {120, 20}, layout: layout)
-              spacer(space: 10)
-              # staticText(id: :msg_dlg_st, text: "Test of message dialog.")
-              # end
+              boxSizer id: :message_dialog_sizer,
+                       orient: @wxHORIZONTAL do
+                layout = [proportion: 1, flag: @wxEXPAND]
+
+                button(id: :msg_dlg_test, label: "&Message Dialog", size: {120, 20})
+                spacer(space: 10)
+                # staticText(id: :msg_dlg_st, text: "Test of message dialog 2.")
+                staticText(id: :msg_dlg_st, text: "Test of message dialog.")
+              end
 
               #  Menu Demo
-              # boxSizer id: :menus_sizer,
-              #         orient: @wxHORIZONTAL do
-              button(id: :menu_test, label: "&Menu", size: {120, 20}, layout: layout)
-              #  spacer(space: 10)
-              #  staticText(id: :menu_test, text: "Test of various menus.")
-              # end
+              boxSizer id: :menus_sizer,
+                       orient: @wxHORIZONTAL do
+                button(id: :menu_test, label: "&Menu", size: {120, 20}, layout: layout)
+                spacer(space: 10)
+                staticText(id: :menu_test, text: "Test of various menus.")
+              end
 
               #  Test
-              # boxSizer id: :menus_sizer,
-              #         orient: @wxHORIZONTAL do
-              #  button(id: :test, label: "&test_code", size: {120, 20})
-              #  spacer(space: 10)
-              #  staticText(id: :menu_test, text: "Random test code.")
-              # end
+              boxSizer id: :menus_sizer,
+                       orient: @wxHORIZONTAL do
+                button(id: :test, label: "&test_code", size: {120, 20})
+                spacer(space: 10)
+                staticText(id: :menu_test, text: "Random test code.")
+              end
 
               # Exit
-              # boxSizer id: :exit_sizer,
-              #         orient: @wxHORIZONTAL do
-              #  button(id: :exit_btn, label: "&Exit", size: {120, 20})
-              #  spacer(space: 10)
-              #  staticText(id: :exit_op, text: "Exit the demo.")
-              # end
+              boxSizer id: :exit_sizer,
+                       orient: @wxHORIZONTAL do
+                button(id: :exit_btn, label: "&Exit", size: {120, 20})
+                spacer(space: 10)
+                staticText(id: :exit_op, text: "Exit the demo.")
+              end
             end
           end
         end

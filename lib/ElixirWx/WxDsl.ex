@@ -632,19 +632,17 @@ defmodule WxDsl do
       {container, parent, sizer} = stack_tos()
       Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
 
-      defaults = [size: {0, 0}, layout: []]
+      defaults = [space: 0, layout: []]
       {id, options, restOpts} = getOptions(unquote(attributes), defaults)
 
       new_id = :wx_misc.newId()
 
-      {w, h} = options[:size]
+      size = options[:space]
       layout = options[:layout]
 
-      Logger.debug(
-        "  :wxSizer.add(#{inspect(sizer)}, #{inspect(w)}, #{inspect(h)}, #{inspect(layout)}"
-      )
+      Logger.debug("  :wxSizer.add(#{inspect(sizer)}, #{inspect(size)}}")
 
-      :wxSizer.add(sizer, w, h, layout)
+      :wxSizer.addSpacer(sizer, size)
 
       Logger.debug("Spacer/1 -----------------------------------------------------")
     end
@@ -766,9 +764,7 @@ defmodule WxDsl do
       defaults = [id: :unknown, label: "??", size: nil]
       {id, options, errors} = WxUtilities.getOptions(unquote(attributes), defaults)
 
-      Logger.debug(
-        "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
-      )
+      Logger.debug("  :button.new(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(options)})")
 
       bt = :wxButton.new(parent, new_id, options)
 
@@ -798,7 +794,7 @@ defmodule WxDsl do
 
   defmacro button(attributes) do
     quote do
-      Logger.debug("Button +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      Logger.debug("Button/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
       {container, parent, sizer} = stack_tos()
       Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
@@ -827,7 +823,7 @@ defmodule WxDsl do
         "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
       )
 
-      bt = :wxButton.new(container, new_id, options)
+      bt = :wxButton.new(parent, new_id, options)
 
       case sizer do
         {:wx_ref, _, :wxBoxSizer, _} ->
@@ -845,7 +841,7 @@ defmodule WxDsl do
 
       put_table({id, new_id, bt})
 
-      Logger.debug("Button -----------------------------------------------------")
+      Logger.debug("Button/1 -----------------------------------------------------")
     end
   end
 
