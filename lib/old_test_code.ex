@@ -1,4 +1,4 @@
-defmodule TestCode do
+defmodule OldTestCode do
   # import WxFunctions
   require Logger
   use WxDefines
@@ -20,45 +20,71 @@ defmodule TestCode do
 
     # parent = proplists:get_value(parent, Config),
     frame = :wxFrame.new(wx, :wx_misc.newId(), [])
+
     panel = :wxPanel.new(frame, [])
-    :wxPanel.setBackgroundColour(panel, @wxYELLOW)
 
-    bs = :wxBoxSizer.new(@wxHORIZONTAL)
+    #   Setup sizers
+    mainSizer = :wxBoxSizer.new(@wxVERTICAL)
+    sizer = :wxStaticBoxSizer.new(@wxVERTICAL, panel, [{:label, "wxSizer"}])
 
-    st1 = :wxStaticText.new(panel, -1, "hello")
-    :wxBoxSizer.add(bs, st1, proportion: 1)
+    choices = [
+      "Vertical Example",
+      "Horizontal Example",
+      "Add A Strechable",
+      "More Than One Strechable",
+      "Weighting Factor",
+      "Edge Affinity",
+      "Spacer",
+      "Centering In Avalible Space",
+      "Simple border",
+      "East And West border",
+      "North And South border",
+      "Box In Box",
+      "Boxes Inside A border",
+      "border In A Box",
+      "Simple Grid",
+      "More Grid Features",
+      "Flexible Grid",
+      "Grid With Alignment",
+      "Proportional Resize With Alignments"
+    ]
 
-    st2 = :wxStaticText.new(panel, -1, "world")
-    :wxBoxSizer.add(bs, st2, proportion: 1)
+    listBox = :wxListBox.new(panel, @wxID_ANY, [{:choices, choices}])
+    #   wxListBox:connect(ListBox, command_listbox_doubleclicked),
 
-    :wxPanel.setSizer(panel, bs)
+    #  Add to sizers
+    :wxSizer.add(sizer, listBox, [{:flag, @wxEXPAND}])
+    :wxSizer.add(mainSizer, sizer, [{:flag, @wxEXPAND}, {:proportion, 1}])
+
+    :wxPanel.setSizer(panel, mainSizer)
+    #   {Panel, #state{parent=Panel, config=Config}}.
 
     :wxFrame.show(frame)
 
-    receive do
-    after
-      30000 -> nil
-    end
-  end
+    createExample(panel, "vertical", &vertical/1)
+    # createExample(panel, "horizontal", &horizontal/1)
+    # createExample(panel, "Add a strechable", &add_a_strechable/1)
+    # createExample(panel, "More than one strechable", &more_than_one_strechable/1)
+    # createExample(panel, "Weighting Factor", &weighting_factor/1)
+    #  createExample(panel, "Edge Affinity", &edge_affinity/1)
+    # createExample(panel, "Spacer", &spacer/1)
+    createExample(panel, "Centering in availabl space", &centering_in_avalible_space/1)
+    # createExample(panel, "Simple border", &simple_border/1)
+    # createExample(panel, "East and West border", &east_and_west_border/1)
+    # createExample(panel, "North and South border", &north_and_south_border/1)
+    # createExample(panel, "Box in Box", &box_in_box/1)
+    # createExample(panel, "Boxes inside a border", &boxes_inside_a_border/1)
+    # createExample(panel, "border in a box", &border_in_a_box/1)
+    # createExample(panel, "Simple Grid", &simple_grid/1)
+    # createExample(panel, "More Grid Features", &more_grid_features/1)
+    # createExample(panel, "Flexible Grid", &flexible_grid/1)
+    # createExample(panel, "Grid with alignment", &grid_with_alignment/1)
 
-  def xrun() do
-    wx = :wx.new()
-
-    # parent = proplists:get_value(parent, Config),
-    frame = :wxFrame.new(wx, :wx_misc.newId(), [])
-    panel = :wxPanel.new(frame, [])
-    # :wxPanel.setBackgroundColour(panel, {0, 0, 0})
-
-    st1 = :wxStaticText.new(panel, -1, "hello")
-    st2 = :wxStaticText.new(panel, -1, "world")
-
-    bs = :wxBoxSizer.new(@wxHORIZONTAL)
-    :wxBoxSizer.add(bs, st1, proportion: 1)
-    :wxBoxSizer.add(bs, st2, proportion: 1)
-
-    :wxPanel.setSizer(panel, bs)
-
-    :wxFrame.show(frame)
+    # createExample(
+    #  panel,
+    #  "Proportional resize with alignments",
+    #    &proportional_resize_with_alignments/1
+    # )
 
     receive do
     after

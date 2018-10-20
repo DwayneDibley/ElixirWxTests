@@ -81,6 +81,8 @@ defmodule WxDsl do
       display_table()
       Logger.debug("")
 
+      WxTopLevelWindow.setIcon(Map.get(opts, :icon, nil))
+
       # Loop despatching events as they arrive
       WxEvents.windowEventLoop(__ENV__.module)
     end
@@ -315,7 +317,7 @@ defmodule WxDsl do
       new_id = :wx_misc.newId()
 
       Logger.debug(
-        "panel: {container, parent, sizer} = #{inspect(parent)}, #{inspect(container)}})"
+        "  panel: {container, parent, sizer} = #{inspect(parent)}, #{inspect(container)}})"
       )
 
       args_dict = Enum.into(unquote(attributes), %{})
@@ -468,8 +470,11 @@ defmodule WxDsl do
       opts = get_opts_map(unquote(attributes))
 
       Logger.debug("  opts = #{inspect(opts)}")
-      Logger.debug("  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
       bs = :wxBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL))
+
+      Logger.debug(
+        "  :wxBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))}) => #{inspect(bs)}"
+      )
 
       # :wxSizer.insertSpacer(bs, 9999, 20)
 
@@ -477,22 +482,32 @@ defmodule WxDsl do
       unquote(block)
       stack_pop()
 
-      case parent do
+      case sizer do
+        {:wx_ref, _, :wxStaticBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(sizer)}, #{inspect(bs)}), []")
+          :wxBoxSizer.add(sizer, bs)
+
         {:wx_ref, _, :wxBoxSizer, _} ->
-          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(bs)}), []")
-          :wxBoxSizer.add(parent, bs)
+          Logger.debug("  :wxBoxSizer.add(#{inspect(sizer)}, #{inspect(bs)}), []")
+          :wxBoxSizer.add(sizer, bs)
 
-        {:wx_ref, _, :wxPanel, []} ->
-          Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(bs)})")
-          :wxPanel.setSizer(parent, bs)
+        nil ->
+          case parent do
+            {:wx_ref, _, :wxPanel, []} ->
+              Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(bs)})")
+              :wxPanel.setSizer(parent, bs)
 
-        {:wx_ref, _, :wxFrame, []} ->
-          Logger.debug("  :wxWindow.setSizer(#{inspect(parent)}, #{inspect(bs)})")
-          # :wxFrame.setSizerAndFit(parent, bs)
-          :wxWindow.setSizer(parent, bs)
+            {:wx_ref, _, :wxFrame, []} ->
+              Logger.debug("  :wxWindow.setSizer(#{inspect(parent)}, #{inspect(bs)})")
+              # :wxFrame.setSizerAndFit(parent, bs)
+              :wxWindow.setSizer(parent, bs)
+
+            other ->
+              Logger.error("  BoxSizer: No sizer and parent = #{inspect(parent)}")
+          end
 
         other ->
-          Logger.error("  BoxSizer: parent is #{inspect(parent)}")
+          Logger.error("  BoxSizer: sizer = #{inspect(sizer)}")
       end
 
       Logger.debug("boxSizer ---------------------------------------------------")
@@ -715,7 +730,7 @@ defmodule WxDsl do
         end)
 
       Logger.debug("  :wxStaticText.new(#{inspect(container)}, 1001, #{inspect(options)})")
-      st = :wxStaticText.new(container, new_id, Map.get(attrs, :text, "no text"), [])
+      st = :wxStaticText.new(parent, new_id, Map.get(attrs, :text, "no text"), [])
 
       case sizer do
         {:wx_ref, _, :wxBoxSizer, _} ->
@@ -755,7 +770,7 @@ defmodule WxDsl do
         "  :button.new(#{inspect(container)}, #{inspect(new_id)}, #{inspect(options)})"
       )
 
-      bt = :wxButton.new(container, new_id, options)
+      bt = :wxButton.new(parent, new_id, options)
 
       stack_push({container, bt, sizer})
       ret = unquote(block)
@@ -949,22 +964,6 @@ defmodule WxDsl do
 
       Logger.debug("Status Bar -------------------------------------------------")
     end
-  end
-
-
-
-  def setSbText(sb, text) when is_binary(text), do: :wxStatusBar.setStatusText(sb, text)
-
-  def setSbText(sb, text) when is_list(text) do
-    :wxStatusBar.setFieldsCount(sb, length(text))
-    setSbTextList(sb, text, 0)
-  end
-
-  def setSbTextList(_, [], _), do: :ok
-
-  def setSbTextList(sb, [h | t], n) do
-    :wxStatusBar.setStatusText(sb, h, [{:number, n}])
-    setSbTextList(sb, t, n + 1)
   end
 
   ## ----------------------------------------------------------------------------

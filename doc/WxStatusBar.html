@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxStatusBar – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-143c9278d1.js"></script>
+    <script src="dist/sidebar_items-ee2adf20d4.js"></script>
     
   </head>
   <body data-type="modules">
@@ -77,13 +77,21 @@ WxStatusBar              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#setText/1">setText(text)</a>
+    <a href="#new/2">new(parent, attributes)</a>
   </div>
+    <div class="summary-synopsis"><p>Create a new status bar and attach it to the main frame.
+If a :text option is supplied, set the text</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#setText/2">setText(sb, text)</a>
+    <a href="#setText/1">setText(text)</a>
   </div>
+    <div class="summary-synopsis"><p>Set the status bar text.
+If the suppied test is a string, then set it in the first field.
+If it is a list of strings, then set all fields, setting the number of fields
+to the length of the supplied list</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -104,6 +112,19 @@ WxStatusBar              </h1>
             </a>
             Functions
           </h1>
+<div class="detail" id="new/2">
+    <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new(parent, attributes)</span>
+          </div>
+  <section class="docstring">
+<p>Create a new status bar and attach it to the main frame.
+If a :text option is supplied, set the text.</p>
+  </section>
+</div>
 <div class="detail" id="setText/1">
     <div class="detail-header">
     <a href="#setText/1" class="detail-link" title="Link to this function">
@@ -113,17 +134,10 @@ WxStatusBar              </h1>
     <span class="signature">setText(text)</span>
           </div>
   <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="setText/2">
-    <div class="detail-header">
-    <a href="#setText/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">setText(sb, text)</span>
-          </div>
-  <section class="docstring">
+<p>Set the status bar text.
+If the suppied test is a string, then set it in the first field.
+If it is a list of strings, then set all fields, setting the number of fields
+to the length of the supplied list</p>
   </section>
 </div>
 <div class="detail" id="setTextList/3">

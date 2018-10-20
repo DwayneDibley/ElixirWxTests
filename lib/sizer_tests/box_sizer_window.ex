@@ -9,15 +9,13 @@ defmodule BoxSizerWindow do
             size: {350, 250},
             pos: {300, 250} do
         panel id: :main_panel do
-          boxSizer id: :outer_sizer, orient: @wxHORIZONTAL, border: @wxALL do
-            # border(size: 20, flags: wxEXPAND | wxALL)
-            button(id: :button1, label: "&Button 1")
-            button(id: :button2, label: "&Button 2")
-            button(id: :button3, label: "&Button 3")
+          boxSizer id: :outer_sizer, orient: @wxHORIZONTAL do
+            staticText(text: "hello")
+            staticText(text: "world")
           end
         end
 
-        statusBar(text: "ElixirWx Box Sizer test")
+        # statusBar(text: "ElixirWx Box Sizer test")
       end
 
       events(

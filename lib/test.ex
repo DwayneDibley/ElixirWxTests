@@ -26,6 +26,8 @@ defmodule Test do
       e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
     end
 
+    Logger.info("#{inspect(__ENV__.file)}")
+
     # We break out of the loop when the exit button is pressed.
     Logger.info("ElixirWx Test Exiting")
     {:ok, self()}

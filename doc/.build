@@ -4,12 +4,13 @@ fonts/icomoon.eot
 fonts/icomoon.svg
 fonts/icomoon.ttf
 fonts/icomoon.woff
-dist/sidebar_items-143c9278d1.js
+dist/sidebar_items-ee2adf20d4.js
 api-reference.html
 readme.html
 changelog.html
 search.html
 404.html
+WxTopLevelWindow.html
 WxWindow.html
 WxDsl.html
 LogFormatter.html

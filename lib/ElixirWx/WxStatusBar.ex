@@ -1,11 +1,11 @@
 defmodule WxStatusBar do
-
   import WxUtilities
   import WinInfo
-require Logger
+  require Logger
 
   @doc """
   Create a new status bar and attach it to the main frame.
+  If a :text option is supplied, set the text.
   """
   def new(parent, attributes) do
     new_id = :wx_misc.newId()
@@ -30,10 +30,16 @@ require Logger
     {id, new_id, sb}
   end
 
+  @doc """
+  Set the status bar text.
+  If the suppied test is a string, then set it in the first field.
+  If it is a list of strings, then set all fields, setting the number of fields
+  to the length of the supplied list
+  """
   def setText(text) when is_binary(text) do
-   {_, _, sb} = WinInfo.get_by_name(:status_bar)
-   :wxStatusBar.setStatusText(sb, text)
- end
+    {_, _, sb} = WinInfo.get_by_name(:status_bar)
+    :wxStatusBar.setStatusText(sb, text)
+  end
 
   def setText(text) when is_list(text) do
     {_, _, sb} = WinInfo.get_by_name(:status_bar)
@@ -47,6 +53,4 @@ require Logger
     :wxStatusBar.setStatusText(sb, h, [{:number, n}])
     setTextList(sb, t, n + 1)
   end
-
-
 end

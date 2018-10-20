@@ -25,7 +25,7 @@ defmodule WxFunctions do
         :wxWindow.destroy(frame)
     end
 
-    #{_, _, mainThread} = WinInfo.get_by_name(:__main_thread__)
+    # {_, _, mainThread} = WinInfo.get_by_name(:__main_thread__)
 
     send(self(), {WindowExit, windowName})
   end
@@ -122,5 +122,13 @@ defmodule WxFunctions do
     case ctrl do
       {_, _, :wxStaticText, _} -> :wxStaticText.setLabel(ctrl, text)
     end
+  end
+
+  @doc """
+  Find the application directory. This is expected to be the directory
+  containing the last lib directory in the path.
+  """
+  def findApplicationDir() do
+    here = __ENV__.file
   end
 end
