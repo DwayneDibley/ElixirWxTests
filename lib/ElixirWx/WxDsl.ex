@@ -632,17 +632,43 @@ defmodule WxDsl do
       {container, parent, sizer} = stack_tos()
       Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
 
-      defaults = [space: 0, layout: []]
+      defaults = [space: nil, size: nil, layout: []]
       {id, options, restOpts} = getOptions(unquote(attributes), defaults)
 
       new_id = :wx_misc.newId()
 
-      size = options[:space]
+      space = options[:space]
+      size = options[:size]
       layout = options[:layout]
 
-      Logger.debug("  :wxSizer.add(#{inspect(sizer)}, #{inspect(size)}}")
+      case space do
+        nil ->
+          case size do
+            nil ->
+              Logger.error("spacer: Either space: or size must be supplied!")
 
-      :wxSizer.addSpacer(sizer, size)
+            {w, h} ->
+              Logger.debug(
+                "  :wxSizer.add(#{inspect(sizer)}, #{inspect(w)}, #{inspect(h)},  #{
+                  inspect(layout)
+                }}}"
+              )
+
+              :wxSizer.add(sizer, w, h, layout)
+
+            other ->
+              Logger.error(
+                "spacer: Expected {w,h} for the :size parameter, got #{inspect(other)}"
+              )
+          end
+
+        space ->
+          Logger.debug("  :wxSizer.add(#{inspect(sizer)}, #{inspect(space)}}}")
+          :wxSizer.addSpacer(sizer, space)
+      end
+
+      # :wxSizer.addSpacer(sizer, space)
+      # :wxSizer.add(sizer, w, h, layout)
 
       Logger.debug("Spacer/1 -----------------------------------------------------")
     end
