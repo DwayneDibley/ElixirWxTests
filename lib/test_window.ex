@@ -17,15 +17,25 @@ defmodule TestWindow do
             menuItem(id: :exit, text: "&Exit")
           end
 
-          # Simple test menu
-          menu id: :simple_menu, text: "&Simple" do
-            menuItem(id: :simple_frame, text: "&Simple Frame")
-            menuItem(id: :tool_bar, text: "&Tool Bar")
+          # Random code test menu
+          menu id: :code_menu, text: "&Code" do
+            menuItem(id: :test_code, text: "&Test Code")
+          end
+
+          menu id: :dialog_menu, text: "&Dialogs" do
+            menuItem(id: :dialogs, text: "&Dialogs")
           end
 
           # Panel test menu
           menu id: :panel_menu, text: "&Panels" do
             menuItem(id: :panel_borders, text: "&Panel Borders")
+          end
+
+          # Simple test menu
+          menu id: :simple_menu, text: "&Simple" do
+            menuItem(id: :simple_frame, text: "&Simple Frame")
+            menuItem(id: :tool_bar, text: "&Tool Bar")
+            menuItem(id: :button, text: "&Button")
           end
 
           # Sizer test menu
@@ -41,15 +51,6 @@ defmodule TestWindow do
             menuItem(id: :spacer, text: "&Spacer test")
             menuItem(id: :center, text: "&Centering test")
           end
-
-          menu id: :dialog_menu, text: "&Dialogs" do
-            menuItem(id: :dialogs, text: "&Dialogs")
-          end
-
-          # Random code test menu
-          menu id: :code_menu, text: "&Code" do
-            menuItem(id: :test_code, text: "&Test Code")
-          end
         end
 
         # Status bar
@@ -63,7 +64,7 @@ defmodule TestWindow do
                      orient: @wxVERTICAL do
               spacer(space: 10)
 
-              #  Button Test
+              #  Dialog Test
               boxSizer id: :message_dialog_sizer,
                        orient: @wxHORIZONTAL do
                 layout = [proportion: 1, flag: @wxEXPAND]
@@ -74,29 +75,29 @@ defmodule TestWindow do
                 staticText(id: :msg_dlg_st, text: "Test of message dialog.")
               end
 
-              #  Menu Demo
-              boxSizer id: :menus_sizer,
-                       orient: @wxHORIZONTAL do
-                button(id: :menu_test, label: "&Menu", size: {120, 20}, layout: layout)
-                spacer(space: 10)
-                staticText(id: :menu_test, text: "Test of various menus.")
-              end
+              #              #  Menu Demo
+              #              boxSizer id: :menus_sizer,
+              #                       orient: @wxHORIZONTAL do
+              #                button(id: :menu_test, label: "&Menu", size: {120, 20}, layout: layout)
+              #                spacer(space: 10)
+              #                staticText(id: :menu_test, text: "Test of various menus.")
+              #              end
 
               #  Test
-              boxSizer id: :menus_sizer,
-                       orient: @wxHORIZONTAL do
-                button(id: :test, label: "&test_code", size: {120, 20})
-                spacer(space: 10)
-                staticText(id: :menu_test, text: "Random test code.")
-              end
+              #              boxSizer id: :menus_sizer,
+              #                       orient: @wxHORIZONTAL do
+              #                button(id: :test, label: "&test_code", size: {120, 20})
+              #                spacer(space: 10)
+              #                staticText(id: :menu_test, text: "Random test code.")
+              #              end
 
               # Exit
-              boxSizer id: :exit_sizer,
-                       orient: @wxHORIZONTAL do
-                button(id: :exit_btn, label: "&Exit", size: {120, 20})
-                spacer(space: 10)
-                staticText(id: :exit_op, text: "Exit the demo.")
-              end
+              #              boxSizer id: :exit_sizer,
+              #                       orient: @wxHORIZONTAL do
+              #                button(id: :exit_btn, label: "&Exit", size: {120, 20})
+              #                spacer(space: 10)
+              #                staticText(id: :exit_op, text: "Exit the demo.")
+              #              end
             end
           end
         end

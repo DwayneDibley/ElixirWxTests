@@ -89,6 +89,9 @@ defmodule Test do
       :dialogs ->
         spawn_link(fn -> DialogTest.run() end)
 
+      :button ->
+        spawn_link(fn -> ButtonTest.run() end)
+
       :exit ->
         :closeWindow
 

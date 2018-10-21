@@ -1,0 +1,2 @@
+defmodule HtmlWindow do
+end
