@@ -92,6 +92,9 @@ defmodule Test do
       :button ->
         spawn_link(fn -> ButtonTest.run() end)
 
+      :code_window ->
+        spawn_link(fn -> CodeWindow.run() end)
+
       :exit ->
         :closeWindow
 

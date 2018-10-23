@@ -176,6 +176,96 @@ defmodule WxDsl do
     end
   end
 
+  defmacro htmlWindow(attributes) do
+    quote do
+      Logger.debug("htmlWindow/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
+      Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
+
+      defaults = [style: nil, size: nil]
+      {id, options, restOpts} = getOptions(unquote(attributes), defaults)
+
+      new_id = :wx_misc.newId()
+
+      Logger.debug(
+        "  :wxHtmlWindow.new(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(options)}"
+      )
+
+      win = :wxHtmlWindow.new(parent, new_id, options)
+
+      put_table({id, new_id, win})
+
+      WxSizer.addToSizer(win, sizer, restOpts)
+      Logger.debug("htmlWindow/1 -----------------------------------------------------")
+      win
+    end
+  end
+
+  defmacro htmlWindow(attributes, do: block) do
+    quote do
+      Logger.debug("htmlWindow/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
+
+      {id, new_id, win} = WxHtmlWindow.new(parent, unquote(attributes))
+
+      stack_push({container, win, sizer})
+      unquote(block)
+      stack_pop()
+
+      WxSizer.add(win, sizer, unquote(attributes))
+
+      Logger.debug("htmlWindow/2 -----------------------------------------------------")
+      win
+    end
+  end
+
+  defmacro codeWindow(attributes) do
+    quote do
+      Logger.debug("codeWindow/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
+      Logger.debug("  tos = {#{inspect(parent)}, #{inspect(container)}, #{inspect(sizer)}}")
+
+      defaults = [style: nil, size: nil]
+      {id, options, restOpts} = getOptions(unquote(attributes), defaults)
+
+      new_id = :wx_misc.newId()
+
+      Logger.debug(
+        "  :wxHtmlWindow.new(#{inspect(parent)}, #{inspect(new_id)}, #{inspect(options)}"
+      )
+
+      win = :wxHtmlWindow.new(parent, new_id, options)
+
+      put_table({id, new_id, win})
+
+      WxSizer.addToSizer(win, sizer, restOpts)
+      Logger.debug("codeWindow/1 -----------------------------------------------------")
+      win
+    end
+  end
+
+  defmacro codeWindow(attributes, do: block) do
+    quote do
+      Logger.debug("codeWindow/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
+
+      {id, new_id, win} = WxCodeWindow.new(parent, unquote(attributes))
+
+      stack_push({container, win, sizer})
+      unquote(block)
+      stack_pop()
+
+      WxSizer.add(win, sizer, unquote(attributes))
+
+      Logger.debug("codeWindow/2 -----------------------------------------------------")
+      win
+    end
+  end
+
   defmacro scrolledWindow(attributes, do: block) do
     quote do
       Logger.debug("scrolledWindow/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -666,9 +756,6 @@ defmodule WxDsl do
           Logger.debug("  :wxSizer.add(#{inspect(sizer)}, #{inspect(space)}}}")
           :wxSizer.addSpacer(sizer, space)
       end
-
-      # :wxSizer.addSpacer(sizer, space)
-      # :wxSizer.add(sizer, w, h, layout)
 
       Logger.debug("Spacer/1 -----------------------------------------------------")
     end

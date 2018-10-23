@@ -128,7 +128,4 @@ defmodule WxFunctions do
   Find the application directory. This is expected to be the directory
   containing the last lib directory in the path.
   """
-  def findApplicationDir() do
-    here = __ENV__.file
-  end
 end

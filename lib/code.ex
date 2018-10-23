@@ -1,4 +1,4 @@
-defmodule Code do
+defmodule CodeWindow do
   import WxFunctions
   require Logger
   use WxDefines
@@ -17,11 +17,9 @@ defmodule Code do
   Then loop waiting for events.
 
   """
-  def start(_a, _b) do
-    System.put_env("WX_APP_TITLE", "ElixirWx Test")
-
+  def run() do
     try do
-      _window = TestWindow.createWindow(show: true)
+      _window = CodeWindowWindow.createWindow(show: true)
     rescue
       e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
     end

@@ -20,6 +20,7 @@ defmodule TestWindow do
           # Random code test menu
           menu id: :code_menu, text: "&Code" do
             menuItem(id: :test_code, text: "&Test Code")
+            menuItem(id: :code_window, text: "&Test Code Window")
           end
 
           menu id: :dialog_menu, text: "&Dialogs" do
