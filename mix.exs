@@ -9,13 +9,14 @@ defmodule WxTests.MixProject do
       start_permanent: Mix.env() == :prod,
       # escript: escript(),
       deps: deps(),
+      escript: escript(),
       docs: docs()
     ]
   end
 
   # Must be added.
   def escript do
-    [main_module: Demo]
+    [main_module: Test]
   end
 
   # Run "mix help compile.app" to learn about applications.

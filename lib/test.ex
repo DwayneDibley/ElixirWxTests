@@ -17,6 +17,23 @@ defmodule Test do
   Then loop waiting for events.
 
   """
+
+  def main(args) do
+    System.put_env("WX_APP_TITLE", "ElixirWx Test")
+
+    try do
+      _window = TestWindow.createWindow(show: true)
+    rescue
+      e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
+    end
+
+    Logger.info("#{inspect(__ENV__.file)}")
+
+    # We break out of the loop when the exit button is pressed.
+    Logger.info("ElixirWx Test Exiting")
+    {:ok, self()}
+  end
+
   def start(_a, _b) do
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
 
