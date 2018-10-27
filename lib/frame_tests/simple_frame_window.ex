@@ -3,7 +3,7 @@ defmodule SimpleFrameWindow do
   import WxDefines
 
   def createWindow(show) do
-    mainWindow name: :simple_frame_window, show: show do
+    mainWindow name: :simple_frame_window, show: show, setFocus: true do
       # Create a simple frame.
       frame id: :main_frame,
             title: "Simple frame",

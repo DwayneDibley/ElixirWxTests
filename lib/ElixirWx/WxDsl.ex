@@ -44,10 +44,15 @@ defmodule WxDsl do
   defmacro mainWindow(attributes, do: block) do
     quote do
       Logger.debug("")
-      Logger.debug("mainWindow +++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
+      Logger.debug(
+        "mainWindow #{inspect(self())} +++++++++++++++++++++++++++++++++++++++++++++++++++++"
+      )
+
+      Logger.info("WxDsl.mainWindow(#{inspect(unquote(attributes))})")
       # Get the function attributes
       opts = get_opts_map(unquote(attributes))
+      Logger.info("main windows options = #{inspect(unquote(attributes))}")
 
       # Create the window storage
       new_table()
@@ -65,6 +70,8 @@ defmodule WxDsl do
 
       # if show: true, show the window
       show = Map.get(opts, :show, true)
+      focus = Map.get(opts, :setFocus, false)
+      parent = Map.get(opts, :parent, nil)
 
       {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
 
@@ -77,14 +84,31 @@ defmodule WxDsl do
           nil
       end
 
+      # case focus do
+      #  true -> :wxWindow.setFocus(frame)
+      #  false -> nil
+      # end
+
       Logger.debug("mainWindow -----------------------------------------------------")
       display_table()
       Logger.debug("")
 
       WxTopLevelWindow.setIcon(Map.get(opts, :icon, nil))
 
+      # case parent do
+      #  nil -> nil
+      #  parent -> send(parent, {:window_open, __ENV__.module, self()})
+      # end
+
       # Loop despatching events as they arrive
-      WxEvents.windowEventLoop(__ENV__.module)
+      # WxEvents.windowEventLoop(__ENV__.module)
+
+      # case parent do
+      #  nil -> nil
+      #  parent -> send(parent, {:window_closed, __ENV__.module, self()})
+      # end
+
+      table_name()
     end
   end
 

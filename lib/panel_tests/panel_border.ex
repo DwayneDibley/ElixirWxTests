@@ -9,6 +9,7 @@ defmodule PanelBorders do
   def run() do
     Logger.info("Panel Border Test Starting")
 
+    Process.spawn(CodeWindow, :run, ["lib/panel_tests/panel_border_window.ex"], [])
     PanelBorderWindow.createWindow(show: true)
 
     # We break out of the loop when the exit button is pressed.

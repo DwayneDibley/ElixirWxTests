@@ -90,7 +90,12 @@ defmodule WxEvents do
   end
 
   defp dispatchEvent(_window, _events, event) do
-    # Logger.info("Unexpected event: #{inspect(event)}")
+    Logger.info("Unexpected event: #{inspect(event)}, I am: #{inspect(self())}")
+    # name = WinInfo.get_object_name(id)
+  end
+
+  defp dispatchEvent(event) do
+    Logger.info("Unexpected event: #{inspect(event)}, I am: #{inspect(self())}")
     # name = WinInfo.get_object_name(id)
   end
 

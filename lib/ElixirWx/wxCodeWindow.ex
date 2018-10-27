@@ -8,6 +8,7 @@ defmodule WxCodeWindow do
   Get the window options and create a new window.
   """
   def new(parent, attributes) do
+    Logger.info("WxCodeWindow.new(#{inspect(parent)}, #{inspect(attributes)})")
     new_id = :wx_misc.newId()
 
     defaults = [id: "_no_id_#{inspect(new_id)}", style: nil, size: nil]
@@ -35,9 +36,13 @@ defmodule WxCodeWindow do
         end
 
       file ->
-        html = ElixirToHtml.fileToHtml(file)
-        :wxHtmlWindow.setPage(win, html)
-        # loadFile(win, file)
+        case ElixirToHtml.fileToHtml(file) do
+          {:error, why} ->
+            :wxHtmlWindow.setPage(win, "WxCodeWindow: #{why}")
+
+          html ->
+            :wxHtmlWindow.setPage(win, html)
+        end
     end
 
     {id, new_id, win}

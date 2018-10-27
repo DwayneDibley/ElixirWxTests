@@ -9,8 +9,7 @@ defmodule WxFunctions do
 
   @doc """
   Finction called to close and destroy the current window. This may be called from
-  an event callback. Send a WindowExit event to the __main__thread__
-  PID.
+  an event callback.
   """
   def closeWindow(windowName) do
     Logger.debug("closeWindow(#{inspect(windowName)})")
@@ -24,8 +23,6 @@ defmodule WxFunctions do
         :wxEvtHandler.disconnect(frame)
         :wxWindow.destroy(frame)
     end
-
-    # {_, _, mainThread} = WinInfo.get_by_name(:__main_thread__)
 
     send(self(), {WindowExit, windowName})
   end

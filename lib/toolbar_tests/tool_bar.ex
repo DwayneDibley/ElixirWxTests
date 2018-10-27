@@ -9,6 +9,8 @@ defmodule ToolBar do
   def run() do
     Logger.info("Tool Bar Test Starting")
 
+    # spawn_link(fn -> CodeWindow.run("lib/toolbar_tests/tool_bar_window.ex") end)
+    Process.spawn(CodeWindow, :run, ["lib/toolbar_tests/tool_bar_window.ex"], [:monitor])
     ToolBarWindow.createWindow(show: true)
 
     # We break out of the loop when the exit button is pressed.

@@ -32,6 +32,7 @@ defmodule ElixirToHtml do
   def fileToHtml(inputFile) do
     case getFiles(inputFile) do
       {:error, why} -> IO.puts(why)
+      "Error: #{why}"
       {:ok, inputFile, _outputFile} -> parse(inputFile, :text)
     end
   end

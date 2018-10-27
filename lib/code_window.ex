@@ -2,12 +2,12 @@ defmodule CodeWindowWindow do
   use WxDsl
   import WxDefines
 
-  def createWindow(show) do
-    mainWindow name: :code_window, show: show do
+  def createWindow(fileName, show, parent \\ nil) do
+    mainWindow name: :code_window, show: show, parent: parent do
       frame id: :str_sz_frame,
-            title: "Code Window Test",
+            title: "File: #{fileName}",
             size: {700, 500},
-            pos: {300, 250} do
+            pos: {560, 250} do
         panel id: :main_panel do
           boxSizer orient: @wxHORIZONTAL do
             # Definition of the layout flags to eliminate repetition.
@@ -23,7 +23,7 @@ defmodule CodeWindowWindow do
 
             codeWindow(
               id: :html_window,
-              file: __ENV__.file,
+              file: fileName,
               style: @wxBORDER_SIMPLE,
               size: {50, 25},
               layout: [proportion: 1, flag: @wxEXPAND]

@@ -19,35 +19,58 @@ defmodule Test do
   """
 
   def main(args) do
+    start(1, 2)
+    # System.put_env("WX_APP_TITLE", "ElixirWx Test")
+    #
+    # Logger.info("main")
+    # {:ok, window} = WxWindowObject.start_link(TestWindow, TestHandler, true)
+    # WxWindowObject.show(window)
+    #
+    # # try do
+    # #  _window = TestWindow.createWindow(show: true)
+    # # rescue
+    # #  e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
+    # # end
+    #
+    # Logger.info("#{inspect(__ENV__.file)}")
+    #
+    # # We break out of the loop when the exit button is pressed.
+    # Logger.info("ElixirWx Test Exiting")
+    # {:ok, self()}
+  end
+
+  def start(_a, _b) do
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
+    Logger.info("start")
 
-    try do
-      _window = TestWindow.createWindow(show: true)
-    rescue
-      e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
-    end
+    testWindow =
+      case WxWindowObject.start_link(TestWindow, TestHandler, false) do
+        {:ok, window} ->
+          window
 
-    Logger.info("#{inspect(__ENV__.file)}")
+        {:error, reason} ->
+          Logger.error("Cannot create window> #{inspect(reason)}")
+          :err
+      end
+
+    WxWindowObject.show(testWindow, true)
+
+    # Wait for the window to exit...
+    waitForWindow()
 
     # We break out of the loop when the exit button is pressed.
     Logger.info("ElixirWx Test Exiting")
     {:ok, self()}
   end
 
-  def start(_a, _b) do
-    System.put_env("WX_APP_TITLE", "ElixirWx Test")
-
-    try do
-      _window = TestWindow.createWindow(show: true)
-    rescue
-      e in RuntimeError -> Logger.error("Exiting main loop: #{inspect(e)}")
+  def waitForWindow() do
+    receive do
+      msg -> Logger.info("Received: #{inspect(msg)}")
+    after
+      1000 ->
+        nil
+        waitForWindow()
     end
-
-    Logger.info("#{inspect(__ENV__.file)}")
-
-    # We break out of the loop when the exit button is pressed.
-    Logger.info("ElixirWx Test Exiting")
-    {:ok, self()}
   end
 
   @doc """
@@ -110,7 +133,7 @@ defmodule Test do
         spawn_link(fn -> ButtonTest.run() end)
 
       :code_window ->
-        spawn_link(fn -> CodeWindow.run() end)
+        spawn_link(fn -> CodeWindow.run(__ENV__.file) end)
 
       :exit ->
         :closeWindow
@@ -121,11 +144,7 @@ defmodule Test do
   end
 
   def commandMenu(window, eventType, senderId, senderObj) do
-    Logger.info(
-      "menu event xxx: #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)}, #{
-        inspect(senderObj)
-      }"
-    )
+    Logger.info("menu event: #{inspect(window)}, #{inspect(eventType)}}")
   end
 
   def commandButton(TestWindow, :command_button_clicked, :msg_dlg_test, _senderObj) do

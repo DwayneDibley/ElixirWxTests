@@ -17,6 +17,9 @@ defmodule WinInfo do
     :ets.insert_new(table_name(), value)
   end
 
+  @doc """
+  Given am atom, get the info for the object.
+  """
   def get_by_name(name) do
     # display_table()
     res = :ets.lookup(table_name(), name)
@@ -30,6 +33,9 @@ defmodule WinInfo do
     {name, id, obj}
   end
 
+  @doc """
+  Given a numeric ID, get the info for the object.
+  """
   def get_by_id(id) do
     res = :ets.match_object(table_name(), {:_, id, :_})
 
