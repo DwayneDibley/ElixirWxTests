@@ -5,12 +5,38 @@ defmodule WxWindowObject do
 
   ## Client API ----------------------------------------------------------------
 
-  def start_link(window, handler, show) when is_atom(window) do
-    GenServer.start_link(__MODULE__, {window, handler, show})
+  def start_link(parent, {name, {window_spec, evt_handler}}, show) when is_atom(window_spec) do
+    cond do
+      name == nil ->
+        GenServer.start_link(__MODULE__, {parent, window_spec, evt_handler, show}, name: name)
+
+      is_atom(name) ->
+        GenServer.start_link(__MODULE__, {parent, window_spec, evt_handler, show})
+
+      true ->
+        {:error, "name: must be an atom"}
+    end
+  end
+
+  def start(parent, {name, {window_spec, evt_handler}}, show) when is_atom(window_spec) do
+    cond do
+      name == nil ->
+        GenServer.start(__MODULE__, {parent, window_spec, evt_handler, show}, name: name)
+
+      is_atom(name) ->
+        GenServer.start(__MODULE__, {parent, window_spec, evt_handler, show})
+
+      true ->
+        {:error, "name: must be an atom"}
+    end
   end
 
   def show(pid, how) do
     GenServer.cast(pid, {:show, how})
+  end
+
+  def statusBarText(pid, text, index \\ 0) when is_binary(text) or is_list(text) do
+    GenServer.cast(pid, {:statusBarText, text, index})
   end
 
   def push(pid, item) do
@@ -23,8 +49,10 @@ defmodule WxWindowObject do
 
   ## Server Callbacks ----------------------------------------------------------
   @impl true
-  def init({window, handler, show}) do
-    Logger.info("Object init: #{inspect(window)}, #{inspect(handler)}. #{inspect(show)}")
+  def init({parent, window, handler, show}) do
+    Logger.info(
+      "Object init: #{inspect(parent)}, #{inspect(window)}, #{inspect(handler)}. #{inspect(show)}"
+    )
 
     # Check that the window definition file exists
     window =
@@ -63,11 +91,19 @@ defmodule WxWindowObject do
 
       {window, nil, _} ->
         win = window.createWindow(show: show)
-        {:ok, [winInfo: win, window: window, handler: nil, handler_fns: []]}
+        {:ok, [parent: parent, winInfo: win, window: window, handler: nil, handler_fns: []]}
 
       {window, handler, handler_fns} ->
         win = window.createWindow(show: show)
-        {:ok, [winInfo: win, window: window, handler: handler, handler_fns: handler_fns]}
+
+        {:ok,
+         [
+           parent: parent,
+           winInfo: win,
+           window: window,
+           handler: handler,
+           handler_fns: handler_fns
+         ]}
     end
   end
 
@@ -90,15 +126,25 @@ defmodule WxWindowObject do
     {:noreply, state}
   end
 
+  @impl true
+  def handle_cast({:statusBarText, text, index}, state) do
+    Logger.info("Show!!: #{inspect(text)}, #{inspect(index)}")
+
+    # WxWindow.show(how)
+    {:noreply, state}
+  end
+
   # Gen_server callbacks ---------------------------------------------------------
   @impl true
-  def terminate(reason, state) do
-    Logger.info("terminate: #{inspect(reason)}, #{inspect(state)}")
+  def terminate(reason, msg) do
+    Logger.info("terminate: #{inspect(reason)}, #{inspect(msg)}")
   end
 
   # Handle Info
   def handle_info({_, _, sender, _, {:wxClose, :close_window}}, state) do
-    Logger.info("close window: #{inspect(sender)}, #{inspect(state[:window])}")
+    Logger.info("close window: #{inspect(sender)}, #{inspect(state)}")
+    send(state[:parent], {:window_closed, "Close window event"})
+
     WxFunctions.closeWindow(state[:window])
     {:stop, :normal, "Close window event"}
   end

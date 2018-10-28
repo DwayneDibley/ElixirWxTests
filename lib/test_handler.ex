@@ -1,12 +1,15 @@
 defmodule TestHandler do
   require Logger
+  import WxFunctions
 
   def do_menu_click(sender) do
     Logger.info("TestHandler: do_menu_click(#{inspect(sender)})")
 
     case sender do
       :simple_frame ->
-        WxWindowObject.start_link(SimpleFrameWindow, nil, true)
+        newWindow(:simple_frame_test, {SimpleFrameWindow, nil}, true)
+
+      # WxWindowObject.start_link(SimpleFrameWindow, nil, true)
 
       #
       #   :tool_bar ->

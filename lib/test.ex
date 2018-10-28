@@ -18,7 +18,7 @@ defmodule Test do
 
   """
 
-  def main(args) do
+  def main(_args) do
     start(1, 2)
     # System.put_env("WX_APP_TITLE", "ElixirWx Test")
     #
@@ -40,11 +40,14 @@ defmodule Test do
   end
 
   def start(_a, _b) do
+    :observer.start()
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
     Logger.info("start")
 
+    # WxWindowObject.start_link(<window module>, <event handler module>, show \\ true)
+    # case WxWindowObject.start_link(TestWindow, TestHandler, false) do
     testWindow =
-      case WxWindowObject.start_link(TestWindow, TestHandler, false) do
+      case newWindow(:test_window, {TestWindow, TestHandler}, false) do
         {:ok, window} ->
           window
 
@@ -65,10 +68,12 @@ defmodule Test do
 
   def waitForWindow() do
     receive do
-      msg -> Logger.info("Received: #{inspect(msg)}")
+      msg ->
+        Logger.info("Received: #{inspect(msg)}")
+        waitForWindow()
     after
       1000 ->
-        nil
+        Logger.info("Receive loop")
         waitForWindow()
     end
   end
@@ -143,7 +148,7 @@ defmodule Test do
     end
   end
 
-  def commandMenu(window, eventType, senderId, senderObj) do
+  def commandMenu(window, eventType, _senderId, _senderObj) do
     Logger.info("menu event: #{inspect(window)}, #{inspect(eventType)}}")
   end
 

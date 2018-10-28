@@ -68,7 +68,7 @@ defmodule TestWindow do
               #  Dialog Test
               boxSizer id: :message_dialog_sizer,
                        orient: @wxHORIZONTAL do
-                layout = [proportion: 1, flag: @wxEXPAND]
+                # layout = [proportion: 1, flag: @wxEXPAND]
 
                 button(id: :msg_dlg_test, label: "&Message Dialog", size: {120, 20})
                 spacer(space: 10)

@@ -5,7 +5,46 @@ defmodule WxFunctions do
   @moduledoc """
   ```
   ## General functions
+  newWindow({window_spec, evt_handler}, show)
+  newWindow(name, {window_spec, evt_handler}, show)
   """
+
+  @doc """
+  Create a new window where:
+  windiw_spec: Ths file containing the window specification
+  evt_handler: The file containing the code to be called on window _eventSource
+  show: Bool, if true the window will be shown, if false, the window must be
+              shown by calling showWindow separately
+  """
+  def newWindow({window_spec, evt_handler}, show) do
+    case WxWindowObject.start_link(self(), {nil, {window_spec, evt_handler}}, show) do
+      {:ok, window} ->
+        {:ok, window}
+
+      {:error, reason} ->
+        Logger.error("Cannot create window> #{inspect(reason)}")
+        :err
+    end
+  end
+
+  @doc """
+  Create a new named window where:
+  name:  An atom used to name the window
+  windiw_spec: Ths file containing the window specification
+  evt_handler: The file containing the code to be called on window _eventSource
+  show: Bool, if true the window will be shown, if false, the window must be
+              shown by calling showWindow separately
+  """
+  def newWindow(name, {window_spec, evt_handler}, show) do
+    case WxWindowObject.start_link(self(), {name, {window_spec, evt_handler}}, show) do
+      {:ok, window} ->
+        {:ok, window}
+
+      {:error, reason} ->
+        Logger.error("Cannot create window> #{inspect(reason)}")
+        :err
+    end
+  end
 
   @doc """
   Finction called to close and destroy the current window. This may be called from

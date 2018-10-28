@@ -6,7 +6,7 @@ defmodule SimpleFrame do
   @moduledoc """
   A demo of a simple frame.
   """
-  def xrun() do
+  def run() do
     Logger.info("Simple Frame Test Starting")
 
     # pid =
