@@ -21,8 +21,8 @@ defmodule WxWindow do
     {id, new_id, win}
   end
 
-  def show(how \\ true) do
-    {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
-    :wxFrame.show(frame)
-  end
+  # def show(how \\ true) do
+  #   {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
+  #   :wxFrame.show(frame)
+  # end
 end

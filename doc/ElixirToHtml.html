@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>WinInfo – wx_tests v0.1.0</title>
+    <title>ElixirToHtml – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
     <script src="dist/sidebar_items-3118448422.js"></script>
     
@@ -58,12 +58,9 @@ wx_tests      </h1>
 
       <h1>
         <small class="visible-xs">wx_tests v0.1.0</small>
-WinInfo              </h1>
+ElixirToHtml              </h1>
 
 
-        <section id="moduledoc">
-<p>A process wide table containing the window information</p>
-        </section>
 
         <section id="summary" class="details-list">
           <h1 class="section-heading">
@@ -80,73 +77,67 @@ WinInfo              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#display_rows/1">display_rows(list)</a>
+    <a href="#colour/2">colour(token, colour)</a>
   </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#display_table/0">display_table()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#get_by_id/1">get_by_id(id)</a>
-  </div>
-    <div class="summary-synopsis"><p>Given a numeric ID, get the info for the object</p>
+    <div class="summary-synopsis"><p>Vgiven a token and a colour, return the necessary HTML</p>
 </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_by_name/1">get_by_name(name)</a>
+    <a href="#colourize/1">colourize(tokens)</a>
   </div>
-    <div class="summary-synopsis"><p>Given am atom, get the info for the object</p>
+    <div class="summary-synopsis"><p>Iterate over the list of tokens returned by lex, turning them into HTML</p>
 </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_events/0">get_events()</a>
+    <a href="#colourize/3">colourize(list, html, flags)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_object_name/1">get_object_name(id)</a>
+    <a href="#encode_entities/1">encode_entities(charlist)</a>
   </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#new_table/0">new_table()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#put_event/2">put_event(event_type, info)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#put_table/1">put_table(value)</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#stack_pop/0">stack_pop()</a>
-  </div>
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#stack_push/1">stack_push(value)</a>
-  </div>
-    <div class="summary-synopsis"><p>FIFO implemented using ETS storage</p>
+    <div class="summary-synopsis"><p>Encode the HTML entities so that the dont screw up the HTML representation</p>
 </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#stack_tos/0">stack_tos()</a>
+    <a href="#fileToHtml/1">fileToHtml(inputFile)</a>
   </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#table_name/0">table_name()</a>
+    <a href="#fileToHtmlFile/2">fileToHtmlFile(inputFile, outputFile \\ :nofile)</a>
+  </div>
+    <div class="summary-synopsis"><p>Colourise the contents of the input file, checking that the input file is OK</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#getFiles/1">getFiles(input)</a>
+  </div>
+    <div class="summary-synopsis"><p>Given the input file from the command line, normalize it, and generate an html
+file name for the output</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#lex/1">lex(s)</a>
+  </div>
+    <div class="summary-synopsis"><p>Interface to leex</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#parse/2">parse(inputFile, outputFile)</a>
+  </div>
+    <div class="summary-synopsis"><p>Colourize the given file, returning an HTML string</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#stringToHtml/1">stringToHtml(code)</a>
   </div>
 </div>
   </div>
@@ -163,148 +154,122 @@ WinInfo              </h1>
             </a>
             Functions
           </h1>
-<div class="detail" id="display_rows/1">
+<div class="detail" id="colour/2">
     <div class="detail-header">
-    <a href="#display_rows/1" class="detail-link" title="Link to this function">
+    <a href="#colour/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">display_rows(list)</span>
+    <span class="signature">colour(token, colour)</span>
+          </div>
+  <section class="docstring">
+<p>Vgiven a token and a colour, return the necessary HTML</p>
+  </section>
+</div>
+<div class="detail" id="colourize/1">
+    <div class="detail-header">
+    <a href="#colourize/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">colourize(tokens)</span>
+          </div>
+  <section class="docstring">
+<p>Iterate over the list of tokens returned by lex, turning them into HTML</p>
+  </section>
+</div>
+<div class="detail" id="colourize/3">
+    <div class="detail-header">
+    <a href="#colourize/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">colourize(list, html, flags)</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="display_table/0">
+<div class="detail" id="encode_entities/1">
     <div class="detail-header">
-    <a href="#display_table/0" class="detail-link" title="Link to this function">
+    <a href="#encode_entities/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">display_table()</span>
+    <span class="signature">encode_entities(charlist)</span>
+          </div>
+  <section class="docstring">
+<p>Encode the HTML entities so that the dont screw up the HTML representation.</p>
+  </section>
+</div>
+<div class="detail" id="fileToHtml/1">
+    <div class="detail-header">
+    <a href="#fileToHtml/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">fileToHtml(inputFile)</span>
           </div>
   <section class="docstring">
   </section>
 </div>
-<div class="detail" id="get_by_id/1">
-    <div class="detail-header">
-    <a href="#get_by_id/1" class="detail-link" title="Link to this function">
+<div class="detail" id="fileToHtmlFile/2">
+  
+    <span id="fileToHtmlFile/1"></span>
+  <div class="detail-header">
+    <a href="#fileToHtmlFile/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">get_by_id(id)</span>
+    <span class="signature">fileToHtmlFile(inputFile, outputFile \\ :nofile)</span>
           </div>
   <section class="docstring">
-<p>Given a numeric ID, get the info for the object.</p>
+<p>  Colourise the contents of the input file, checking that the input file is OK.</p>
   </section>
 </div>
-<div class="detail" id="get_by_name/1">
+<div class="detail" id="getFiles/1">
     <div class="detail-header">
-    <a href="#get_by_name/1" class="detail-link" title="Link to this function">
+    <a href="#getFiles/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">get_by_name(name)</span>
+    <span class="signature">getFiles(input)</span>
           </div>
   <section class="docstring">
-<p>Given am atom, get the info for the object.</p>
+<p>Given the input file from the command line, normalize it, and generate an html
+file name for the output.</p>
   </section>
 </div>
-<div class="detail" id="get_events/0">
+<div class="detail" id="lex/1">
     <div class="detail-header">
-    <a href="#get_events/0" class="detail-link" title="Link to this function">
+    <a href="#lex/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">get_events()</span>
+    <span class="signature">lex(s)</span>
           </div>
   <section class="docstring">
+<p>Interface to leex</p>
   </section>
 </div>
-<div class="detail" id="get_object_name/1">
+<div class="detail" id="parse/2">
     <div class="detail-header">
-    <a href="#get_object_name/1" class="detail-link" title="Link to this function">
+    <a href="#parse/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">get_object_name(id)</span>
+    <span class="signature">parse(inputFile, outputFile)</span>
           </div>
   <section class="docstring">
+<p>  Colourize the given file, returning an HTML string</p>
   </section>
 </div>
-<div class="detail" id="new_table/0">
+<div class="detail" id="stringToHtml/1">
     <div class="detail-header">
-    <a href="#new_table/0" class="detail-link" title="Link to this function">
+    <a href="#stringToHtml/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">new_table()</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="put_event/2">
-    <div class="detail-header">
-    <a href="#put_event/2" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">put_event(event_type, info)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="put_table/1">
-    <div class="detail-header">
-    <a href="#put_table/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">put_table(value)</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="stack_pop/0">
-    <div class="detail-header">
-    <a href="#stack_pop/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">stack_pop()</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="stack_push/1">
-    <div class="detail-header">
-    <a href="#stack_push/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">stack_push(value)</span>
-          </div>
-  <section class="docstring">
-<p>  FIFO implemented using ETS storage.</p>
-  </section>
-</div>
-<div class="detail" id="stack_tos/0">
-    <div class="detail-header">
-    <a href="#stack_tos/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">stack_tos()</span>
-          </div>
-  <section class="docstring">
-  </section>
-</div>
-<div class="detail" id="table_name/0">
-    <div class="detail-header">
-    <a href="#table_name/0" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <span class="signature">table_name()</span>
+    <span class="signature">stringToHtml(code)</span>
           </div>
   <section class="docstring">
   </section>

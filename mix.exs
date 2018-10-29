@@ -49,16 +49,34 @@ defmodule WxTests.MixProject do
       # source_url: "https://github.com/elixir-lang/ex_doc",
       groups_for_modules: [
         "ElixirWx API": [
-          WxDsl
+          WxDsl,
+          WxWinObj.API,
+          WxWinObj
         ],
-        "ElixirWx Implementation": [
-          WxUtilities,
+        ElixirWx: [
+          WxCodeWindow,
+          WxDefines,
+          WxEvents,
+          WxFunctions,
           WinInfo,
+          WxLayout,
+          WxMessageDialog,
+          WxMessageDialogTest,
+          WxWinObject,
+          WxSizer,
+          WxStatusBar,
+          WxTopLevelWindow,
+          WxUtilities,
+          WxWindow,
           LogFormatter
         ],
-        "ElixirWx Tests": [
+        Tests: [
           BoxSizer,
           BoxSizerWindow,
+          ButtonTest,
+          ButtonTestWindow,
+          CodeWindow,
+          CodeWindowWindow,
           DialogTest,
           DialogTestCode,
           DialogTestWindow,
@@ -90,15 +108,7 @@ defmodule WxTests.MixProject do
           ToolBar,
           ToolBarWindow,
           VerticalSizer,
-          VerticalSizerWindow,
-          WxDefines,
-          WxEvents,
-          WxFunctions,
-          WxLayout,
-          WxMessageDialog,
-          WxMessageDialogTest,
-          WxSizer,
-          WxStatusBar
+          VerticalSizerWindow
         ]
       ]
     ]

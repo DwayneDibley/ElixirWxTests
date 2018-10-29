@@ -1,58 +1,80 @@
-defmodule WxWindowObject do
+defmodule WxWinObject do
   use GenServer
-
   require Logger
 
+  @moduledoc """
+  This object creates, encapsulates and provides an interface to a window.
+  """
+
   ## Client API ----------------------------------------------------------------
+  @doc """
+  Create and optionally show a window.
 
-  def start_link(parent, {name, {window_spec, evt_handler}}, show) when is_atom(window_spec) do
-    cond do
-      name == nil ->
-        GenServer.start_link(__MODULE__, {parent, window_spec, evt_handler, show}, name: name)
+  - **windowSpec**: The name of the module containing the window specification (see WxDsl).
+  - **evtHandler**: The name of th emodule containing the event handling code.
+  - **options**: Options when creating a window.They can be:
+    * _show:_ Bool, Show the window when created(default)
+    * _name:_ The name that the window will be registered with. if a name is not supplied
+    or is nil, then the name of the module containing the winowSpec will be used to register the window.
 
-      is_atom(name) ->
-        GenServer.start_link(__MODULE__, {parent, window_spec, evt_handler, show})
-
-      true ->
-        {:error, "name: must be an atom"}
-    end
+    ```
+    start_link(MyWindow, MyWindowEvents, show: true, name: MyWindow)
+    ```
+  """
+  def start_link(window_spec, evt_handler, options \\ []) when is_atom(window_spec) do
+    GenServer.start_link(__MODULE__, {self(), window_spec, evt_handler, options})
   end
 
-  def start(parent, {name, {window_spec, evt_handler}}, show) when is_atom(window_spec) do
-    cond do
-      name == nil ->
-        GenServer.start(__MODULE__, {parent, window_spec, evt_handler, show}, name: name)
-
-      is_atom(name) ->
-        GenServer.start(__MODULE__, {parent, window_spec, evt_handler, show})
-
-      true ->
-        {:error, "name: must be an atom"}
-    end
+  @doc """
+  See start_link()
+  """
+  def start(window_spec, evt_handler, options \\ []) when is_atom(window_spec) do
+    GenServer.start_link(__MODULE__, {self(), window_spec, evt_handler, options})
   end
 
-  def show(pid, how) do
-    GenServer.cast(pid, {:show, how})
+  @doc """
+  Show the window.
+  ```
+  show(pid)
+  ```
+  """
+  def show(window) do
+    GenServer.cast(window, {:show, true})
   end
 
+  @doc """
+  Hide the window.
+  ```
+  hide(window)
+  ```
+  """
+  def hide(window) do
+    GenServer.cast(window, {:show, false})
+  end
+
+  @doc """
+  Set the status bar text.
+  """
   def statusBarText(pid, text, index \\ 0) when is_binary(text) or is_list(text) do
     GenServer.cast(pid, {:statusBarText, text, index})
   end
 
-  def push(pid, item) do
-    GenServer.cast(pid, {:push, item})
-  end
-
-  def pop(pid) do
-    GenServer.call(pid, :pop)
-  end
-
   ## Server Callbacks ----------------------------------------------------------
   @impl true
-  def init({parent, window, handler, show}) do
+  def init({parent, name, window, handler, show}) do
     Logger.info(
-      "Object init: #{inspect(parent)}, #{inspect(window)}, #{inspect(handler)}. #{inspect(show)}"
+      "Object init: #{inspect(parent)}, #{inspect(name)}, #{inspect(window)}, #{inspect(handler)}. #{
+        inspect(show)
+      }"
     )
+
+    name =
+      case name do
+        nil -> window
+        name -> name
+      end
+
+    Logger.info("name = #{inspect(name)}")
 
     # Check that the window definition file exists
     window =
@@ -99,6 +121,7 @@ defmodule WxWindowObject do
         {:ok,
          [
            parent: parent,
+           winName: name,
            winInfo: win,
            window: window,
            handler: handler,
@@ -143,7 +166,7 @@ defmodule WxWindowObject do
   # Handle Info
   def handle_info({_, _, sender, _, {:wxClose, :close_window}}, state) do
     Logger.info("close window: #{inspect(sender)}, #{inspect(state)}")
-    send(state[:parent], {:window_closed, "Close window event"})
+    send(state[:parent], {state[:winName], :window_closed, "Close window event"})
 
     WxFunctions.closeWindow(state[:window])
     {:stop, :normal, "Close window event"}

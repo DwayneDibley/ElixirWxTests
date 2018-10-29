@@ -72,7 +72,7 @@ defmodule WxCodeWindow do
     processCode(code)
   end
 
-  def processCode(code) do
+  def processCode(_code) do
     # html = process(code)
     # html = "<font face=\"verdana\", size=\"3\">" <> html <> "<font>"
     # Logger.info("code = #{inspect(html)}")

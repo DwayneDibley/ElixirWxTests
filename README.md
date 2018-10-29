@@ -2,6 +2,8 @@
 
 Tests for the ElixirWx package
 
+![alt text](https://github.com/DwayneDibley/ElixirWxTests/blob/master/screenshots/Menu%20Test.png "Logo Title Text 1")
+
 ## Working
 
 - Message Dialog

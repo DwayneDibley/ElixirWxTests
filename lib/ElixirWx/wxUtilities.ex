@@ -80,11 +80,10 @@ defmodule WxUtilities do
     layout =
       cond do
         is_atom(layout_spec) ->
-          layout =
-            case WxLayout.getLayout(layout_spec) do
-              nil -> []
-              layout -> layout
-            end
+          case WxLayout.getLayout(layout_spec) do
+            nil -> []
+            layout -> layout
+          end
 
         is_list(layout_spec) ->
           layout_spec

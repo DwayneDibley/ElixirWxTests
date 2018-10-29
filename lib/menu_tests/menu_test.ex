@@ -1,5 +1,4 @@
 defmodule MenuTest do
-  import WxFunctions
   require Logger
   use WxDefines
 
@@ -44,7 +43,7 @@ defmodule MenuTest do
     # showEvent(event, eventSource, windowData)
     IO.inspect("windowClosed = #{inspect(window)}, #{inspect(eventType)}, #{inspect(senderId)})")
     Logger.info("TestWindow windowClosed(#{inspect(self())})")
-    closeWindow(window)
+    # closeWindow(window)
 
     # :wx_object.stop(window)
   end

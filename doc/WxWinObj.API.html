@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>WxLayout – wx_tests v0.1.0</title>
+    <title>WxWinObj.API – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
     <script src="dist/sidebar_items-3118448422.js"></script>
     
@@ -58,9 +58,13 @@ wx_tests      </h1>
 
       <h1>
         <small class="visible-xs">wx_tests v0.1.0</small>
-WxLayout              </h1>
+WxWinObj.API              </h1>
 
 
+        <section id="moduledoc">
+<p>An API to make using WxWindowObject simpler, and tomake sure any errors are
+reported in the callers code.</p>
+        </section>
 
         <section id="summary" class="details-list">
           <h1 class="section-heading">
@@ -77,23 +81,38 @@ WxLayout              </h1>
     </h2>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#addKeyToListAs/4">addKeyToListAs(opts, key, newKey, list)</a>
+    <a href="#closeWindow/1">closeWindow(window)</a>
   </div>
+    <div class="summary-synopsis"><p>Close a window</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#getFlag/3">getFlag(opts, key, default \\ nil)</a>
+    <a href="#hideWindow/1">hideWindow(window)</a>
   </div>
+    <div class="summary-synopsis"><p>Hide a window</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#getLayout/1">getLayout(name)</a>
+    <a href="#newWindow/3">newWindow(windowSpec, eventHandler, options \\ [])</a>
   </div>
+    <div class="summary-synopsis"><p>Create a new window and optionally show it</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#getLayoutAttributes/1">getLayoutAttributes(attributes)</a>
+    <a href="#showWindow/1">showWindow(window)</a>
   </div>
+    <div class="summary-synopsis"><p>Show a window</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#waitForWindowClose/2">waitForWindowClose(window, timeout \\ -1)</a>
+  </div>
+    <div class="summary-synopsis"><p>Wait for window to close</p>
+</div>
 </div>
   </div>
           
@@ -109,50 +128,102 @@ WxLayout              </h1>
             </a>
             Functions
           </h1>
-<div class="detail" id="addKeyToListAs/4">
+<div class="detail" id="closeWindow/1">
     <div class="detail-header">
-    <a href="#addKeyToListAs/4" class="detail-link" title="Link to this function">
+    <a href="#closeWindow/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">addKeyToListAs(opts, key, newKey, list)</span>
+    <span class="signature">closeWindow(window)</span>
           </div>
   <section class="docstring">
+<p>Close a window.</p>
+<p>the window parameter may be either the name given when the window was created,
+or the PID returned by the new window call.</p>
   </section>
 </div>
-<div class="detail" id="getFlag/3">
+<div class="detail" id="hideWindow/1">
+    <div class="detail-header">
+    <a href="#hideWindow/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">hideWindow(window)</span>
+          </div>
+  <section class="docstring">
+<p>Hide a window.</p>
+<p>the window parameter may be either the name given when the window was created,
+or the PID returned by the new window call.</p>
+  </section>
+</div>
+<div class="detail" id="newWindow/3">
   
-    <span id="getFlag/2"></span>
+    <span id="newWindow/2"></span>
   <div class="detail-header">
-    <a href="#getFlag/3" class="detail-link" title="Link to this function">
+    <a href="#newWindow/3" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">getFlag(opts, key, default \\ nil)</span>
+    <span class="signature">newWindow(windowSpec, eventHandler, options \\ [])</span>
           </div>
   <section class="docstring">
+<p>Create a new window and optionally show it.</p>
+<ul>
+<li><strong>windowSpec</strong>: The name of the module containing the window specification (see WxDsl).
+</li>
+<li><strong>evtHandler</strong>: The name of th emodule containing the event handling code.
+</li>
+<li><p><strong>options</strong>: Options when creating a window.They can be:</p>
+<ul>
+<li><em>show:</em> Bool, Show the window when created(default)
+</li>
+<li><em>name:</em> The name that the window will be registered with. if a name is not supplied
+  or is nil, then the name of the module containing the winowSpec will be used to register the window.
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">start_link</span><span class="p" data-group-id="1134744377-1">(</span><span class="nc">MyWindow</span><span class="p">,</span><span class="w"> </span><span class="nc">MyWindowEvents</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyWindow</span><span class="p" data-group-id="1134744377-1">)</span></code></pre>
   </section>
 </div>
-<div class="detail" id="getLayout/1">
+<div class="detail" id="showWindow/1">
     <div class="detail-header">
-    <a href="#getLayout/1" class="detail-link" title="Link to this function">
+    <a href="#showWindow/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">getLayout(name)</span>
+    <span class="signature">showWindow(window)</span>
           </div>
   <section class="docstring">
+<p>Show a window.</p>
+<p>the window parameter may be either the name given when the window was created,
+or the PID returned by the new window call.</p>
   </section>
 </div>
-<div class="detail" id="getLayoutAttributes/1">
-    <div class="detail-header">
-    <a href="#getLayoutAttributes/1" class="detail-link" title="Link to this function">
+<div class="detail" id="waitForWindowClose/2">
+  
+    <span id="waitForWindowClose/1"></span>
+  <div class="detail-header">
+    <a href="#waitForWindowClose/2" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">getLayoutAttributes(attributes)</span>
+    <span class="signature">waitForWindowClose(window, timeout \\ -1)</span>
           </div>
   <section class="docstring">
+<p>  Wait for window to close.</p>
+<p>  All events apart from the termiantion event from the specified window will be
+  discarded. If window is nil, then a termination event from any window will cause
+  a return.</p>
+<p>  If a timeout is supplied, then waitForTermination will return after the
+  specified number of seconds.</p>
+<p>  Returns:</p>
+<ul>
+<li>{windowName, :window_closed, reason}
+</li>
+<li>:timeout
+</li>
+</ul>
   </section>
 </div>
         </section>

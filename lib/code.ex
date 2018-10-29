@@ -1,5 +1,4 @@
 defmodule CodeWindow do
-  import WxFunctions
   require Logger
   use WxDefines
 

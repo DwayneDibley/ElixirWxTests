@@ -1,5 +1,4 @@
 defmodule ButtonTest do
-  import WxFunctions
   require Logger
   use WxDefines
 

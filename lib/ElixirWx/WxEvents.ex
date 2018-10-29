@@ -70,7 +70,7 @@ defmodule WxEvents do
   defp dispatchEvent(
          window,
          events,
-         {_, senderId, _senderObj, _, {eventGroup, event, data, _, _}}
+         {_, senderId, _senderObj, _, {_eventGroup, event, _data, _, _}}
        ) do
     sender = WinInfo.get_object_name(senderId)
 
@@ -94,10 +94,10 @@ defmodule WxEvents do
     # name = WinInfo.get_object_name(id)
   end
 
-  defp dispatchEvent(event) do
-    Logger.info("Unexpected event: #{inspect(event)}, I am: #{inspect(self())}")
-    # name = WinInfo.get_object_name(id)
-  end
+  # defp dispatchEvent(event) do
+  #   Logger.info("Unexpected event: #{inspect(event)}, I am: #{inspect(self())}")
+  #   # name = WinInfo.get_object_name(id)
+  # end
 
   defp dispatchTimeout(window, events) do
     # Logger.info("dispatchTimeout(#{inspect(window)})")
