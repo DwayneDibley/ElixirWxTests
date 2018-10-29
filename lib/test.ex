@@ -6,10 +6,8 @@ defmodule Test do
   # import WinInfo
 
   @moduledoc """
-  ```
   A demo of the WxWindows DSL for creating GUIs.
 
-  ![alt text](https://github.com/DwayneDibley/ElixirWxTests/blob/master/screenshots/Menu%20Test.png "Logo Title Text 1")
   """
 
   @doc """
