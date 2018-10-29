@@ -4,9 +4,9 @@ Tests for the ElixirWx package.
 
 The tests can be invoked directly in iex using:
 
-'''
+```
   iex -S mix
-'''
+```
 
 or compiled as an escript.
 
