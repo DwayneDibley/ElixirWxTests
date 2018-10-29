@@ -1,4 +1,4 @@
-defmodule WxWinObject do
+defmodule WxWinObj do
   use GenServer
   require Logger
 
@@ -52,6 +52,14 @@ defmodule WxWinObject do
     GenServer.cast(window, {:show, false})
   end
 
+  def set(window, obj, attr, value) do
+    GenServer.cast(window, {:set, {obj, attr, value}})
+  end
+
+  def get(window, obj, attr) do
+    GenServer.call(window, {:get, {obj, attr}})
+  end
+
   @doc """
   Set the status bar text.
   """
@@ -61,70 +69,82 @@ defmodule WxWinObject do
 
   ## Server Callbacks ----------------------------------------------------------
   @impl true
-  def init({parent, name, window, handler, show}) do
+  def init({parent, window_spec, evt_handler, options}) do
     Logger.info(
-      "Object init: #{inspect(parent)}, #{inspect(name)}, #{inspect(window)}, #{inspect(handler)}. #{
-        inspect(show)
+      "Object init: #{inspect(parent)}, #{inspect(window_spec)}, #{inspect(evt_handler)}, #{
+        inspect(options)
+      }
       }"
     )
 
     name =
-      case name do
-        nil -> window
+      case options[:name] do
+        nil -> window_spec
         name -> name
       end
 
     Logger.info("name = #{inspect(name)}")
 
     # Check that the window definition file exists
-    window =
-      case Code.ensure_loaded(window) do
+    window_spec =
+      case Code.ensure_loaded(window_spec) do
         {:error, :nofile} ->
-          Logger.error("No such window: #{inspect(window)}")
+          Logger.error("No such window specification: #{inspect(window_spec)}")
           nil
 
         # {:stop, "No such module: #{inspect(window)}"}
         {:module, _} ->
-          window
+          window_spec
       end
 
-    # Check that the handler definition file exists. It may be null
+    # Check that the evt_handler definition file exists. It may be null
     # if we dont want to handle any events.
-    {handler, handler_fns} =
-      case handler do
+    {evt_handler, handler_fns} =
+      case evt_handler do
         nil ->
           Logger.debug("No event handler...")
           {nil, []}
 
         _ ->
-          case Code.ensure_loaded(handler) do
+          case Code.ensure_loaded(evt_handler) do
             {:error, :nofile} ->
-              Logger.warn("Event handler: No such module: #{inspect(handler)}")
+              Logger.warn("Event handler: No such module: #{inspect(evt_handler)}")
               {nil, []}
 
             {:module, _} ->
-              {handler, handler.module_info(:exports)}
+              {evt_handler, evt_handler.module_info(:exports)}
           end
       end
 
-    case {window, handler, handler_fns} do
+    Logger.error("evt_handler = #{inspect(evt_handler)}, handler_fns = #{inspect(handler_fns)}")
+
+    case {window_spec, evt_handler, handler_fns} do
       {nil, _, _} ->
-        {:stop, "No such module: #{inspect(window)}"}
+        {:stop, "No such module: #{inspect(window_spec)}"}
 
-      {window, nil, _} ->
-        win = window.createWindow(show: show)
-        {:ok, [parent: parent, winInfo: win, window: window, handler: nil, handler_fns: []]}
-
-      {window, handler, handler_fns} ->
-        win = window.createWindow(show: show)
+      {window_spec, nil, _} ->
+        win = window_spec.createWindow(show: options[:show])
 
         {:ok,
          [
            parent: parent,
            winName: name,
            winInfo: win,
-           window: window,
-           handler: handler,
+           window: window_spec,
+           handler: nil,
+           handler_fns: []
+         ]}
+
+      {window_spec, evt_handler, handler_fns} ->
+        win = window_spec.createWindow(show: options[:show])
+
+        {:ok,
+         [
+           parent: parent,
+           winName: name,
+           winInfo: win,
+           window: window_spec,
+           handler: evt_handler,
            handler_fns: handler_fns
          ]}
     end
@@ -136,6 +156,11 @@ defmodule WxWinObject do
     {:reply, head, tail}
   end
 
+  def handle_call({:get, {obj, attr}}, state) do
+    attr = WxAttributes.getAttr(obj, attr)
+    {:reply, attr, state}
+  end
+
   # Cast interface ----
   @impl true
   def handle_cast({:push, item}, state) do
@@ -145,7 +170,13 @@ defmodule WxWinObject do
   @impl true
   def handle_cast({:show, how}, state) do
     Logger.info("Show!!")
-    WxWindow.show(how)
+    {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
+    :wxFrame.show(frame)
+    {:noreply, state}
+  end
+
+  def handle_cast({:set, {obj, attr, val}}, state) do
+    WxAttributes.setAttr(obj, attr, val)
     {:noreply, state}
   end
 
@@ -166,9 +197,17 @@ defmodule WxWinObject do
   # Handle Info
   def handle_info({_, _, sender, _, {:wxClose, :close_window}}, state) do
     Logger.info("close window: #{inspect(sender)}, #{inspect(state)}")
+
+    Logger.info(
+      "close send event: #{inspect(state[:parent])}, #{inspect(state[:winName])}, :window_closed, Close window event"
+    )
+
     send(state[:parent], {state[:winName], :window_closed, "Close window event"})
 
-    WxFunctions.closeWindow(state[:window])
+    # WxFunctions.closeWindow(state[:window])
+    {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
+    :wxEvtHandler.disconnect(frame)
+    :wxWindow.destroy(frame)
     {:stop, :normal, "Close window event"}
   end
 

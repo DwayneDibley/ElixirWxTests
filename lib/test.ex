@@ -23,7 +23,7 @@ defmodule Test do
   end
 
   def start(_a, _b) do
-    :observer.start()
+    # :observer.start()
     System.put_env("WX_APP_TITLE", "ElixirWx Test")
     Logger.info("start")
 

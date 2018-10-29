@@ -1,6 +1,6 @@
 # ElixirWxTests
 
-Tests for the ElixirWx package.
+_Tests for the ElixirWx package._
 
 The tests can be invoked directly in iex using:
 
@@ -8,24 +8,17 @@ The tests can be invoked directly in iex using:
   iex -S mix
 ```
 
-or compiled as an escript.
+or compiled and run as an escript:
 
-On start, the main test window is shown. The various tests are chosen from this windows menu. Note that on MacOs the menu's are at the top of the main window!
+```
+mix esctript.build
+./wx_tests
+```
 
-![alt text](https://github.com/DwayneDibley/ElixirWxTests/blob/master/screenshots/Menu%20Test.png "Logo Title Text 1")
+On start, the main test window is shown. The various tests are chosen from this
+windows menu. Note that on MacOs the menu is at the top of the main window!
 
-## Working
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Menu Test.png "Main test window.")
 
-- Message Dialog
-- Frame
-- Panel
-- BoxSizer
-- Spacer
-- Button
-- Static Text
-- Window Events
-- menus
-- ToolBar
-- Layout
 
 ## In Work

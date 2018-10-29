@@ -81,6 +81,7 @@ defmodule WxDsl do
           :wxFrame.show(frame)
 
         [show: false] ->
+          Logger.error("  :wxWindow. shw was false")
           nil
       end
 

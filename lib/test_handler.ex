@@ -8,7 +8,9 @@ defmodule TestHandler do
     case sender do
       :simple_frame ->
         # newWindow(, {SimpleFrameWindow, nil}, true)
-        newWindow(SimpleFrameWindow, nil, name: :simple_frame_test)
+        #newWindow(SimpleFrameWindow, nil, name: :simple_frame_test)
+        window = newWindow(SimpleFrameWindow, nil, name: nil, show: true)
+        showWindow(window)
 
       # WxWindowObject.start_link(SimpleFrameWindow, nil, true)
 

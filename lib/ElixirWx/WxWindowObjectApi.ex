@@ -22,7 +22,11 @@ defmodule WxWinObj.API do
 
   """
   def newWindow(windowSpec, eventHandler, options \\ []) do
-    case WxWindowObject.start_link(windowSpec, eventHandler, options) do
+    Logger.debug(
+      "newWindow(#{inspect(windowSpec)}, #{inspect(eventHandler)},#{inspect(options)})"
+    )
+
+    case WxWinObj.start_link(windowSpec, eventHandler, options) do
       {:ok, window} ->
         window
 
@@ -38,9 +42,11 @@ defmodule WxWinObj.API do
   or the PID returned by the new window call.
   """
   def showWindow(window) do
+    Logger.debug("showWindow(#{inspect(window)})")
+
     case checkPid(window) do
       {:error, reason} -> {:error, reason}
-      window -> WxWindowObject.show(window)
+      window -> WxWinObj.show(window)
     end
   end
 
@@ -53,7 +59,7 @@ defmodule WxWinObj.API do
   def hideWindow(window) do
     case checkPid(window) do
       {:error, reason} -> {:error, reason}
-      window -> WxWindowObject.show(window)
+      window -> WxWinObj.show(window)
     end
   end
 
@@ -91,9 +97,10 @@ defmodule WxWinObj.API do
       -1 ->
         receive do
           {windowName, :window_closed, reason} ->
+            Logger.info("Msg received: :window_closed reason = #{inspect(reason)}")
             {windowName, :window_closed, reason}
 
-          _ ->
+          msg -> Logger.info("Msg received: #{inspect(msg)}")
             waitForWindowClose(window, timeout)
         end
 
