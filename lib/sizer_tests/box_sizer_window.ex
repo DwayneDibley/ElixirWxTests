@@ -14,12 +14,9 @@ defmodule BoxSizerWindow do
             staticText(text: "world")
           end
         end
-
-        # statusBar(text: "ElixirWx Box Sizer test")
       end
 
       events(
-        command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end
