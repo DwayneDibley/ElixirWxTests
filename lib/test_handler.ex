@@ -7,67 +7,64 @@ defmodule TestHandler do
 
     case sender do
       :simple_frame ->
-        # newWindow(, {SimpleFrameWindow, nil}, true)
-        #newWindow(SimpleFrameWindow, nil, name: :simple_frame_test)
         window = newWindow(SimpleFrameWindow, nil, name: nil, show: true)
-        showWindow(window)
 
-      # WxWindowObject.start_link(SimpleFrameWindow, nil, true)
+      :tool_bar ->
+        newWindow(ToolBarWindow, nil, name: nil, show: true)
 
-      #
-      #   :tool_bar ->
-      #     spawn_link(fn -> ToolBar.run() end)
-      #
-      #   :box_sizer ->
-      #     spawn_link(fn -> BoxSizer.run() end)
-      #
-      #   :static_box_sizer ->
-      #     spawn_link(fn -> StaticBoxSizer.run() end)
-      #
-      #   :panel_borders ->
-      #     spawn_link(fn -> PanelBorders.run() end)
-      #
-      #   :test_code ->
-      #     spawn_link(fn -> TestCode.run() end)
-      #
-      #   :vertical_sizer ->
-      #     spawn_link(fn -> VerticalSizer.run() end)
-      #
-      #   :horizontal_sizer ->
-      #     spawn_link(fn -> HorizontalSizer.run() end)
-      #
-      #   :stretchable_sizer ->
-      #     spawn_link(fn -> SizerStretchable.run() end)
-      #
-      #   :stretchable_sizers ->
-      #     spawn_link(fn -> SizerMultiStretchable.run() end)
-      #
-      #   :weighted_sizers ->
-      #     spawn_link(fn -> SizerWeightedStretchable.run() end)
-      #
-      #   :edge_affinity ->
-      #     spawn_link(fn -> EdgeAffinitySizer.run() end)
-      #
-      #   :spacer ->
-      #     spawn_link(fn -> SizerSpacer.run() end)
-      #
-      #   :center ->
-      #     spawn_link(fn -> SizerCentering.run() end)
-      #
-      #   :dialogs ->
-      #     spawn_link(fn -> DialogTest.run() end)
-      #
-      #   :button ->
-      #     spawn_link(fn -> ButtonTest.run() end)
-      #
-      #   :code_window ->
-      #     spawn_link(fn -> CodeWindow.run(__ENV__.file) end)
-      #
-      #   :exit ->
-      #     :closeWindow
-      #
+      :box_sizer ->
+        newWindow(BoxSizerWindow, nil, name: nil, show: true)
+
+        :static_box_sizer ->
+          newWindow(StaticBoxSizerWindow, nil, name: nil, show: true)
+
+        :panel_borders ->
+          newWindow(PanelBorderWindow, nil, name: nil, show: true)
+
+        :test_code ->
+          spawn_link(fn -> TestCode.run() end)
+
+        :vertical_sizer ->
+          newWindow(VerticalSizerWindow, nil, name: nil, show: true)
+
+        :horizontal_sizer ->
+          newWindow(HorizontalSizerWindow, nil, name: nil, show: true)
+
+        :stretchable_sizer ->
+          newWindow(SizerStretchableWindow, nil, name: nil, show: true)
+
+        :stretchable_sizers ->
+          newWindow(SizerMultiStretchableWindow, nil, name: nil, show: true)
+
+        :weighted_sizers ->
+          newWindow(SizerWeightedStretchableWindow, nil, name: nil, show: true)
+
+        :edge_affinity ->
+          newWindow(EdgeAffinitySizerWindow, nil, name: nil, show: true)
+
+        :spacer ->
+          newWindow(SizerSpacerWindow, nil, name: nil, show: true)
+
+        :center ->
+          newWindow(SizerCenteringWindow, nil, name: nil, show: true)
+
+        :dialogs ->
+          spawn_link(fn -> DialogTest.run() end)
+
+        :button ->
+          newWindow(ButtonTestWindow, nil, name: nil, show: true)
+
+        :code_window ->
+          newWindow(CodeWindowWindow, nil, name: nil, show: true)
+      
+        :exit ->
+          :closeWindow
+
       _ ->
         Logger.error("Unhandled menu click #{inspect(sender)}")
     end
+  end
+
+  def do_child_window_closed(sender) do
   end
 end

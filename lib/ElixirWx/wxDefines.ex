@@ -1,7 +1,13 @@
 defmodule WxDefines do
   @moduledoc """
   ```
-  WxWindows defines
+  The definitions from the WxErlang header files, plus definitions of colours.
+
+  To use these definitions in your module, add "use WxDefines" at the top of the
+  module.
+
+  Note that the module also imports the Bitwise module so that the "|||" and "&&&"
+  binary operators can be use to combine flag definitionws.
   """
 
   defmacro __using__(_opts) do

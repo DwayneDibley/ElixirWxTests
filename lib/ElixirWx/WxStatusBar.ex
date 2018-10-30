@@ -3,6 +3,17 @@ defmodule WxStatusBar do
   import WinInfo
   require Logger
 
+  @moduledoc """
+  A status bar is a narrow window that can be placed along the bottom of a frame
+  to show small amounts of status information.
+
+  A status bar can contain one or more fields, one or more of which can be
+  variable length according to the size of the window.
+
+  The status bar also maintains an independent stack of status texts for each field
+  (see pushStatusText() and popStatusText()).
+  """
+
   @doc """
   Create a new status bar and attach it to the main frame.
   If a :text option is supplied, set the text.
@@ -36,12 +47,6 @@ defmodule WxStatusBar do
   If it is a list of strings, then set all fields, setting the number of fields
   to the length of the supplied list
   """
-  # def setText(text) when is_binary(text) do
-  #  {_, _, sb} = WinInfo.get_by_name(:status_bar)
-  #  :wxStatusBar.setStatusText(sb, text)
-  # end
-
-  # Set the text of the status bar field. THe number of fields is extended if necessary.
   def setText(text) when is_binary(text) do
     {_, _, sb} = WinInfo.get_by_name(:status_bar)
     :wxStatusBar.setStatusText(sb, text)

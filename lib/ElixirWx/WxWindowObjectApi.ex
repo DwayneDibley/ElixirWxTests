@@ -19,7 +19,6 @@ defmodule WxWinObj.API do
     ```
     start_link(MyWindow, MyWindowEvents, show: true, name: MyWindow)
     ```
-
   """
   def newWindow(windowSpec, eventHandler, options \\ []) do
     Logger.debug(
@@ -92,25 +91,32 @@ defmodule WxWinObj.API do
     - {windowName, :window_closed, reason}
     - :timeout
   """
-  def waitForWindowClose(window, timeout \\ -1) when is_integer(timeout) do
+  def waitForWindowClose(waitWindow, timeout \\ -1) when is_integer(timeout) do
     case timeout do
       -1 ->
         receive do
-          {windowName, :window_closed, reason} ->
-            Logger.info("Msg received: :window_closed reason = #{inspect(reason)}")
-            {windowName, :window_closed, reason}
+          {windowName, :child_window_closed, reason} ->
+            Logger.info("Msg received: :child_window_closed window = #{inspect(windowName)}, waitWindow = #{inspect(waitWindow)}")
+            cond do
+              windowName == waitWindow -> {windowName, :window_closed, reason}
+              true -> waitForWindowClose(waitWindow, timeout)
+            end
 
           msg -> Logger.info("Msg received: #{inspect(msg)}")
-            waitForWindowClose(window, timeout)
+            waitForWindowClose(waitWindow, timeout)
         end
 
       timeout ->
         receive do
-          {windowName, :window_closed, reason} ->
-            {windowName, :window_closed, reason}
+          {windowName, :child_window_closed, reason} ->
+            Logger.info("Msg received: :child_window_closed window = #{inspect(windowName)}, waitWindow = #{inspect(waitWindow)}")
+            cond do
+              windowName == waitWindow -> {windowName, :window_closed, reason}
+              true -> waitForWindowClose(waitWindow, timeout)
+            end
 
           _ ->
-            waitForWindowClose(window, timeout)
+            waitForWindowClose(waitWindow, timeout)
         after
           timeout ->
             :timeout

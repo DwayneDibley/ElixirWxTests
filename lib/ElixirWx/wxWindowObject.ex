@@ -33,7 +33,7 @@ defmodule WxWinObj do
   end
 
   @doc """
-  Show the window.
+  Show the specified window.
   ```
   show(pid)
   ```
@@ -43,7 +43,7 @@ defmodule WxWinObj do
   end
 
   @doc """
-  Hide the window.
+  Hide the specified window.
   ```
   hide(window)
   ```
@@ -52,11 +52,35 @@ defmodule WxWinObj do
     GenServer.cast(window, {:show, false})
   end
 
-  def set(window, obj, attr, value) do
+  @doc """
+  Set the given attribute value.
+
+  window: Atom; The name of the window (see start_link())
+  obj: Atom; The name of the window element.
+  attr: Atom; The name of the attribute to be retrieved
+  value: Term; The value to set the attribute to.
+  ```
+  setAttr(:my_window, :ok_button, :size, {100, 200})
+  ```
+  """
+  def setAttr(window, obj, attr, value) do
     GenServer.cast(window, {:set, {obj, attr, value}})
   end
 
-  def get(window, obj, attr) do
+  @doc """
+  Get the given attribute value.
+
+  window: Atom; The name of the window (see start_link())
+  obj: Atom; The name of the window element.
+  attr: Atom; The name of the attribute to be retrieved
+
+  returns the value of the attribute.
+
+  ```
+  getAttr(:my_window, :ok_button, :text)
+  ```
+  """
+  def getAttr(window, obj, attr) do
     GenServer.call(window, {:get, {obj, attr}})
   end
 
@@ -70,20 +94,11 @@ defmodule WxWinObj do
   ## Server Callbacks ----------------------------------------------------------
   @impl true
   def init({parent, window_spec, evt_handler, options}) do
-    Logger.info(
-      "Object init: #{inspect(parent)}, #{inspect(window_spec)}, #{inspect(evt_handler)}, #{
-        inspect(options)
-      }
-      }"
-    )
-
     name =
       case options[:name] do
         nil -> window_spec
         name -> name
       end
-
-    Logger.info("name = #{inspect(name)}")
 
     # Check that the window definition file exists
     window_spec =
@@ -102,7 +117,6 @@ defmodule WxWinObj do
     {evt_handler, handler_fns} =
       case evt_handler do
         nil ->
-          Logger.debug("No event handler...")
           {nil, []}
 
         _ ->
@@ -115,8 +129,6 @@ defmodule WxWinObj do
               {evt_handler, evt_handler.module_info(:exports)}
           end
       end
-
-    Logger.error("evt_handler = #{inspect(evt_handler)}, handler_fns = #{inspect(handler_fns)}")
 
     case {window_spec, evt_handler, handler_fns} do
       {nil, _, _} ->
@@ -152,12 +164,8 @@ defmodule WxWinObj do
 
   # Call interface ----
   @impl true
-  def handle_call(:pop, _from, [head | tail]) do
-    {:reply, head, tail}
-  end
-
-  def handle_call({:get, {obj, attr}}, state) do
-    attr = WxAttributes.getAttr(obj, attr)
+  def handle_call({:get, {obj, attr}}, from, state) do
+    #attr = WxAttributes.getAttr(obj, attr)
     {:reply, attr, state}
   end
 
@@ -175,8 +183,9 @@ defmodule WxWinObj do
     {:noreply, state}
   end
 
+@impl true
   def handle_cast({:set, {obj, attr, val}}, state) do
-    WxAttributes.setAttr(obj, attr, val)
+    #WxAttributes.setAttr(obj, attr, val)
     {:noreply, state}
   end
 
@@ -196,19 +205,14 @@ defmodule WxWinObj do
 
   # Handle Info
   def handle_info({_, _, sender, _, {:wxClose, :close_window}}, state) do
-    Logger.info("close window: #{inspect(sender)}, #{inspect(state)}")
 
-    Logger.info(
-      "close send event: #{inspect(state[:parent])}, #{inspect(state[:winName])}, :window_closed, Close window event"
-    )
-
-    send(state[:parent], {state[:winName], :window_closed, "Close window event"})
+    send(state[:parent], {state[:winName], :child_window_closed, "Close window event"})
 
     # WxFunctions.closeWindow(state[:window])
     {_, _, frame} = WinInfo.get_by_name(:__main_frame__)
     :wxEvtHandler.disconnect(frame)
     :wxWindow.destroy(frame)
-    {:stop, :normal, "Close window event"}
+    {:stop, :normal, "#{inspect(state[:winName])} - Close window event"}
   end
 
   # Menu event
@@ -229,32 +233,50 @@ defmodule WxWinObj do
     {:noreply, state}
   end
 
+  # Child window closed event received
+  def handle_info(
+        {window, :child_window_closed, reason},
+        state
+      ) do
+    invokeEventHandler(:do_child_window_closed, window, state)
+    {:noreply, state}
+  end
+
   @impl true
   def handle_info(msg, state) do
-    Logger.info("handle Info: #{inspect(msg)}, #{inspect(state)}")
+    Logger.info("#{inspect(state[:winName])} - handle Info: #{inspect(msg)}, #{inspect(state)}")
     {:noreply, state}
   end
 
   # Helper functions ===========================================================
+  defp invokeEventHandler(:child_window_closed, sender, state) do
+    event = :child_window_closed
+
+    case state[:handler_fns][event] do
+      nil ->
+        Logger.info(
+          "#{inspect(state[:winName])} - unhandled #{inspect(event)} event from #{
+            inspect(inspect(sender))
+          }"
+        )
+
+      1 ->
+        Code.eval_string("#{state[:handler]}.#{event}(#{inspect(sender)})")
+    end
+  end
+
   defp invokeEventHandler(event, sender, state) do
-    Logger.info("state = #{inspect(state)}")
-    Logger.info("functions = #{inspect(state[:handler_fns])}")
-    Logger.info("arity = #{inspect(state[:handler_fns][event])}")
-
-    Logger.info("#{state[:handler]}.#{event}(#{sender})")
-    # eval_string(string, binding \\ [], opts \\ [])
-
     {name, _id, _obj} = WinInfo.get_by_id(sender)
 
     case state[:handler_fns][event] do
       nil ->
-        Logger.info("unhandled #{event} event: #{inspect(inspect(name))}")
+        Logger.info(
+          "#{inspect(state[:winName])} - unhandled #{event} event: #{inspect(inspect(name))}"
+        )
 
       #      1 -> state[:handler].event.(sender)
       1 ->
-        Logger.info("IN: #{state[:handler]}.#{event}(#{inspect(name)})")
         Code.eval_string("#{state[:handler]}.#{event}(#{inspect(name)})")
-        Logger.info("OUT")
     end
   end
 end

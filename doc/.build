@@ -4,7 +4,7 @@ fonts/icomoon.eot
 fonts/icomoon.svg
 fonts/icomoon.ttf
 fonts/icomoon.woff
-dist/sidebar_items-3118448422.js
+dist/sidebar_items-0150e7d706.js
 api-reference.html
 readme.html
 changelog.html
@@ -14,6 +14,7 @@ ElixirToHtml.html
 OldTestCode.html
 TestHandler.html
 WxDsl.html
+WxWinObj.html
 WxWinObj.API.html
 LogFormatter.html
 WinInfo.html
@@ -28,7 +29,6 @@ WxSizer.html
 WxStatusBar.html
 WxTopLevelWindow.html
 WxUtilities.html
-WxWinObject.html
 WxWindow.html
 BoxSizer.html
 BoxSizerWindow.html

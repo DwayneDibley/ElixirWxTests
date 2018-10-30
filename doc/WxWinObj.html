@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.19.1">
-    <title>WxWinObject – wx_tests v0.1.0</title>
+    <title>WxWinObj – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-3118448422.js"></script>
+    <script src="dist/sidebar_items-0150e7d706.js"></script>
     
   </head>
   <body data-type="modules">
@@ -58,7 +58,7 @@ wx_tests      </h1>
 
       <h1>
         <small class="visible-xs">wx_tests v0.1.0</small>
-WxWinObject              </h1>
+WxWinObj              </h1>
 
 
         <section id="moduledoc">
@@ -87,18 +87,38 @@ WxWinObject              </h1>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="#getAttr/3">getAttr(window, obj, attr)</a>
+  </div>
+    <div class="summary-synopsis"><p>Get the given attribute value</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#handle_call/2">handle_call(arg, state)</a>
+  </div>
+    <div class="summary-synopsis"></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="#hide/1">hide(window)</a>
   </div>
-    <div class="summary-synopsis"><p>Hide the window.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">hide</span><span class="p" data-group-id="3563710761-1">(</span><span class="n">window</span><span class="p" data-group-id="3563710761-1">)</span></code></pre>
+    <div class="summary-synopsis"><p>Hide the specified window.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">hide</span><span class="p" data-group-id="8828108250-1">(</span><span class="n">window</span><span class="p" data-group-id="8828108250-1">)</span></code></pre>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#setAttr/4">setAttr(window, obj, attr, value)</a>
+  </div>
+    <div class="summary-synopsis"><p>Set the given attribute value</p>
 </div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#show/1">show(window)</a>
   </div>
-    <div class="summary-synopsis"><p>Show the window.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">show</span><span class="p" data-group-id="8449181036-1">(</span><span class="n">pid</span><span class="p" data-group-id="8449181036-1">)</span></code></pre>
+    <div class="summary-synopsis"><p>Show the specified window.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">show</span><span class="p" data-group-id="1511104424-1">(</span><span class="n">pid</span><span class="p" data-group-id="1511104424-1">)</span></code></pre>
 </div>
 </div>
 <div class="summary-row">
@@ -149,6 +169,34 @@ WxWinObject              </h1>
 <p>See <a href="https://hexdocs.pm/elixir/Supervisor.html"><code class="inline">Supervisor</code></a>.</p>
   </section>
 </div>
+<div class="detail" id="getAttr/3">
+    <div class="detail-header">
+    <a href="#getAttr/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">getAttr(window, obj, attr)</span>
+          </div>
+  <section class="docstring">
+<p>Get the given attribute value.</p>
+<p>window: Atom; The name of the window (see start_link())
+obj: Atom; The name of the window element.
+attr: Atom; The name of the attribute to be retrieved</p>
+<p>returns the value of the attribute.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">getAttr</span><span class="p" data-group-id="8201487971-1">(</span><span class="ss">:my_window</span><span class="p">,</span><span class="w"> </span><span class="ss">:ok_button</span><span class="p">,</span><span class="w"> </span><span class="ss">:text</span><span class="p" data-group-id="8201487971-1">)</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="handle_call/2">
+    <div class="detail-header">
+    <a href="#handle_call/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">handle_call(arg, state)</span>
+          </div>
+  <section class="docstring">
+  </section>
+</div>
 <div class="detail" id="hide/1">
     <div class="detail-header">
     <a href="#hide/1" class="detail-link" title="Link to this function">
@@ -158,8 +206,25 @@ WxWinObject              </h1>
     <span class="signature">hide(window)</span>
           </div>
   <section class="docstring">
-<p>Hide the window.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">hide</span><span class="p" data-group-id="2483041469-1">(</span><span class="n">window</span><span class="p" data-group-id="2483041469-1">)</span></code></pre>
+<p>Hide the specified window.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">hide</span><span class="p" data-group-id="4465283494-1">(</span><span class="n">window</span><span class="p" data-group-id="4465283494-1">)</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="setAttr/4">
+    <div class="detail-header">
+    <a href="#setAttr/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">setAttr(window, obj, attr, value)</span>
+          </div>
+  <section class="docstring">
+<p>Set the given attribute value.</p>
+<p>window: Atom; The name of the window (see start_link())
+obj: Atom; The name of the window element.
+attr: Atom; The name of the attribute to be retrieved
+value: Term; The value to set the attribute to.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">setAttr</span><span class="p" data-group-id="5752838348-1">(</span><span class="ss">:my_window</span><span class="p">,</span><span class="w"> </span><span class="ss">:ok_button</span><span class="p">,</span><span class="w"> </span><span class="ss">:size</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="5752838348-2">{</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p" data-group-id="5752838348-2">}</span><span class="p" data-group-id="5752838348-1">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="show/1">
@@ -171,8 +236,8 @@ WxWinObject              </h1>
     <span class="signature">show(window)</span>
           </div>
   <section class="docstring">
-<p>Show the window.</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">show</span><span class="p" data-group-id="8486249726-1">(</span><span class="n">pid</span><span class="p" data-group-id="8486249726-1">)</span></code></pre>
+<p>Show the specified window.</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">show</span><span class="p" data-group-id="6831469043-1">(</span><span class="n">pid</span><span class="p" data-group-id="6831469043-1">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="start/3">
@@ -216,7 +281,7 @@ WxWinObject              </h1>
 </ul>
 </li>
 </ul>
-<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">start_link</span><span class="p" data-group-id="1384218087-1">(</span><span class="nc">MyWindow</span><span class="p">,</span><span class="w"> </span><span class="nc">MyWindowEvents</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyWindow</span><span class="p" data-group-id="1384218087-1">)</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">start_link</span><span class="p" data-group-id="5341805676-1">(</span><span class="nc">MyWindow</span><span class="p">,</span><span class="w"> </span><span class="nc">MyWindowEvents</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyWindow</span><span class="p" data-group-id="5341805676-1">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="statusBarText/3">
