@@ -18,7 +18,7 @@ mix esctript.build
 On start, the main test window is shown. The various tests are chosen from this
 windows menu. Note that on MacOs the menu is at the top of the main window!
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Main test window.png "Main test window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Main_test_window.png "Main test window.")
 
 
 
@@ -52,4 +52,4 @@ Code:
   end
 ```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Box sizer.png "Main test window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Box_sizer.png "Box Sizer window.")
