@@ -129,11 +129,11 @@ Code:
       end
 
       events(
-        command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end
   end```
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_sizer.png "Vertical Sizer window.")
+
 
