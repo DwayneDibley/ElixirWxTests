@@ -529,49 +529,63 @@ defmodule WxDsl do
     end
   end
 
+  @doc """
+  Create a new box sizer.
+  """
   defmacro staticBoxSizer(attributes, do: block) do
     quote do
       Logger.debug("Static Box Sizer ++++++++++++++++++++++++++++++++++++++++++++++++++")
-
       {container, parent, sizer} = stack_tos()
-      Logger.debug("  tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
+      Logger.debug("   tos = #{inspect(container)}, #{inspect(parent)}, #{inspect(sizer)}}")
 
       opts = get_opts_map(unquote(attributes))
 
       Logger.debug("  opts = #{inspect(opts)}")
 
       Logger.debug(
-        "  :staticBoxSizer.new(@wxVertical, #{inspect(container)}, #{
-          inspect([{:label, "wxSizer"}])
-        }"
+        "  :wxStaticBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})"
       )
+      bs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, label: Map.get(opts, :label, ""))
 
-      # sbs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, [{:label, "wxSizer"}])
-      sbs = :wxStaticBoxSizer.new(@wxHORIZONTAL, container, [{:label, "Static Box Sizer"}])
-      # wxStaticBoxSizer:new(?wxVERTICAL, Panel, [{label, "wxSizer"}]),
 
-      # :wxSizer.insertSpacer(sbs, 9999, 20)
+      # :wxSizer.insertSpacer(bs, 9999, 20)
 
-      stack_push({container, parent, sbs})
+      stack_push({container, parent, bs})
       unquote(block)
       stack_pop()
 
-      case parent do
-        {:wx_ref, _, :wxBoxSizer, _} ->
-          Logger.debug("  :wxBoxSizer.add(#{inspect(parent)}, #{inspect(sbs)}), []")
-          :wxBoxSizer.add(parent, sbs, [{:flag, @wxEXPAND}, {:proportion, 1}])
+      case sizer do
+        {:wx_ref, _, :wxStaticBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(sizer)}, #{inspect(bs)}), []")
+          :wxBoxSizer.add(sizer, bs)
 
-        {:wx_ref, _, :wxPanel, []} ->
-          Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(sbs)})")
-          :wxPanel.setSizer(parent, sbs)
+        {:wx_ref, _, :wxBoxSizer, _} ->
+          Logger.debug("  :wxBoxSizer.add(#{inspect(sizer)}, #{inspect(bs)}), []")
+          :wxBoxSizer.add(sizer, bs)
+
+        nil ->
+          case parent do
+            {:wx_ref, _, :wxPanel, []} ->
+              Logger.debug("  :wxPanel.setSizer(#{inspect(parent)}, #{inspect(bs)})")
+              :wxPanel.setSizer(parent, bs)
+
+            {:wx_ref, _, :wxFrame, []} ->
+              Logger.debug("  :wxWindow.setSizer(#{inspect(parent)}, #{inspect(bs)})")
+              # :wxFrame.setSizerAndFit(parent, bs)
+              :wxWindow.setSizer(parent, bs)
+
+            other ->
+              Logger.error("  BoxSizer: No sizer and parent = #{inspect(parent)}")
+          end
 
         other ->
-          :ok
+          Logger.error("  BoxSizer: sizer = #{inspect(sizer)}")
       end
 
       Logger.debug("Static Box Sizer ---------------------------------------------------")
     end
   end
+
 
   @doc """
   Create a new box sizer.
