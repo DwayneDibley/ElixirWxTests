@@ -22,9 +22,9 @@ windows menu. Note that on MacOs the menu is at the top of the main window!
 
 
 
-##Sizer Tests
+## Sizer Tests
 
-###Sizers -> Box Sizer
+### Sizers -> Box Sizer
 
 This tests some of the funtionality of a wxBoxSizer.
 
