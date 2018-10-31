@@ -62,7 +62,7 @@ This tests some of the funtionality of a wxStaticBoxSizer. The three buttons sho
 Code:
 
 ```
-    def createWindow(show) do
+  def createWindow(show) do
     mainWindow name: :static_box_sizer_window, show: show do
       frame id: :main_frame,
             title: "Static Box Sizer Test",
@@ -88,6 +88,7 @@ Code:
   end
 ```
 
+<<<<<<< HEAD
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Box Sizer window.")
 
 ### Sizers -> Vertical  Sizer
@@ -136,4 +137,7 @@ Code:
   end```
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_Sizer.png "Box Sizer window.")
+=======
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Static Box Sizer window.")
+>>>>>>> 202d40df3a3ac2490d3b34d8510e9bc6b877272a
 
