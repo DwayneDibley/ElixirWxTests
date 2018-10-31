@@ -44,7 +44,7 @@ def createWindow(show) do
   end
 ```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Simple_frame.png "Simple Frame window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Simple_Frame.png "Simple Frame window.")
 
 ### Simple -> Tool Bar
 
