@@ -52,7 +52,7 @@ defmodule EdgeAffinitySizerWindow do
           end
         end
 
-        statusBar(text: "ElixirWx Sizer test")
+        statusBar(text: "ElixirWx Edge Affinity Sizer test")
       end
     end
   end

@@ -358,3 +358,123 @@ def createWindow(show) do
 ```
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Weighted_stretchable_sizers.png "Stretchable Sizers window.")
+
+### Sizers -> Edge Affinity
+
+Uses a box sizer to arrange 5 windows with coloured backgrounds layed out horizontally. When the main window is resized, two stay the same width, and the leftmost will align to the top edge, the middle one will align to the centre, and the rightmost will align at the bottom. 
+
+Code:
+
+```
+  def createWindow(show) do
+    mainWindow name: :affinity_sizer_window, show: show do
+      frame id: :vert_sz_frame,
+            title: "Edge Affinity Sizer Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxHORIZONTAL do
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [{:proportion, 1}, {:flag, @wxALIGN_TOP}]
+            ) do
+              bgColour(@wxWHITE)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [{:proportion, 1}, {:flag, @wxEXPAND}]
+            ) do
+              bgColour(@wxYELLOW)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [{:proportion, 1}, {:flag, @wxALIGN_CENTER}]
+            ) do
+              bgColour(@wxRED)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [{:proportion, 1}, {:flag, @wxEXPAND}]
+            ) do
+              bgColour(@wxBLUE)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [{:proportion, 1}, {:flag, @wxALIGN_BOTTOM}]
+            ) do
+              bgColour(@wxGREEN)
+            end
+          end
+        end
+
+        statusBar(text: "ElixirWx Edge Affinity Sizer test")
+      end
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Edge_affinity_sizer.png "Edge affinity sizer window.")
+
+### Sizers -> Centering test
+
+Centeres a window in the frame
+
+Code:
+
+```
+  def createWindow(show) do
+    mainWindow name: :sizer_center_window, show: show do
+      frame id: :wtd_str_sz_frame,
+            title: "Centering Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxVERTICAL do
+            # Definition of the layout flags to eliminate repetition.
+            layout1 = [proportion: 0, flag: @wxEXPAND]
+            layout2 = [proportion: 0, flag: @wxALIGN_CENTER]
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxBLACK)
+            end
+
+            spacer(size: {0, 0}, layout: [{:proportion, 1}])
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 50}, layout: layout2) do
+              bgColour(@wxBROWN)
+            end
+
+            spacer(size: {0, 0}, layout: [{:proportion, 1}])
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxRED)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxYELLOW)
+            end
+          end
+        end
+
+        statusBar(text: "ElixirWx Centering Sizer test")
+      end
+
+      events(
+        # command_menu_selected: [handler: &BoxSizer.commandButton/4],
+        close_window: []
+      )
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Centering_test.png "Centering test.")
+

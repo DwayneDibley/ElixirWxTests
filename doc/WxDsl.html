@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>WxDsl – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-0150e7d706.js"></script>
+    <script src="dist/sidebar_items-36ec9cbcf6.js"></script>
     
   </head>
   <body data-type="modules">
@@ -232,6 +232,8 @@ The attributes consist of one of the following:
   <div class="summary-signature">
     <a href="#staticBoxSizer/2">staticBoxSizer(attributes, list)</a>
   </div>
+    <div class="summary-synopsis"><p>Create a new box sizer</p>
+</div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
@@ -305,8 +307,8 @@ The attributes consist of one of the following:
 <p>Set the background colour for the enclosing control.</p>
 <p>The colour may be either one of the defined colours in wxDefines.ex or a nummeric
 RGB specification in the form {r, g, b}.</p>
-<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">bgColour</span><span class="p" data-group-id="2189752899-1">(</span><span class="na">@wxSILVER</span><span class="p" data-group-id="2189752899-1">)</span><span class="w">
-  </span><span class="n">bgColour</span><span class="p" data-group-id="2189752899-2">(</span><span class="p" data-group-id="2189752899-3">{</span><span class="p" data-group-id="2189752899-4">{</span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p" data-group-id="2189752899-4">}</span><span class="p" data-group-id="2189752899-3">}</span><span class="p" data-group-id="2189752899-2">)</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="n">bgColour</span><span class="p" data-group-id="8921260045-1">(</span><span class="na">@wxSILVER</span><span class="p" data-group-id="8921260045-1">)</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="8921260045-2">(</span><span class="p" data-group-id="8921260045-3">{</span><span class="p" data-group-id="8921260045-4">{</span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p">,</span><span class="w"> </span><span class="mi">192</span><span class="p" data-group-id="8921260045-4">}</span><span class="p" data-group-id="8921260045-3">}</span><span class="p" data-group-id="8921260045-2">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="border/1">
@@ -556,19 +558,19 @@ The attributes consist of one of the following:
 </tr>
 </table>
 <p>Example:</p>
-<pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">TestWindow</span><span class="w"> </span><span class="k" data-group-id="5458830542-1">do</span><span class="w">
+<pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">TestWindow</span><span class="w"> </span><span class="k" data-group-id="0401511629-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">WxDsl</span><span class="w">
   </span><span class="kn">import</span><span class="w"> </span><span class="nc">WxDefines</span><span class="w">
 
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="5458830542-2">(</span><span class="n">show</span><span class="p" data-group-id="5458830542-2">)</span><span class="w"> </span><span class="k" data-group-id="5458830542-3">do</span><span class="w">
-    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="5458830542-4">do</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="0401511629-2">(</span><span class="n">show</span><span class="p" data-group-id="0401511629-2">)</span><span class="w"> </span><span class="k" data-group-id="0401511629-3">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="0401511629-4">do</span><span class="w">
       </span><span class="c1"># Create a frame with a status bar and a menu.</span><span class="w">
       </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_frame</span><span class="p">,</span><span class="w">
       </span><span class="n">...</span><span class="w">
       </span><span class="n">...</span><span class="w">
-      </span><span class="k" data-group-id="5458830542-4">end</span><span class="w">
-    </span><span class="k" data-group-id="5458830542-3">end</span><span class="w">
-  </span><span class="k" data-group-id="5458830542-1">end</span></code></pre>
+      </span><span class="k" data-group-id="0401511629-4">end</span><span class="w">
+    </span><span class="k" data-group-id="0401511629-3">end</span><span class="w">
+  </span><span class="k" data-group-id="0401511629-1">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="menu/2">
@@ -706,6 +708,7 @@ The attributes consist of one of the following:
       <span class="note">(macro)</span>
       </div>
   <section class="docstring">
+<p>Create a new box sizer.</p>
   </section>
 </div>
 <div class="detail" id="staticText/1">
@@ -755,9 +758,9 @@ The attributes consist of one of the following:
 <td style="text-align: left"></td><td style="text-align: left">text</td><td style="text-align: left">The initial status bar text</td><td style="text-align: left">string()</td>
 </tr>
 </table>
-<pre><code class="nohighlight makeup elixir"><span class="w">                                                                          </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">strings</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="p" data-group-id="2065999419-1">[</span><span class="p" data-group-id="2065999419-1">]</span><span class="w">                     </span><span class="o">|</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="w">                                                                          </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">strings</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="p" data-group-id="9723343735-1">[</span><span class="p" data-group-id="9723343735-1">]</span><span class="w">                     </span><span class="o">|</span></code></pre>
 <p>Example:</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">statusBar</span><span class="p" data-group-id="8666878647-1">(</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Menu Test&quot;</span><span class="p" data-group-id="8666878647-1">)</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">statusBar</span><span class="p" data-group-id="5954218550-1">(</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Menu Test&quot;</span><span class="p" data-group-id="5954218550-1">)</span></code></pre>
   </section>
 </div>
 <div class="detail" id="textControl/1">
@@ -847,10 +850,10 @@ The attributes consist of one of the following:
 </tr>
 </table>
 <p>Example:</p>
-<pre><code class="nohighlight makeup elixir"><span class="n">window</span><span class="p" data-group-id="6537231012-1">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6537231012-2">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="6537231012-2">}</span><span class="p">,</span><span class="w">
-      </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6537231012-3">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="6537231012-3">]</span><span class="p" data-group-id="6537231012-1">)</span><span class="w"> </span><span class="k" data-group-id="6537231012-4">do</span><span class="w">
-  </span><span class="n">bgColour</span><span class="p" data-group-id="6537231012-5">(</span><span class="na">@wxBLACK</span><span class="p" data-group-id="6537231012-5">)</span><span class="w">
-</span><span class="k" data-group-id="6537231012-4">end</span></code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">window</span><span class="p" data-group-id="1026226546-1">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1026226546-2">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1026226546-2">}</span><span class="p">,</span><span class="w">
+      </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1026226546-3">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="1026226546-3">]</span><span class="p" data-group-id="1026226546-1">)</span><span class="w"> </span><span class="k" data-group-id="1026226546-4">do</span><span class="w">
+  </span><span class="n">bgColour</span><span class="p" data-group-id="1026226546-5">(</span><span class="na">@wxBLACK</span><span class="p" data-group-id="1026226546-5">)</span><span class="w">
+</span><span class="k" data-group-id="1026226546-4">end</span></code></pre>
   </section>
 </div>
 <div class="detail" id="xstaticBoxSizer/2">

@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.19.1">
     <title>ElixirWxTests – wx_tests v0.1.0</title>
     <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
-    <script src="dist/sidebar_items-0150e7d706.js"></script>
+    <script src="dist/sidebar_items-36ec9cbcf6.js"></script>
     
   </head>
   <body data-type="extras">
@@ -65,12 +65,326 @@ wx_tests      </h1>
 </span><span class="o">.</span><span class="o">/</span><span class="n">wx_tests</span></code></pre>
 <p>On start, the main test window is shown. The various tests are chosen from this
 windows menu. Note that on MacOs the menu is at the top of the main window!</p>
-<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Menu%20Test.png" alt="alt text" title="Main test window."/></p>
-<h2 id="in-work" class="section-heading">
-  <a href="#in-work" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  In Work
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Main_test_window.png" alt="alt text" title="Main test window."/></p>
+<h2 id="sizer-tests" class="section-heading">
+  <a href="#sizer-tests" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizer Tests
 </h2>
 
+<h3 id="sizers-box-sizer" class="section-heading">
+  <a href="#sizers-box-sizer" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Box Sizer
+</h3>
+
+<p>This tests some of the funtionality of a wxBoxSizer. The two words should be
+arranged horizontally.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="2210803886-1">(</span><span class="n">show</span><span class="p" data-group-id="2210803886-1">)</span><span class="w"> </span><span class="k" data-group-id="2210803886-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:box_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="2210803886-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Box Sizers Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2210803886-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="2210803886-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2210803886-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="2210803886-5">}</span><span class="w"> </span><span class="k" data-group-id="2210803886-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="2210803886-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:outer_sizer</span><span class="p">,</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="2210803886-8">do</span><span class="w">
+            </span><span class="n">staticText</span><span class="p" data-group-id="2210803886-9">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p" data-group-id="2210803886-9">)</span><span class="w">
+            </span><span class="n">staticText</span><span class="p" data-group-id="2210803886-10">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p" data-group-id="2210803886-10">)</span><span class="w">
+          </span><span class="k" data-group-id="2210803886-8">end</span><span class="w">
+        </span><span class="k" data-group-id="2210803886-7">end</span><span class="w">
+      </span><span class="k" data-group-id="2210803886-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="2210803886-11">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="2210803886-12">[</span><span class="p" data-group-id="2210803886-12">]</span><span class="w">
+      </span><span class="p" data-group-id="2210803886-11">)</span><span class="w">
+    </span><span class="k" data-group-id="2210803886-3">end</span><span class="w">
+  </span><span class="k" data-group-id="2210803886-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Box_sizer.png" alt="alt text" title="Box Sizer window."/></p>
+<h3 id="sizers-static-box-sizer" class="section-heading">
+  <a href="#sizers-static-box-sizer" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Static Box Sizer
+</h3>
+
+<p>This tests some of the funtionality of a wxStaticBoxSizer. The three buttons should be arranged vertically.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="6465800753-1">(</span><span class="n">show</span><span class="p" data-group-id="6465800753-1">)</span><span class="w"> </span><span class="k" data-group-id="6465800753-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:static_box_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="6465800753-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Static Box Sizer Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6465800753-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="6465800753-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6465800753-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="6465800753-5">}</span><span class="w"> </span><span class="k" data-group-id="6465800753-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="6465800753-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:outer_sizer</span><span class="p">,</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="6465800753-8">do</span><span class="w">
+            </span><span class="n">staticBoxSizer</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:inner_sizer</span><span class="p">,</span><span class="w"> 
+                           </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxVERTICAL</span><span class="p">,</span><span class="w"> 
+                           </span><span class="ss">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Static Box Sizer Label&quot;</span><span class="w"> </span><span class="k" data-group-id="6465800753-9">do</span><span class="w">
+              </span><span class="n">button</span><span class="p" data-group-id="6465800753-10">(</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:button1</span><span class="p">,</span><span class="w"> </span><span class="ss">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&amp;Button 1&quot;</span><span class="p" data-group-id="6465800753-10">)</span><span class="w">
+              </span><span class="n">button</span><span class="p" data-group-id="6465800753-11">(</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:button2</span><span class="p">,</span><span class="w"> </span><span class="ss">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&amp;Button 2&quot;</span><span class="p" data-group-id="6465800753-11">)</span><span class="w">
+              </span><span class="n">button</span><span class="p" data-group-id="6465800753-12">(</span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:button3</span><span class="p">,</span><span class="w"> </span><span class="ss">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&amp;Button 3&quot;</span><span class="p" data-group-id="6465800753-12">)</span><span class="w">
+            </span><span class="k" data-group-id="6465800753-9">end</span><span class="w">
+          </span><span class="k" data-group-id="6465800753-8">end</span><span class="w">
+        </span><span class="k" data-group-id="6465800753-7">end</span><span class="w">
+        </span><span class="n">statusBar</span><span class="p" data-group-id="6465800753-13">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Static Box Sizer test&quot;</span><span class="p" data-group-id="6465800753-13">)</span><span class="w">
+      </span><span class="k" data-group-id="6465800753-6">end</span><span class="w">
+      </span><span class="n">events</span><span class="p" data-group-id="6465800753-14">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6465800753-15">[</span><span class="p" data-group-id="6465800753-15">]</span><span class="w">
+      </span><span class="p" data-group-id="6465800753-14">)</span><span class="w">
+    </span><span class="k" data-group-id="6465800753-3">end</span><span class="w">
+  </span><span class="k" data-group-id="6465800753-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png" alt="alt text" title="Box Sizer window."/></p>
+<h3 id="sizers-vertical-sizer" class="section-heading">
+  <a href="#sizers-vertical-sizer" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Vertical  Sizer
+</h3>
+
+<p>Uses a box sizer to arrange 4 windows with coloured backgrounds vertically.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="3927263346-1">(</span><span class="n">show</span><span class="p" data-group-id="3927263346-1">)</span><span class="w"> </span><span class="k" data-group-id="3927263346-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:bvertical_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="3927263346-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:vert_sz_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Vertical Sizer Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="3927263346-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="3927263346-5">}</span><span class="w"> </span><span class="k" data-group-id="3927263346-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="3927263346-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxVERTICAL</span><span class="w"> </span><span class="k" data-group-id="3927263346-8">do</span><span class="w">
+            </span><span class="n">layout1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="3927263346-9">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="3927263346-9">]</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="3927263346-10">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-11">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3927263346-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="3927263346-10">)</span><span class="w"> </span><span class="k" data-group-id="3927263346-12">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="3927263346-13">(</span><span class="na">@wxWHITE</span><span class="p" data-group-id="3927263346-13">)</span><span class="w">
+            </span><span class="k" data-group-id="3927263346-12">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="3927263346-14">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-15">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3927263346-15">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="3927263346-14">)</span><span class="w"> </span><span class="k" data-group-id="3927263346-16">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="3927263346-17">(</span><span class="na">@wxYELLOW</span><span class="p" data-group-id="3927263346-17">)</span><span class="w">
+            </span><span class="k" data-group-id="3927263346-16">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="3927263346-18">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-19">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3927263346-19">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="3927263346-18">)</span><span class="w"> </span><span class="k" data-group-id="3927263346-20">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="3927263346-21">(</span><span class="na">@wxRED</span><span class="p" data-group-id="3927263346-21">)</span><span class="w">
+            </span><span class="k" data-group-id="3927263346-20">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="3927263346-22">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-23">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="3927263346-23">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="3927263346-22">)</span><span class="w"> </span><span class="k" data-group-id="3927263346-24">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="3927263346-25">(</span><span class="na">@wxBLUE</span><span class="p" data-group-id="3927263346-25">)</span><span class="w">
+            </span><span class="k" data-group-id="3927263346-24">end</span><span class="w">
+          </span><span class="k" data-group-id="3927263346-8">end</span><span class="w">
+        </span><span class="k" data-group-id="3927263346-7">end</span><span class="w">
+
+        </span><span class="n">statusBar</span><span class="p" data-group-id="3927263346-26">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Vertical Sizer test&quot;</span><span class="p" data-group-id="3927263346-26">)</span><span class="w">
+      </span><span class="k" data-group-id="3927263346-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="3927263346-27">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3927263346-28">[</span><span class="p" data-group-id="3927263346-28">]</span><span class="w">
+      </span><span class="p" data-group-id="3927263346-27">)</span><span class="w">
+    </span><span class="k" data-group-id="3927263346-3">end</span><span class="w">
+  </span><span class="k" data-group-id="3927263346-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_sizer.png" alt="alt text" title="Vertical Sizer window."/></p>
+<h3 id="sizers-horizontal-sizer" class="section-heading">
+  <a href="#sizers-horizontal-sizer" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Horizontal Sizer
+</h3>
+
+<p>Uses a box sizer to arrange 4 windows with coloured backgrounds horizontally.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="9341438372-1">(</span><span class="n">show</span><span class="p" data-group-id="9341438372-1">)</span><span class="w"> </span><span class="k" data-group-id="9341438372-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:horizontal_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="9341438372-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:vert_sz_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Horizontal Sizer Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="9341438372-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="9341438372-5">}</span><span class="w"> </span><span class="k" data-group-id="9341438372-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="9341438372-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="9341438372-8">do</span><span class="w">
+            </span><span class="n">layout1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="9341438372-9">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="9341438372-9">]</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="9341438372-10">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-11">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="9341438372-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="9341438372-10">)</span><span class="w"> </span><span class="k" data-group-id="9341438372-12">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="9341438372-13">(</span><span class="na">@wxWHITE</span><span class="p" data-group-id="9341438372-13">)</span><span class="w">
+            </span><span class="k" data-group-id="9341438372-12">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="9341438372-14">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-15">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="9341438372-15">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="9341438372-14">)</span><span class="w"> </span><span class="k" data-group-id="9341438372-16">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="9341438372-17">(</span><span class="na">@wxYELLOW</span><span class="p" data-group-id="9341438372-17">)</span><span class="w">
+            </span><span class="k" data-group-id="9341438372-16">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="9341438372-18">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-19">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="9341438372-19">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="9341438372-18">)</span><span class="w"> </span><span class="k" data-group-id="9341438372-20">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="9341438372-21">(</span><span class="na">@wxRED</span><span class="p" data-group-id="9341438372-21">)</span><span class="w">
+            </span><span class="k" data-group-id="9341438372-20">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="9341438372-22">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-23">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="9341438372-23">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="9341438372-22">)</span><span class="w"> </span><span class="k" data-group-id="9341438372-24">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="9341438372-25">(</span><span class="na">@wxBLUE</span><span class="p" data-group-id="9341438372-25">)</span><span class="w">
+            </span><span class="k" data-group-id="9341438372-24">end</span><span class="w">
+          </span><span class="k" data-group-id="9341438372-8">end</span><span class="w">
+        </span><span class="k" data-group-id="9341438372-7">end</span><span class="w">
+
+        </span><span class="n">statusBar</span><span class="p" data-group-id="9341438372-26">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Horizontal Sizer test&quot;</span><span class="p" data-group-id="9341438372-26">)</span><span class="w">
+      </span><span class="k" data-group-id="9341438372-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="9341438372-27">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9341438372-28">[</span><span class="p" data-group-id="9341438372-28">]</span><span class="w">
+      </span><span class="p" data-group-id="9341438372-27">)</span><span class="w">
+    </span><span class="k" data-group-id="9341438372-3">end</span><span class="w">
+  </span><span class="k" data-group-id="9341438372-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Horizontal_sizer.png" alt="alt text" title="Vertical Sizer window."/></p>
+<h3 id="sizers-stretchable-sizer" class="section-heading">
+  <a href="#sizers-stretchable-sizer" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Stretchable Sizer
+</h3>
+
+<p>Uses a box sizer to arrange 4 windows with coloured backgrounds horizontally. When the main window is resized, all stay the same width except for the last, which stretches in proportion with the window.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="7050665128-1">(</span><span class="n">show</span><span class="p" data-group-id="7050665128-1">)</span><span class="w"> </span><span class="k" data-group-id="7050665128-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:stretchable_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="7050665128-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:str_sz_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Stretchable Sizer Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="7050665128-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="7050665128-5">}</span><span class="w"> </span><span class="k" data-group-id="7050665128-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="7050665128-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="7050665128-8">do</span><span class="w">
+            </span><span class="c1"># Definition of the layout flags to eliminate repetition.</span><span class="w">
+            </span><span class="n">layout1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="7050665128-9">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="7050665128-9">]</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="7050665128-10">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-11">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="7050665128-11">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="7050665128-10">)</span><span class="w"> </span><span class="k" data-group-id="7050665128-12">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="7050665128-13">(</span><span class="na">@wxWHITE</span><span class="p" data-group-id="7050665128-13">)</span><span class="w">
+            </span><span class="k" data-group-id="7050665128-12">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="7050665128-14">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-15">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="7050665128-15">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="7050665128-14">)</span><span class="w"> </span><span class="k" data-group-id="7050665128-16">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="7050665128-17">(</span><span class="na">@wxYELLOW</span><span class="p" data-group-id="7050665128-17">)</span><span class="w">
+            </span><span class="k" data-group-id="7050665128-16">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="7050665128-18">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-19">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="7050665128-19">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="7050665128-18">)</span><span class="w"> </span><span class="k" data-group-id="7050665128-20">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="7050665128-21">(</span><span class="na">@wxRED</span><span class="p" data-group-id="7050665128-21">)</span><span class="w">
+            </span><span class="k" data-group-id="7050665128-20">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="7050665128-22">(</span><span class="w">
+              </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w">
+              </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-23">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="7050665128-23">}</span><span class="p">,</span><span class="w">
+              </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-24">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="7050665128-24">]</span><span class="w">
+            </span><span class="p" data-group-id="7050665128-22">)</span><span class="w"> </span><span class="k" data-group-id="7050665128-25">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="7050665128-26">(</span><span class="na">@wxBLUE</span><span class="p" data-group-id="7050665128-26">)</span><span class="w">
+            </span><span class="k" data-group-id="7050665128-25">end</span><span class="w">
+          </span><span class="k" data-group-id="7050665128-8">end</span><span class="w">
+        </span><span class="k" data-group-id="7050665128-7">end</span><span class="w">
+
+        </span><span class="n">statusBar</span><span class="p" data-group-id="7050665128-27">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Stretchable Sizer test&quot;</span><span class="p" data-group-id="7050665128-27">)</span><span class="w">
+      </span><span class="k" data-group-id="7050665128-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="7050665128-28">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="7050665128-29">[</span><span class="p" data-group-id="7050665128-29">]</span><span class="w">
+      </span><span class="p" data-group-id="7050665128-28">)</span><span class="w">
+    </span><span class="k" data-group-id="7050665128-3">end</span><span class="w">
+  </span><span class="k" data-group-id="7050665128-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Stretchable_sizer.png" alt="alt text" title="Stretchable Sizer window."/></p>
+<h3 id="sizers-stretchable-sizers" class="section-heading">
+  <a href="#sizers-stretchable-sizers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Stretchable Sizers
+</h3>
+
+<p>Uses a box sizer to arrange 6 windows with coloured backgrounds layed out horizontally. When the main window is resized, two stay the same width, and the rightmost four stretch in proportion with the window.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="1133887810-1">(</span><span class="n">show</span><span class="p" data-group-id="1133887810-1">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:multi_stretchable_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="1133887810-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:str_sz_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Multiple Stretchable Sizers Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="1133887810-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="1133887810-5">}</span><span class="w"> </span><span class="k" data-group-id="1133887810-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="1133887810-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="1133887810-8">do</span><span class="w">
+            </span><span class="c1"># Definition of the layout flags to eliminate repetition.</span><span class="w">
+            </span><span class="n">layout1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1133887810-9">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="1133887810-9">]</span><span class="w">
+            </span><span class="n">layout2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="1133887810-10">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="1133887810-10">]</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-11">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-12">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-12">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="1133887810-11">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-13">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-14">(</span><span class="na">@wxWHITE</span><span class="p" data-group-id="1133887810-14">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-13">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-15">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-16">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-16">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="1133887810-15">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-17">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-18">(</span><span class="na">@wxBROWN</span><span class="p" data-group-id="1133887810-18">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-17">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-19">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-20">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-20">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout2</span><span class="p" data-group-id="1133887810-19">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-21">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-22">(</span><span class="na">@wxRED</span><span class="p" data-group-id="1133887810-22">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-21">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-23">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-24">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-24">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout2</span><span class="p" data-group-id="1133887810-23">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-25">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-26">(</span><span class="na">@wxORANGE</span><span class="p" data-group-id="1133887810-26">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-25">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-27">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-28">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-28">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout2</span><span class="p" data-group-id="1133887810-27">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-29">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-30">(</span><span class="na">@wxYELLOW</span><span class="p" data-group-id="1133887810-30">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-29">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="1133887810-31">(</span><span class="w">
+              </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w">
+              </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-32">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="1133887810-32">}</span><span class="p">,</span><span class="w">
+              </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-33">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="1133887810-33">]</span><span class="w">
+            </span><span class="p" data-group-id="1133887810-31">)</span><span class="w"> </span><span class="k" data-group-id="1133887810-34">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="1133887810-35">(</span><span class="na">@wxBLUE</span><span class="p" data-group-id="1133887810-35">)</span><span class="w">
+            </span><span class="k" data-group-id="1133887810-34">end</span><span class="w">
+          </span><span class="k" data-group-id="1133887810-8">end</span><span class="w">
+        </span><span class="k" data-group-id="1133887810-7">end</span><span class="w">
+
+        </span><span class="n">statusBar</span><span class="p" data-group-id="1133887810-36">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ElixirWx Multiple Stretchable Sizers Test&quot;</span><span class="p" data-group-id="1133887810-36">)</span><span class="w">
+      </span><span class="k" data-group-id="1133887810-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="1133887810-37">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1133887810-38">[</span><span class="p" data-group-id="1133887810-38">]</span><span class="w">
+      </span><span class="p" data-group-id="1133887810-37">)</span><span class="w">
+    </span><span class="k" data-group-id="1133887810-3">end</span><span class="w">
+  </span><span class="k" data-group-id="1133887810-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Multiple_stretchable_sizers.png" alt="alt text" title="Stretchable Sizers window."/></p>
+<h3 id="sizers-multi-weighted-sizers" class="section-heading">
+  <a href="#sizers-multi-weighted-sizers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Sizers -&gt; Multi Weighted Sizers
+</h3>
+
+<p>Uses a box sizer to arrange 6 windows with coloured backgrounds layed out horizontally. When the main window is resized, two stay the same width, and the rightmost four stretch in proportion with the window. The proportions with which the rightmost four s tretchare 3:1, 1:1, 1:1 and 1:1.</p>
+<p>Code:</p>
+<pre><code class="nohighlight makeup elixir"><span class="kd">def</span><span class="w"> </span><span class="nf">createWindow</span><span class="p" data-group-id="8709517843-1">(</span><span class="n">show</span><span class="p" data-group-id="8709517843-1">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-2">do</span><span class="w">
+    </span><span class="n">mainWindow</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="ss">:multi_stretchable_sizer_window</span><span class="p">,</span><span class="w"> </span><span class="ss">show</span><span class="p">:</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="k" data-group-id="8709517843-3">do</span><span class="w">
+      </span><span class="n">frame</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:wtd_str_sz_frame</span><span class="p">,</span><span class="w">
+            </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Weighted Stretchable Sizers Test&quot;</span><span class="p">,</span><span class="w">
+            </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-4">{</span><span class="mi">350</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="8709517843-4">}</span><span class="p">,</span><span class="w">
+            </span><span class="ss">pos</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-5">{</span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p" data-group-id="8709517843-5">}</span><span class="w"> </span><span class="k" data-group-id="8709517843-6">do</span><span class="w">
+        </span><span class="n">panel</span><span class="w"> </span><span class="ss">id</span><span class="p">:</span><span class="w"> </span><span class="ss">:main_panel</span><span class="w"> </span><span class="k" data-group-id="8709517843-7">do</span><span class="w">
+          </span><span class="n">boxSizer</span><span class="w"> </span><span class="ss">orient</span><span class="p">:</span><span class="w"> </span><span class="na">@wxHORIZONTAL</span><span class="w"> </span><span class="k" data-group-id="8709517843-8">do</span><span class="w">
+            </span><span class="c1"># Definition of the layout flags to eliminate repetition.</span><span class="w">
+            </span><span class="n">layout1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8709517843-9">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="8709517843-9">]</span><span class="w">
+            </span><span class="n">layout2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8709517843-10">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="8709517843-10">]</span><span class="w">
+            </span><span class="n">layout3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="8709517843-11">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="8709517843-11">]</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-12">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-13">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-13">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="8709517843-12">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-14">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-15">(</span><span class="na">@wxWHITE</span><span class="p" data-group-id="8709517843-15">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-14">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-16">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-17">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-17">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout1</span><span class="p" data-group-id="8709517843-16">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-18">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-19">(</span><span class="na">@wxBROWN</span><span class="p" data-group-id="8709517843-19">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-18">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-20">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-21">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-21">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout2</span><span class="p" data-group-id="8709517843-20">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-22">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-23">(</span><span class="na">@wxRED</span><span class="p" data-group-id="8709517843-23">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-22">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-24">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-25">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-25">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout3</span><span class="p" data-group-id="8709517843-24">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-26">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-27">(</span><span class="na">@wxORANGE</span><span class="p" data-group-id="8709517843-27">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-26">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-28">(</span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w"> </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-29">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-29">}</span><span class="p">,</span><span class="w"> </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="n">layout3</span><span class="p" data-group-id="8709517843-28">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-30">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-31">(</span><span class="na">@wxYELLOW</span><span class="p" data-group-id="8709517843-31">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-30">end</span><span class="w">
+
+            </span><span class="n">window</span><span class="p" data-group-id="8709517843-32">(</span><span class="w">
+              </span><span class="ss">style</span><span class="p">:</span><span class="w"> </span><span class="na">@wxBORDER_SIMPLE</span><span class="p">,</span><span class="w">
+              </span><span class="ss">size</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-33">{</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p" data-group-id="8709517843-33">}</span><span class="p">,</span><span class="w">
+              </span><span class="ss">layout</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-34">[</span><span class="ss">proportion</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="ss">flag</span><span class="p">:</span><span class="w"> </span><span class="na">@wxEXPAND</span><span class="p" data-group-id="8709517843-34">]</span><span class="w">
+            </span><span class="p" data-group-id="8709517843-32">)</span><span class="w"> </span><span class="k" data-group-id="8709517843-35">do</span><span class="w">
+              </span><span class="n">bgColour</span><span class="p" data-group-id="8709517843-36">(</span><span class="na">@wxBLUE</span><span class="p" data-group-id="8709517843-36">)</span><span class="w">
+            </span><span class="k" data-group-id="8709517843-35">end</span><span class="w">
+          </span><span class="k" data-group-id="8709517843-8">end</span><span class="w">
+        </span><span class="k" data-group-id="8709517843-7">end</span><span class="w">
+
+        </span><span class="n">statusBar</span><span class="p" data-group-id="8709517843-37">(</span><span class="ss">text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Weighted Stretchable Sizers Test&quot;</span><span class="p" data-group-id="8709517843-37">)</span><span class="w">
+      </span><span class="k" data-group-id="8709517843-6">end</span><span class="w">
+
+      </span><span class="n">events</span><span class="p" data-group-id="8709517843-38">(</span><span class="w">
+        </span><span class="ss">close_window</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="8709517843-39">[</span><span class="p" data-group-id="8709517843-39">]</span><span class="w">
+      </span><span class="p" data-group-id="8709517843-38">)</span><span class="w">
+    </span><span class="k" data-group-id="8709517843-3">end</span><span class="w">
+  </span><span class="k" data-group-id="8709517843-2">end</span></code></pre>
+<p><img src="https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Weighted_stretchable_sizers.png" alt="alt text" title="Stretchable Sizers window."/></p>
       <footer class="footer">
         <p>
           <span class="line">
