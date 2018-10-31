@@ -133,9 +133,9 @@ Code:
       )
     end
   end
-  ```
+```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_Sizer.png "Vertical Sizer window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_sizer.png "Vertical Sizer window.")
 
 ### Sizers -> Horizontal Sizer
 
@@ -180,7 +180,7 @@ Code:
       )
     end
   end
-  ```
+```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Horizontal_Sizer.png "Vertical Sizer window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Horizontal_sizer.png "Vertical Sizer window.")
 
