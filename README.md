@@ -132,7 +132,8 @@ Code:
         close_window: []
       )
     end
-  end```
+  end
+  ```
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_sizer.png "Vertical Sizer window.")
 
