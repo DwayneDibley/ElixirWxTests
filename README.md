@@ -137,7 +137,4 @@ Code:
   end```
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_Sizer.png "Box Sizer window.")
-=======
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Static Box Sizer window.")
->>>>>>> 202d40df3a3ac2490d3b34d8510e9bc6b877272a
 
