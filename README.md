@@ -88,5 +88,5 @@ Code:
   end
 ```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png.png "Box Sizer window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Static Box Sizer window.")
 
