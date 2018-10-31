@@ -62,7 +62,7 @@ This tests some of the funtionality of a wxStaticBoxSizer. The three buttons sho
 Code:
 
 ```
-    def createWindow(show) do
+  def createWindow(show) do
     mainWindow name: :static_box_sizer_window, show: show do
       frame id: :main_frame,
             title: "Static Box Sizer Test",
