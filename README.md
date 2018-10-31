@@ -48,8 +48,7 @@ def createWindow(show) do
 
 ### Simple -> Tool Bar
 
-This tests some of the funtionality of a wxBoxSizer. The two words should be
-arranged horizontally.
+This tests some of the funtionality of a tool bar.
 
 Code:
 
