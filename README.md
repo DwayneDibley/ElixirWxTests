@@ -295,7 +295,7 @@ def createWindow(show) do
   end
 ```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Multiple_stretchable_sizers.png "Stretchable Sizers window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Multiple_strechable_sizers.png "Stretchable Sizers window.")
 
 ### Sizers -> Multi Weighted Sizers
 
