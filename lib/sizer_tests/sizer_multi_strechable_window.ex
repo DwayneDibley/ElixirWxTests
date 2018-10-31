@@ -44,11 +44,10 @@ defmodule SizerMultiStretchableWindow do
           end
         end
 
-        statusBar(text: "ElixirWx Vertical Sizer test")
+        statusBar(text: "ElixirWx Multiple Stretchable Sizers Test")
       end
 
       events(
-        # command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end

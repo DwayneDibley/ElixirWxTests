@@ -45,11 +45,10 @@ defmodule SizerWeightedStretchableWindow do
           end
         end
 
-        statusBar(text: "ElixirWx Vertical Sizer test")
+        statusBar(text: "Weighted Stretchable Sizers Test")
       end
 
       events(
-        # command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end

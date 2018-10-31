@@ -184,3 +184,177 @@ Code:
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Horizontal_sizer.png "Vertical Sizer window.")
 
+### Sizers -> Stretchable Sizer
+
+Uses a box sizer to arrange 4 windows with coloured backgrounds horizontally. When the main window is resized, all stay the same width except for the last, which stretches in proportion with the window.
+
+Code:
+
+```
+def createWindow(show) do
+    mainWindow name: :stretchable_sizer_window, show: show do
+      frame id: :str_sz_frame,
+            title: "Stretchable Sizer Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxHORIZONTAL do
+            # Definition of the layout flags to eliminate repetition.
+            layout1 = [proportion: 0, flag: @wxEXPAND]
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxWHITE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxYELLOW)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxRED)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [proportion: 1, flag: @wxEXPAND]
+            ) do
+              bgColour(@wxBLUE)
+            end
+          end
+        end
+
+        statusBar(text: "ElixirWx Stretchable Sizer test")
+      end
+
+      events(
+        close_window: []
+      )
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Stretchable_sizer.png "Stretchable Sizer window.")
+
+### Sizers -> Stretchable Sizers
+
+Uses a box sizer to arrange 6 windows with coloured backgrounds layed out horizontally. When the main window is resized, two stay the same width, and the rightmost four stretch in proportion with the window.
+
+Code:
+
+```
+def createWindow(show) do
+    mainWindow name: :multi_stretchable_sizer_window, show: show do
+      frame id: :str_sz_frame,
+            title: "Multiple Stretchable Sizers Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxHORIZONTAL do
+            # Definition of the layout flags to eliminate repetition.
+            layout1 = [proportion: 0, flag: @wxEXPAND]
+            layout2 = [proportion: 1, flag: @wxEXPAND]
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxWHITE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxBROWN)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout2) do
+              bgColour(@wxRED)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout2) do
+              bgColour(@wxORANGE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout2) do
+              bgColour(@wxYELLOW)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [proportion: 1, flag: @wxEXPAND]
+            ) do
+              bgColour(@wxBLUE)
+            end
+          end
+        end
+
+        statusBar(text: "ElixirWx Multiple Stretchable Sizers Test")
+      end
+
+      events(
+        close_window: []
+      )
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Multiple_stretchable_sizers.png "Stretchable Sizers window.")
+
+### Sizers -> Multi Weighted Sizers
+
+Uses a box sizer to arrange 6 windows with coloured backgrounds layed out horizontally. When the main window is resized, two stay the same width, and the rightmost four stretch in proportion with the window. The proportions with which the rightmost four s tretchare 3:1, 1:1, 1:1 and 1:1.
+
+Code:
+
+```
+def createWindow(show) do
+    mainWindow name: :multi_stretchable_sizer_window, show: show do
+      frame id: :wtd_str_sz_frame,
+            title: "Weighted Stretchable Sizers Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxHORIZONTAL do
+            # Definition of the layout flags to eliminate repetition.
+            layout1 = [proportion: 0, flag: @wxEXPAND]
+            layout2 = [proportion: 3, flag: @wxEXPAND]
+            layout3 = [proportion: 1, flag: @wxEXPAND]
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxWHITE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxBROWN)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout2) do
+              bgColour(@wxRED)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout3) do
+              bgColour(@wxORANGE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout3) do
+              bgColour(@wxYELLOW)
+            end
+
+            window(
+              style: @wxBORDER_SIMPLE,
+              size: {50, 25},
+              layout: [proportion: 1, flag: @wxEXPAND]
+            ) do
+              bgColour(@wxBLUE)
+            end
+          end
+        end
+
+        statusBar(text: "Weighted Stretchable Sizers Test")
+      end
+
+      events(
+        close_window: []
+      )
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Weighted_stretchable_sizers.png "Stretchable Sizers window.")
