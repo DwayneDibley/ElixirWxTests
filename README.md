@@ -88,6 +88,7 @@ Code:
   end
 ```
 
+<<<<<<< HEAD
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Box Sizer window.")
 
 ### Sizers -> Vertical  Sizer
@@ -135,6 +136,7 @@ Code:
   end
   ```
 
-![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_sizer.png "Vertical Sizer window.")
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_Sizer.png "Vertical Sizer window.")
 
 
+```
