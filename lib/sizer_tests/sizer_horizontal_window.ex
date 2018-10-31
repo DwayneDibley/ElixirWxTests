@@ -3,7 +3,7 @@ defmodule HorizontalSizerWindow do
   import WxDefines
 
   def createWindow(show) do
-    mainWindow name: :bvertical_sizer_window, show: show do
+    mainWindow name: :horizontal_sizer_window, show: show do
       frame id: :vert_sz_frame,
             title: "Horizontal Sizer Test",
             size: {350, 250},
