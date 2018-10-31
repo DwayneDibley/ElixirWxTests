@@ -30,11 +30,10 @@ defmodule HorizontalSizerWindow do
           end
         end
 
-        statusBar(text: "ElixirWx Vertical Sizer test")
+        statusBar(text: "ElixirWx Horizontal Sizer test")
       end
 
       events(
-        command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end

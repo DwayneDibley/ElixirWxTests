@@ -88,12 +88,11 @@ Code:
   end
 ```
 
-<<<<<<< HEAD
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Staic_box_sizer.png "Box Sizer window.")
 
 ### Sizers -> Vertical  Sizer
 
-Uses a box sizer to arrange 4 windows with coloured backgrounds vertically..
+Uses a box sizer to arrange 4 windows with coloured backgrounds vertically.
 
 Code:
 
@@ -138,5 +137,50 @@ Code:
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Vertical_Sizer.png "Vertical Sizer window.")
 
+### Sizers -> Horizontal Sizer
+
+Uses a box sizer to arrange 4 windows with coloured backgrounds horizontally.
+
+Code:
 
 ```
+  def createWindow(show) do
+    mainWindow name: :horizontal_sizer_window, show: show do
+      frame id: :vert_sz_frame,
+            title: "Horizontal Sizer Test",
+            size: {350, 250},
+            pos: {300, 250} do
+        panel id: :main_panel do
+          boxSizer orient: @wxHORIZONTAL do
+            layout1 = [proportion: 0, flag: @wxEXPAND]
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxWHITE)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxYELLOW)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxRED)
+            end
+
+            window(style: @wxBORDER_SIMPLE, size: {50, 25}, layout: layout1) do
+              bgColour(@wxBLUE)
+            end
+          end
+        end
+
+        statusBar(text: "ElixirWx Horizontal Sizer test")
+      end
+
+      events(
+        close_window: []
+      )
+    end
+  end
+  ```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Horizontal_Sizer.png "Vertical Sizer window.")
+
