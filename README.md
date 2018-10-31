@@ -20,6 +20,65 @@ windows menu. Note that on MacOs the menu is at the top of the main window!
 
 ![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Main_test_window.png "Main test window.")
 
+## Simple Tests
+
+### Simple -> Frame
+
+This tests some of the funtionality of a wxBoxSizer. The two words should be
+arranged horizontally.
+
+Code:
+
+```
+def createWindow(show) do
+    mainWindow name: :simple_frame_window, show: show, setFocus: true do
+      # Create a simple frame.
+      frame id: :main_frame,
+            title: "Simple frame",
+            size: {320, 150},
+            pos: {300, 250} do
+      end
+
+      events(close_window: [])
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Simple_frame.png "Simple Frame window.")
+
+### Simple -> Tool Bar
+
+This tests some of the funtionality of a wxBoxSizer. The two words should be
+arranged horizontally.
+
+Code:
+
+```
+def createWindow(show) do
+    mainWindow name: :tool_bar_window, show: show do
+      frame id: :main_frame,
+            title: "Tool Bar Test",
+            size: {350, 250},
+            pos: {200, 250} do
+        toolBar(style: @wxTB_HORIZONTAL || @wxNO_BORDER) do
+          tool(id: :tb_new, icon: "../images/icons/stock_new.ico")
+          tool(id: :tb_open, icon: "../images/icons/stock_open.ico")
+          tool(id: :tb_undo, icon: "../images/icons/stock_undo.ico")
+          tool(id: :tb_redo, icon: "../images/icons/stock_redo.ico")
+          tool(id: :tb_save, icon: "../images/icons/stock_save.ico")
+        end
+
+        statusBar(text: "ElixirWx Tool Bar test")
+      end
+
+      events(
+        close_window: []
+      )
+    end
+  end
+```
+
+![alt text](https://raw.githubusercontent.com/DwayneDibley/ElixirWxTests/master/screenshots/Simple_tool_bar.png "Simple Frame window.")
 
 
 ## Sizer Tests
