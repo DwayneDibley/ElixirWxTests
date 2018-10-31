@@ -42,11 +42,10 @@ defmodule SizerSpacerWindow do
           end
         end
 
-        statusBar(text: "ElixirWx Vertical Sizer test")
+        statusBar(text: "ElixirWx Spacer test")
       end
 
       events(
-        # command_menu_selected: [handler: &BoxSizer.commandButton/4],
         close_window: []
       )
     end
