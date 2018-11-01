@@ -94,6 +94,9 @@ defmodule WxWinObj do
   ## Server Callbacks ----------------------------------------------------------
   @impl true
   def init({parent, window_spec, evt_handler, options}) do
+    Process.monitor(parent)
+
+
     name =
       case options[:name] do
         nil -> window_spec
@@ -160,6 +163,7 @@ defmodule WxWinObj do
            handler_fns: handler_fns
          ]}
     end
+
   end
 
   # Call interface ----
@@ -241,6 +245,22 @@ defmodule WxWinObj do
     invokeEventHandler(:do_child_window_closed, window, state)
     {:noreply, state}
   end
+
+  # Child window closed event received
+  def handle_info(
+        {:DOWN, _, :process, pid, how},
+        state
+      ) do
+
+    parent = state[:parent]
+    xxx = case pid == parent do
+      true -> Logger.info("Parent window exited: #{inspect(how)}")
+      false -> Logger.info("Window exit event caught: #{inspect(pid)}")
+    end
+    invokeEventHandler(:do_parent_window_closed, pid, state)
+    {:stop, :normal, "Parent died"}
+  end
+
 
   @impl true
   def handle_info(msg, state) do
