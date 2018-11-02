@@ -54,9 +54,12 @@ defmodule TestHandler do
         :button ->
           newWindow(ButtonTestWindow, nil, name: nil, show: true)
 
-        :code_window ->
-          newWindow(CodeWindowWindow, nil, name: nil, show: true)
-      
+          :code_window ->
+            newWindow(CodeWindowWindow, nil, name: nil, show: true)
+
+            :styled_text_window ->
+              newWindow(StyledTextWindow, nil, name: nil, show: true)
+
         :exit ->
           :closeWindow
 

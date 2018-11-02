@@ -246,6 +246,25 @@ defmodule WxDsl do
     end
   end
 
+  defmacro styledTextControl(attributes, do: block) do
+    quote do
+      Logger.debug("styledTextWindow/2 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+      {container, parent, sizer} = stack_tos()
+
+      {id, new_id, win} = WxStyledTextCtrl.new(parent, unquote(attributes))
+
+      stack_push({container, win, sizer})
+      unquote(block)
+      stack_pop()
+
+      WxSizer.add(win, sizer, unquote(attributes))
+
+      Logger.debug("styledTextWindow/2 -----------------------------------------------------")
+      win
+    end
+  end
+
   defmacro codeWindow(attributes) do
     quote do
       Logger.debug("codeWindow/1 +++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -542,11 +561,12 @@ defmodule WxDsl do
 
       Logger.debug("  opts = #{inspect(opts)}")
 
-      Logger.debug(
-        "  :wxStaticBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})"
-      )
-      bs = :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent, label: Map.get(opts, :label, ""))
+      Logger.debug("  :wxStaticBoxSizer.new(#{inspect(Map.get(opts, :orient, @wxHORIZONTAL))})")
 
+      bs =
+        :wxStaticBoxSizer.new(Map.get(opts, :orient, @wxHORIZONTAL), parent,
+          label: Map.get(opts, :label, "")
+        )
 
       # :wxSizer.insertSpacer(bs, 9999, 20)
 
@@ -585,7 +605,6 @@ defmodule WxDsl do
       Logger.debug("Static Box Sizer ---------------------------------------------------")
     end
   end
-
 
   @doc """
   Create a new box sizer.

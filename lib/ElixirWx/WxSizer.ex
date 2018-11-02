@@ -30,7 +30,9 @@ defmodule WxSizer do
 
     case sizer do
       {:wx_ref, _, :wxBoxSizer, _} ->
-        Logger.debug(":wxSizer.add(#{inspect(sizer)}, #{inspect(obj)}, #{inspect(options)})")
+        Logger.debug(
+          ":wxSizer.add(#{inspect(sizer)}, #{inspect(obj)}, #{inspect(layoutOptions)})"
+        )
 
         :wxSizer.add(sizer, obj, layoutOptions)
 
