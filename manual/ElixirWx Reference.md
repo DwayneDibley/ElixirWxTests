@@ -4,6 +4,18 @@
 
 [TOC]
 
+## Window Object
+
+A window is created in its own process using the WxWinObj.API.newWindow() function.
+
+### WxWinObj.API
+
+#### newWindow()
+
+
+
+
+
 ## Window Specification Macros
 
 ### frame
